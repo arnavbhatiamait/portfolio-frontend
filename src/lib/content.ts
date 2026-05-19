@@ -16,6 +16,7 @@ export type Project = {
     tech: string[];
     link?: string;
     tag: string;
+    image?: string;
 };
 
 export type Experience = {
@@ -199,6 +200,7 @@ export const siteContent: SiteContent = {
                 "Data ingestion piping metrics directly into structured comparative reports and CSV databases",
             ],
             tech: ["Python", "PyTorch", "boto3", "Gemini API", "Whisper ASR", "Pandas", "Librosa"],
+            image: "/images/benchmark_hub.png",
         },
         {
             name: "speech2vec Voice Biometrics",
@@ -212,6 +214,7 @@ export const siteContent: SiteContent = {
                 "Groups voice signatures organically using DBSCAN and K-Means clustering, training a classification layer for fast inference",
             ],
             tech: ["Python", "PyTorch", "Librosa", "Scikit-Learn", "wav2vec 2.0", "NumPy", "AWS S3"],
+            image: "/images/speech2vec_biometrics.png",
         },
         {
             name: "Investor Base Fintech MVP",
@@ -225,6 +228,7 @@ export const siteContent: SiteContent = {
                 "Interactive investor scorecard dashboards showing market research, AI viability, and financial criteria",
             ],
             tech: ["Supabase", "PostgreSQL", "SQL (RLS Policies)", "React", "Next.js", "Tailwind CSS"],
+            image: "/images/investor_base_fintech.png",
         },
         {
             name: "Council CRM / ERP",
@@ -239,6 +243,7 @@ export const siteContent: SiteContent = {
             ],
             tech: ["React", "Next.js", "Node.js", "Express.js", "PostgreSQL", "REST APIs", "Tailwind CSS"],
             link: "https://council.panscience.ai",
+            image: "/images/council_crm.png",
         },
         {
             name: "NYAAY AI Legal Tech",
@@ -252,6 +257,7 @@ export const siteContent: SiteContent = {
                 "Interactive evaluation workbench comparing accuracy and latency across multiple LLMs",
             ],
             tech: ["Python", "FastAPI", "AWS (S3, SQS, RDS)", "pgvector", "LangChain", "OpenAI API", "PostgreSQL"],
+            image: "/images/nyaay_legal_ai.png",
         },
         {
             name: "Real-Time AI Voice Calling Agent",
@@ -265,6 +271,7 @@ export const siteContent: SiteContent = {
                 "Server-side vocal spike detection that flushes audio buffers and updates memory on user barge-ins",
             ],
             tech: ["Python", "FastAPI", "WebSockets", "Twilio API", "Deepgram STT", "ElevenLabs TTS", "LangChain"],
+            image: "/images/voice_calling_agent.png",
         },
         {
             name: "Opticall call Center Analytics",
@@ -278,6 +285,7 @@ export const siteContent: SiteContent = {
                 "Automated ingestion webhooks processing raw call recordings in background workers",
             ],
             tech: ["Python", "FastAPI", "Whisper ASR", "Transformers", "Speaker Diarization", "Webhooks"],
+            image: "/images/opticall_analytics.png",
         },
         {
             name: "Food Vision Classifier",
@@ -291,6 +299,7 @@ export const siteContent: SiteContent = {
             ],
             tech: ["Python", "PyTorch", "Gradio", "Hugging Face Spaces", "Computer Vision"],
             link: "https://huggingface.co/spaces/Arnavbhatia/Food_Vision",
+            image: "/images/food_vision.png",
         },
     ],
     certifications: [

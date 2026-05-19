@@ -6,6 +6,7 @@ import {
     ArrowRight,
     BrainCircuit,
     BriefcaseBusiness,
+    Calendar,
     Code2,
     Download,
     MapPin,
@@ -44,10 +45,10 @@ function SectionHeading({
                 <Sparkles className="h-3.5 w-3.5" />
                 {eyebrow}
             </p>
-            <h2 className="text-3xl font-semibold tracking-tight text-white sm:text-4xl lg:text-5xl">
+            <h2 className="text-3xl font-semibold tracking-tight text-text-title sm:text-4xl lg:text-5xl">
                 {title}
             </h2>
-            <p className="text-base leading-7 text-slate-300 sm:text-lg">{description}</p>
+            <p className="text-base leading-7 text-text-muted sm:text-lg">{description}</p>
         </div>
     );
 }
@@ -75,7 +76,7 @@ function AnimatedCounter({ value, suffix }: { value: number; suffix?: string }) 
     }, [value]);
 
     return (
-        <span className="text-3xl font-semibold tracking-tight text-white sm:text-4xl">
+        <span className="text-3xl font-semibold tracking-tight text-text-title sm:text-4xl">
             {count}
             {suffix}
         </span>
@@ -107,6 +108,7 @@ function MotionSection({
 
 export function PortfolioPage({ content }: PortfolioPageProps) {
     const [activeRoleIndex, setActiveRoleIndex] = useState(0);
+    const [activeExp, setActiveExp] = useState(0);
     const activeRole = content.roles[activeRoleIndex] ?? content.role;
 
     useEffect(() => {
@@ -118,7 +120,7 @@ export function PortfolioPage({ content }: PortfolioPageProps) {
     }, [content.roles.length]);
 
     return (
-        <div className="relative min-h-screen overflow-hidden bg-[#030712] text-white">
+        <div className="relative min-h-screen overflow-hidden bg-background text-foreground transition-colors duration-300">
             <div className="pointer-events-none absolute inset-0 portfolio-grid opacity-30" />
             <div className="pointer-events-none absolute left-0 top-0 h-[28rem] w-[28rem] rounded-full bg-cyan-500/20 blur-3xl" />
             <div className="pointer-events-none absolute right-0 top-36 h-[32rem] w-[32rem] rounded-full bg-violet-600/20 blur-3xl" />
@@ -326,29 +328,88 @@ export function PortfolioPage({ content }: PortfolioPageProps) {
                         description="A timeline of AI engineering, backend work, and product-oriented execution across legal AI, generative systems, and enterprise workflows."
                     />
 
-                    <div className="mt-10 space-y-5">
-                        {content.experiences.map((experience, index) => (
-                            <Card key={`${experience.company}-${experience.role}`} className="border-white/10">
-                                <CardContent className="grid gap-6 p-6 md:grid-cols-[1fr_2fr]">
-                                    <div>
-                                        <p className="text-xs uppercase tracking-[0.24em] text-cyan-200">0{index + 1}</p>
-                                        <h3 className="mt-2 text-2xl font-semibold text-white">{experience.company}</h3>
-                                        <p className="mt-1 text-slate-300">{experience.role}</p>
-                                        <p className="mt-2 text-sm text-slate-400">{experience.period}</p>
-                                        {experience.location ? <p className="mt-1 text-sm text-slate-500">{experience.location}</p> : null}
-                                    </div>
+                    {/* Stepper Timeline Navigation */}
+                    <div className="mt-10 overflow-x-auto pb-4 scrollbar-thin">
+                        <div className="flex min-w-[640px] border-b border-card-border">
+                            {content.experiences.map((exp, index) => (
+                                <button
+                                    key={exp.company}
+                                    type="button"
+                                    onClick={() => setActiveExp(index)}
+                                    className={cn(
+                                        "relative flex-1 pb-4 text-center text-sm font-semibold tracking-wide transition-all cursor-pointer",
+                                        activeExp === index
+                                            ? "text-cyan-400 font-bold"
+                                            : "text-text-muted hover:text-text-title"
+                                    )}
+                                >
+                                    <span className="block text-xs uppercase tracking-[0.24em] text-cyan-500/80 mb-1">
+                                        0{index + 1}
+                                    </span>
+                                    {exp.company}
+                                    {activeExp === index && (
+                                        <motion.div
+                                            layoutId="activeExperienceIndicator"
+                                            className="absolute bottom-0 left-0 right-0 h-0.5 bg-gradient-to-r from-cyan-400 to-violet-500"
+                                        />
+                                    )}
+                                </button>
+                            ))}
+                        </div>
+                    </div>
 
-                                    <div className="space-y-3">
-                                        {experience.highlights.map((highlight) => (
-                                            <div key={highlight} className="flex gap-3 rounded-2xl border border-white/10 bg-white/5 p-4 text-sm leading-6 text-slate-300">
-                                                <Star className="mt-0.5 h-4 w-4 shrink-0 text-cyan-300" />
-                                                <span>{highlight}</span>
-                                            </div>
-                                        ))}
-                                    </div>
-                                </CardContent>
-                            </Card>
-                        ))}
+                    {/* Timeline Content */}
+                    <div className="mt-6">
+                        <AnimatePresence mode="wait">
+                            <motion.div
+                                key={activeExp}
+                                initial={{ opacity: 0, x: 20 }}
+                                animate={{ opacity: 1, x: 0 }}
+                                exit={{ opacity: 0, x: -20 }}
+                                transition={{ duration: 0.35 }}
+                            >
+                                {(() => {
+                                    const exp = content.experiences[activeExp];
+                                    if (!exp) return null;
+                                    return (
+                                        <Card className="border-card-border bg-card-bg/40">
+                                            <CardContent className="grid gap-8 p-6 md:grid-cols-[1.1fr_2.9fr]">
+                                                <div className="space-y-4">
+                                                    <div>
+                                                        <h3 className="text-2xl font-bold text-text-title">{exp.role}</h3>
+                                                        <p className="mt-1 text-lg font-semibold bg-gradient-to-r from-cyan-400 to-violet-400 bg-clip-text text-transparent">{exp.company}</p>
+                                                    </div>
+                                                    <div className="space-y-2 text-sm text-text-muted">
+                                                        <div className="flex items-center gap-2">
+                                                            <Calendar className="h-4 w-4 text-cyan-400" />
+                                                            <span>{exp.period}</span>
+                                                        </div>
+                                                        {exp.location && (
+                                                            <div className="flex items-center gap-2">
+                                                                <MapPin className="h-4 w-4 text-violet-400" />
+                                                                <span>{exp.location}</span>
+                                                            </div>
+                                                        )}
+                                                    </div>
+                                                </div>
+
+                                                <div className="space-y-3">
+                                                    {exp.highlights.map((highlight) => (
+                                                        <div
+                                                            key={highlight}
+                                                            className="flex gap-3 rounded-2xl border border-card-border bg-foreground/5 p-4 text-sm leading-6 text-text-muted hover:border-cyan-500/20 transition-all hover:bg-foreground/[0.07]"
+                                                        >
+                                                            <Star className="mt-0.5 h-4 w-4 shrink-0 text-cyan-400" />
+                                                            <span>{highlight}</span>
+                                                        </div>
+                                                    ))}
+                                                </div>
+                                            </CardContent>
+                                        </Card>
+                                    );
+                                })()}
+                            </motion.div>
+                        </AnimatePresence>
                     </div>
                 </MotionSection>
 
@@ -365,8 +426,18 @@ export function PortfolioPage({ content }: PortfolioPageProps) {
 
                     <div className="mt-10 grid gap-6 lg:grid-cols-2">
                         {content.projects.map((project) => (
-                            <Card key={project.name} className="group overflow-hidden border-white/10 transition hover:-translate-y-1 hover:border-cyan-300/30">
+                            <Card key={project.name} className="group overflow-hidden border border-card-border bg-card-bg/40 transition hover:-translate-y-1 hover:border-cyan-300/30">
                                 <div className="h-1 bg-gradient-to-r from-cyan-400 via-blue-500 to-violet-500" />
+                                {project.image && (
+                                    <div className="relative h-48 w-full overflow-hidden border-b border-card-border">
+                                        <img
+                                            src={project.image}
+                                            alt={`${project.name} mockup`}
+                                            className="h-full w-full object-cover object-center transition-transform duration-500 group-hover:scale-105"
+                                        />
+                                        <div className="absolute inset-0 bg-gradient-to-t from-background/90 via-background/10 to-transparent" />
+                                    </div>
+                                )}
                                 <CardHeader>
                                     <div className="flex items-center justify-between gap-4">
                                         <p className="text-xs uppercase tracking-[0.24em] text-cyan-200">{project.tag}</p>
@@ -377,20 +448,20 @@ export function PortfolioPage({ content }: PortfolioPageProps) {
                                             </a>
                                         ) : null}
                                     </div>
-                                    <CardTitle className="text-2xl">{project.name}</CardTitle>
-                                    <CardDescription className="text-base">{project.description}</CardDescription>
+                                    <CardTitle className="text-2xl text-text-title">{project.name}</CardTitle>
+                                    <CardDescription className="text-base text-text-muted">{project.description}</CardDescription>
                                 </CardHeader>
                                 <CardContent className="space-y-5">
                                     <div className="grid gap-3">
                                         {project.features.map((feature) => (
-                                            <div key={feature} className="rounded-2xl border border-white/10 bg-white/5 px-4 py-3 text-sm text-slate-200">
+                                            <div key={feature} className="rounded-2xl border border-card-border bg-foreground/5 px-4 py-3 text-sm text-text-muted">
                                                 {feature}
                                             </div>
                                         ))}
                                     </div>
                                     <div className="flex flex-wrap gap-2">
                                         {project.tech.map((tech) => (
-                                            <span key={tech} className="rounded-full border border-white/10 bg-slate-950/50 px-3 py-1.5 text-xs text-slate-300">
+                                            <span key={tech} className="rounded-full border border-card-border bg-slate-950/20 px-3 py-1.5 text-xs text-text-muted">
                                                 {tech}
                                             </span>
                                         ))}

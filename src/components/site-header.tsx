@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from "react";
 import { AnimatePresence, motion, useScroll } from "framer-motion";
-import { Menu, X } from "lucide-react";
+import { Menu, X, Sun, Moon } from "lucide-react";
 
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
@@ -14,13 +14,40 @@ type SiteHeaderProps = {
 
 export function SiteHeader({ content }: SiteHeaderProps) {
     const [open, setOpen] = useState(false);
+    const [theme, setTheme] = useState<"light" | "dark">("dark");
     const { scrollYProgress } = useScroll();
 
     useEffect(() => {
         const handleRoute = () => setOpen(false);
         window.addEventListener("hashchange", handleRoute);
+
+        // Theme initialization
+        const savedTheme = localStorage.getItem("portfolio-theme") as "light" | "dark" | null;
+        if (savedTheme) {
+            setTheme(savedTheme);
+            if (savedTheme === "light") {
+                document.documentElement.classList.add("light");
+            } else {
+                document.documentElement.classList.remove("light");
+            }
+        } else {
+            setTheme("dark");
+            document.documentElement.classList.remove("light");
+        }
+
         return () => window.removeEventListener("hashchange", handleRoute);
     }, []);
+
+    const toggleTheme = () => {
+        const nextTheme = theme === "dark" ? "light" : "dark";
+        setTheme(nextTheme);
+        localStorage.setItem("portfolio-theme", nextTheme);
+        if (nextTheme === "light") {
+            document.documentElement.classList.add("light");
+        } else {
+            document.documentElement.classList.remove("light");
+        }
+    };
 
     return (
         <>
@@ -29,14 +56,14 @@ export function SiteHeader({ content }: SiteHeaderProps) {
                 style={{ scaleX: scrollYProgress }}
             />
             <header className="fixed inset-x-0 top-0 z-40 px-4 pt-4 sm:px-6 lg:px-8">
-                <div className="mx-auto flex max-w-7xl items-center justify-between rounded-full border border-white/10 bg-slate-950/70 px-4 py-3 shadow-2xl shadow-cyan-950/10 backdrop-blur-xl">
+                <div className="mx-auto flex max-w-7xl items-center justify-between rounded-full border border-card-border bg-slate-950/70 dark:bg-slate-950/70 px-4 py-3 shadow-2xl shadow-cyan-950/10 backdrop-blur-xl transition-colors duration-300">
                     <a href="#home" className="flex items-center gap-3">
                         <div className="flex h-10 w-10 items-center justify-center rounded-full bg-gradient-to-br from-cyan-400 via-blue-500 to-violet-500 text-sm font-bold text-white shadow-glow">
                             AB
                         </div>
                         <div className="hidden sm:block">
-                            <p className="text-sm font-semibold text-white">{content.name}</p>
-                            <p className="text-xs text-slate-400">AI/ML Engineer Portfolio</p>
+                            <p className="text-sm font-semibold text-text-title">{content.name}</p>
+                            <p className="text-xs text-text-muted">AI/ML Engineer Portfolio</p>
                         </div>
                     </a>
 
@@ -45,14 +72,25 @@ export function SiteHeader({ content }: SiteHeaderProps) {
                             <a
                                 key={item.href}
                                 href={item.href}
-                                className="rounded-full px-4 py-2 text-sm text-slate-300 transition hover:bg-white/5 hover:text-white"
+                                className="rounded-full px-4 py-2 text-sm text-text-muted transition hover:bg-foreground/5 hover:text-text-title"
                             >
                                 {item.label}
                             </a>
                         ))}
                     </nav>
 
+                    {/* Desktop Theme Switcher + CTA */}
                     <div className="hidden items-center gap-3 sm:flex">
+                        <Button
+                            type="button"
+                            variant="secondary"
+                            size="sm"
+                            className="h-9 w-9 rounded-full p-0 flex items-center justify-center border border-card-border hover:bg-foreground/10 text-text-title transition-colors"
+                            onClick={toggleTheme}
+                            aria-label="Toggle light/dark theme"
+                        >
+                            {theme === "dark" ? <Sun className="h-4.5 w-4.5 text-cyan-300" /> : <Moon className="h-4.5 w-4.5 text-violet-600" />}
+                        </Button>
                         <Button asChild variant="secondary" size="sm">
                             <a href={content.resumeHref} target="_blank" rel="noreferrer">
                                 Resume
@@ -63,15 +101,28 @@ export function SiteHeader({ content }: SiteHeaderProps) {
                         </Button>
                     </div>
 
-                    <button
-                        type="button"
-                        className="inline-flex h-11 w-11 items-center justify-center rounded-full border border-white/10 bg-white/5 text-white transition hover:bg-white/10 lg:hidden"
-                        onClick={() => setOpen((value) => !value)}
-                        aria-label="Toggle navigation menu"
-                        aria-expanded={open}
-                    >
-                        {open ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
-                    </button>
+                    {/* Mobile Theme Switcher + Menu */}
+                    <div className="flex items-center gap-2 lg:hidden">
+                        <Button
+                            type="button"
+                            variant="secondary"
+                            size="sm"
+                            className="h-10 w-10 rounded-full p-0 flex items-center justify-center border border-card-border bg-white/5 text-text-title hover:bg-foreground/10 transition-colors"
+                            onClick={toggleTheme}
+                            aria-label="Toggle theme"
+                        >
+                            {theme === "dark" ? <Sun className="h-4.5 w-4.5 text-cyan-300" /> : <Moon className="h-4.5 w-4.5 text-violet-600" />}
+                        </Button>
+                        <button
+                            type="button"
+                            className="inline-flex h-10 w-10 items-center justify-center rounded-full border border-card-border bg-white/5 text-text-title transition hover:bg-foreground/10"
+                            onClick={() => setOpen((value) => !value)}
+                            aria-label="Toggle navigation menu"
+                            aria-expanded={open}
+                        >
+                            {open ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
+                        </button>
+                    </div>
                 </div>
 
                 <AnimatePresence>
@@ -80,7 +131,7 @@ export function SiteHeader({ content }: SiteHeaderProps) {
                             initial={{ opacity: 0, y: -12 }}
                             animate={{ opacity: 1, y: 0 }}
                             exit={{ opacity: 0, y: -12 }}
-                            className="glass-panel mt-3 overflow-hidden rounded-3xl border border-white/10 lg:hidden"
+                            className="glass-panel mt-3 overflow-hidden rounded-3xl border border-card-border lg:hidden"
                         >
                             <div className="flex flex-col gap-1 p-3">
                                 {content.navigation.map((item) => (
@@ -89,7 +140,7 @@ export function SiteHeader({ content }: SiteHeaderProps) {
                                         href={item.href}
                                         onClick={() => setOpen(false)}
                                         className={cn(
-                                            "rounded-2xl px-4 py-3 text-sm text-slate-200 transition hover:bg-white/5 hover:text-white"
+                                            "rounded-2xl px-4 py-3 text-sm text-text-muted transition hover:bg-foreground/5 hover:text-text-title"
                                         )}
                                     >
                                         {item.label}

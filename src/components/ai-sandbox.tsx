@@ -28,7 +28,8 @@ import {
     Shield,
     Sliders,
     TrendingUp,
-    AlertCircle
+    AlertCircle,
+    BrainCircuit
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
@@ -278,8 +279,196 @@ const DATABASE_DEALS = [
     { id: 4, title: "Publisher Council ERP", group: 103, is_public: true, valuation: "$8.5M" }
 ];
 
+// ==========================================
+// INTERACTIVE AGENT ARENA DATA
+// ==========================================
+type ScenarioId = "legal_audit" | "telephony_routing" | "inventory_reorder";
+
+const SCENARIOS = {
+    legal_audit: {
+        name: "Legal Document Intake Auditing",
+        agents: ["Coordinator", "Ingestion Agent", "Validation Agent", "Action Executor"],
+        steps: [
+            {
+                agent: "Coordinator",
+                action: "Receive NDA PDF",
+                details: "Parsing metadata for file 'NDA_Draft_v4.pdf'. Delegating to Ingestion Agent.",
+                type: "info"
+            },
+            {
+                agent: "Ingestion Agent",
+                action: "Recursive Text Splitting",
+                details: "Split document into 5 chunks using regex boundary '\\nSECTION '. Storing embeddings in pgvector.",
+                type: "tool"
+            },
+            {
+                agent: "Validation Agent",
+                action: "Factual Correctness Audit",
+                details: "Checking Section 4 against baseline compliance templates. Identified 24h breach notification window.",
+                type: "info"
+            },
+            {
+                agent: "Action Executor",
+                action: "Update Lead Database",
+                details: "Database query: UPDATE lead_contracts SET audited = TRUE, notify_hours = 24 WHERE id = 401; (1 row updated).",
+                type: "tool"
+            },
+            {
+                agent: "Coordinator",
+                action: "Final Audit Summary",
+                details: "Successfully processed NDA. Status marked COMPLIANT. Execution finished in 1.4s.",
+                type: "success"
+            }
+        ]
+    },
+    telephony_routing: {
+        name: "Telephony Lead Routing",
+        agents: ["Coordinator", "Ingestion Agent", "Validation Agent", "Action Executor"],
+        steps: [
+            {
+                agent: "Coordinator",
+                action: "Detect Incoming Call Webhook",
+                details: "Webhook received from Twilio for Call SID 'CA881b22'. Activating Speech STT Stream.",
+                type: "info"
+            },
+            {
+                agent: "Ingestion Agent",
+                action: "Real-time Transcription & Diarization",
+                details: "Processed 45s of base64 audio. Segmented Agent (40%) and Customer (60%).",
+                type: "tool"
+            },
+            {
+                agent: "Validation Agent",
+                action: "Customer Sentiment Classification",
+                details: "Detected transition from 'Frustrated' to 'Satisfied'. Overall call score: 8.5/10.",
+                type: "info"
+            },
+            {
+                agent: "Action Executor",
+                action: "Sync CRM Logs & Trigger Refund",
+                details: "API call POST /crm/logs: Sync transcript. API call POST /payments/refund: Reversing $4,500.",
+                type: "tool"
+            },
+            {
+                agent: "Coordinator",
+                action: "Close Call Session",
+                details: "Saved lead state, notified client manager via Slack notification. Pipeline execution complete.",
+                type: "success"
+            }
+        ]
+    },
+    inventory_reorder: {
+        name: "Book Stock Reorder Campaign",
+        agents: ["Coordinator", "Ingestion Agent", "Validation Agent", "Action Executor"],
+        steps: [
+            {
+                agent: "Coordinator",
+                action: "Daily Warehousing Audit Trigger",
+                details: "Initializing stock status scans for Publisher Council ERP system.",
+                type: "info"
+            },
+            {
+                agent: "Ingestion Agent",
+                action: "Scan PostgreSQL Inventory Schema",
+                details: "Query: SELECT isbn, stock_level, threshold FROM books WHERE stock_level < threshold; (Found 1 low stock book).",
+                type: "tool"
+            },
+            {
+                agent: "Validation Agent",
+                action: "Forecast Order Quantity",
+                details: "Calculating 30-day velocity. Recommended reorder qty for ISBN '978-3-16-148410-0': 250 copies.",
+                type: "info"
+            },
+            {
+                agent: "Action Executor",
+                action: "Draft Order Email to Printer",
+                details: "Drafted email to print_house@press.com: Order 250 copies of 'Modern RAG systems'.",
+                type: "tool"
+            },
+            {
+                agent: "Coordinator",
+                action: "Reorder Pipeline Successful",
+                details: "Created draft purchase order PO-8821 in database. Notification sent to publisher manager.",
+                type: "success"
+            }
+        ]
+    }
+} as const;
+
 export function AISandbox() {
-    const [activeTab, setActiveTab] = useState<"chatbot" | "rag" | "opticall" | "benchmark" | "biometrics" | "rls">("chatbot");
+    const [activeTab, setActiveTab] = useState<"chatbot" | "rag" | "opticall" | "benchmark" | "biometrics" | "rls" | "agent_arena">("chatbot");
+
+    // ----------------------------------------
+    // AGENT ARENA TAB STATE
+    // ----------------------------------------
+    const [scenario, setScenario] = useState<ScenarioId>("legal_audit");
+    const [simSpeed, setSimSpeed] = useState<number>(1200); // ms delay
+    const [simStatus, setSimStatus] = useState<"idle" | "running" | "paused" | "done">("idle");
+    const [activeAgent, setActiveAgent] = useState<"coordinator" | "ingestion" | "validation" | "executor" | null>(null);
+    const [arenaLogs, setArenaLogs] = useState<Array<{ time: string; agent: string; action: string; details: string; type: "info" | "tool" | "success" }>>([]);
+    const [simStepIndex, setSimStepIndex] = useState<number>(0);
+    const simIntervalRef = useRef<NodeJS.Timeout | null>(null);
+
+    useEffect(() => {
+        if (simStatus === "running") {
+            simIntervalRef.current = setInterval(() => {
+                const currentScenario = SCENARIOS[scenario];
+                if (simStepIndex < currentScenario.steps.length) {
+                    const step = currentScenario.steps[simStepIndex];
+                    const now = new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit', second: '2-digit' });
+                    
+                    let agentKey: "coordinator" | "ingestion" | "validation" | "executor" = "coordinator";
+                    if (step.agent.includes("Ingestion")) agentKey = "ingestion";
+                    else if (step.agent.includes("Validation")) agentKey = "validation";
+                    else if (step.agent.includes("Executor")) agentKey = "executor";
+                    
+                    setActiveAgent(agentKey);
+                    setArenaLogs(prev => [
+                        ...prev, 
+                        { 
+                            time: now, 
+                            agent: step.agent, 
+                            action: step.action, 
+                            details: step.details, 
+                            type: step.type 
+                        }
+                    ]);
+                    setSimStepIndex(prev => prev + 1);
+                } else {
+                    setSimStatus("done");
+                    setActiveAgent(null);
+                    if (simIntervalRef.current) clearInterval(simIntervalRef.current);
+                }
+            }, simSpeed);
+        } else {
+            if (simIntervalRef.current) {
+                clearInterval(simIntervalRef.current);
+            }
+        }
+        
+        return () => {
+            if (simIntervalRef.current) clearInterval(simIntervalRef.current);
+        };
+    }, [simStatus, simStepIndex, scenario, simSpeed]);
+
+    const handleStartPauseSim = () => {
+        if (simStatus === "idle" || simStatus === "done") {
+            setSimStepIndex(0);
+            setArenaLogs([]);
+            setSimStatus("running");
+        } else if (simStatus === "running") {
+            setSimStatus("paused");
+        } else if (simStatus === "paused") {
+            setSimStatus("running");
+        }
+    };
+
+    const handleResetSim = () => {
+        setSimStatus("idle");
+        setSimStepIndex(0);
+        setArenaLogs([]);
+        setActiveAgent(null);
+    };
 
     // ----------------------------------------
     // CHATBOT TAB STATE
@@ -613,6 +802,18 @@ export function AISandbox() {
                 >
                     <Shield className="h-4 w-4" />
                     Supabase RLS
+                </button>
+                <button
+                    onClick={() => setActiveTab("agent_arena")}
+                    className={cn(
+                        "inline-flex items-center gap-2 rounded-full px-4 py-2 text-xs sm:text-sm font-medium transition-all duration-200 border cursor-pointer",
+                        activeTab === "agent_arena"
+                            ? "bg-white text-slate-950 border-white"
+                            : "border-white/10 text-slate-400 hover:text-white hover:border-white/20 bg-white/5"
+                    )}
+                >
+                    <Cpu className="h-4 w-4" />
+                    Agent Arena
                 </button>
             </div>
 
@@ -1586,6 +1787,197 @@ export function AISandbox() {
 
                                             <div className="rounded-lg bg-cyan-950/20 border border-cyan-500/10 p-3 text-[10px] text-slate-300 leading-relaxed font-sans">
                                                 <strong>Security Analysis:</strong> When querying `/deals`, Supabase automatically intercepts the client JWT, extracts `auth.uid()`, compiles RLS policies as filters inside the SQL execution plan, and isolates data at the DB level, preventing leakage of private deals.
+                                            </div>
+                                        </Card>
+                                    </div>
+                                </motion.div>
+                            )}
+
+                            {/* ========================================================
+                                TAB 7: AGENT ARENA CONTAINER
+                                ======================================================== */}
+                            {activeTab === "agent_arena" && (
+                                <motion.div
+                                    key="agent_arena"
+                                    initial={{ opacity: 0, y: 10 }}
+                                    animate={{ opacity: 1, y: 0 }}
+                                    exit={{ opacity: 0, y: -10 }}
+                                    transition={{ duration: 0.3 }}
+                                    className="space-y-6"
+                                >
+                                    <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between border-b border-card-border pb-4">
+                                        <div>
+                                            <h3 className="text-xl font-semibold text-text-title">Interactive Multi-Agent Arena</h3>
+                                            <p className="text-sm text-text-muted">Simulate complex orchestrations where autonomous LLM agents call tools, audit results, and execute updates.</p>
+                                        </div>
+                                        <div className="flex flex-wrap items-center gap-3">
+                                            <div className="flex items-center gap-2">
+                                                <span className="text-xs text-text-muted font-semibold uppercase tracking-wider">Scenario:</span>
+                                                <select
+                                                    value={scenario}
+                                                    disabled={simStatus === "running"}
+                                                    onChange={(e) => {
+                                                        setScenario(e.target.value as ScenarioId);
+                                                        handleResetSim();
+                                                    }}
+                                                    className="rounded-lg border border-card-border bg-slate-950/80 px-3 py-1.5 text-xs text-text-title focus-ring cursor-pointer"
+                                                >
+                                                    <option value="legal_audit">Legal Document Intake Audit</option>
+                                                    <option value="telephony_routing">Telephony Lead Routing</option>
+                                                    <option value="inventory_reorder">Book Stock Reorder Campaign</option>
+                                                </select>
+                                            </div>
+                                            <div className="flex items-center gap-2">
+                                                <span className="text-xs text-text-muted font-semibold uppercase tracking-wider">Delay ({simSpeed}ms):</span>
+                                                <input
+                                                    type="range"
+                                                    min="500"
+                                                    max="2500"
+                                                    step="250"
+                                                    value={simSpeed}
+                                                    onChange={(e) => setSimSpeed(parseInt(e.target.value))}
+                                                    className="h-1.5 w-24 accent-cyan-400 bg-slate-800 rounded-lg cursor-pointer"
+                                                />
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    {/* Action Buttons */}
+                                    <div className="flex gap-2">
+                                        <Button
+                                            onClick={handleStartPauseSim}
+                                            variant="secondary"
+                                            className={cn(
+                                                "gap-2 font-semibold transition-colors",
+                                                simStatus === "running" ? "bg-amber-500/20 text-amber-300 border border-amber-500/30 hover:bg-amber-500/30" : "bg-cyan-500 text-slate-950 hover:bg-cyan-600"
+                                            )}
+                                        >
+                                            {simStatus === "running" ? <Pause className="h-4 w-4" /> : <Play className="h-4 w-4 fill-current" />}
+                                            {simStatus === "running" ? "Pause Simulation" : simStatus === "paused" ? "Resume Simulation" : "Start Simulation"}
+                                        </Button>
+                                        <Button
+                                            onClick={handleResetSim}
+                                            variant="outline"
+                                            className="border-card-border text-text-title hover:bg-foreground/5"
+                                        >
+                                            Reset
+                                        </Button>
+                                    </div>
+
+                                    <div className="grid gap-6 md:grid-cols-2">
+                                        {/* AGENT FLOW DIAGRAM VISUALIZER */}
+                                        <Card className="border-card-border bg-slate-900/40 p-4 space-y-4">
+                                            <div className="flex justify-between items-center text-xs border-b border-card-border pb-2">
+                                                <span className="font-semibold text-text-muted">Agent System Graph & Connection State</span>
+                                                <Activity className="h-4 w-4 text-cyan-400" />
+                                            </div>
+
+                                            <div className="flex flex-col items-center justify-center p-4 border border-card-border bg-slate-950/60 rounded-2xl relative overflow-hidden h-72">
+                                                {/* Graph Connections */}
+                                                <svg className="absolute inset-0 w-full h-full pointer-events-none stroke-cyan-500/10" viewBox="0 0 100 100" preserveAspectRatio="none">
+                                                    <line x1="50" y1="20" x2="20" y2="50" strokeWidth="0.5" strokeDasharray="3 3" />
+                                                    <line x1="50" y1="20" x2="80" y2="50" strokeWidth="0.5" strokeDasharray="3 3" />
+                                                    <line x1="20" y1="50" x2="50" y2="80" strokeWidth="0.5" strokeDasharray="3 3" />
+                                                    <line x1="80" y1="50" x2="50" y2="80" strokeWidth="0.5" strokeDasharray="3 3" />
+                                                </svg>
+
+                                                {/* Row 1: Coordinator */}
+                                                <div className="flex justify-center w-full z-10 mb-2">
+                                                    <div className={cn(
+                                                        "flex items-center gap-2.5 rounded-2xl border p-3.5 transition-all duration-300 w-48 shadow-lg",
+                                                        activeAgent === "coordinator"
+                                                            ? "border-cyan-400 bg-cyan-950/30 shadow-[0_0_15px_rgba(34,211,238,0.25)] text-cyan-300 scale-105"
+                                                            : "border-card-border bg-slate-900/60 text-text-muted"
+                                                    )}>
+                                                        <BrainCircuit className={cn("h-5 w-5 shrink-0", activeAgent === "coordinator" ? "text-cyan-400" : "text-text-muted")} />
+                                                        <div className="text-left min-w-0">
+                                                            <p className="text-[9px] uppercase font-bold tracking-wider opacity-60">Coordinator</p>
+                                                            <p className="text-xs font-semibold truncate">Orchestrator Agent</p>
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+                                                {/* Row 2: Ingestion & Validation */}
+                                                <div className="flex justify-between w-full z-10 my-2 px-2 max-w-sm">
+                                                    <div className={cn(
+                                                        "flex items-center gap-2.5 rounded-2xl border p-3.5 transition-all duration-300 w-44 shadow-lg",
+                                                        activeAgent === "ingestion"
+                                                            ? "border-violet-400 bg-violet-950/30 shadow-[0_0_15px_rgba(167,139,250,0.25)] text-violet-300 scale-105"
+                                                            : "border-card-border bg-slate-900/60 text-text-muted"
+                                                    )}>
+                                                        <Database className={cn("h-5 w-5 shrink-0", activeAgent === "ingestion" ? "text-violet-400" : "text-text-muted")} />
+                                                        <div className="text-left min-w-0">
+                                                            <p className="text-[9px] uppercase font-bold tracking-wider opacity-60">Ingestion</p>
+                                                            <p className="text-xs font-semibold truncate">Data Parser Agent</p>
+                                                        </div>
+                                                    </div>
+
+                                                    <div className={cn(
+                                                        "flex items-center gap-2.5 rounded-2xl border p-3.5 transition-all duration-300 w-44 shadow-lg",
+                                                        activeAgent === "validation"
+                                                            ? "border-amber-400 bg-amber-950/30 shadow-[0_0_15px_rgba(251,191,36,0.25)] text-amber-300 scale-105"
+                                                            : "border-card-border bg-slate-900/60 text-text-muted"
+                                                    )}>
+                                                        <Sliders className={cn("h-5 w-5 shrink-0", activeAgent === "validation" ? "text-amber-400" : "text-text-muted")} />
+                                                        <div className="text-left min-w-0">
+                                                            <p className="text-[9px] uppercase font-bold tracking-wider opacity-60">Validation</p>
+                                                            <p className="text-xs font-semibold truncate">Factual Auditor Agent</p>
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+                                                {/* Row 3: Executor */}
+                                                <div className="flex justify-center w-full z-10 mt-2">
+                                                    <div className={cn(
+                                                        "flex items-center gap-2.5 rounded-2xl border p-3.5 transition-all duration-300 w-48 shadow-lg",
+                                                        activeAgent === "executor"
+                                                            ? "border-emerald-400 bg-emerald-950/30 shadow-[0_0_15px_rgba(52,211,153,0.25)] text-emerald-300 scale-105"
+                                                            : "border-card-border bg-slate-900/60 text-text-muted"
+                                                    )}>
+                                                        <Cpu className={cn("h-5 w-5 shrink-0", activeAgent === "executor" ? "text-emerald-400" : "text-text-muted")} />
+                                                        <div className="text-left min-w-0">
+                                                            <p className="text-[9px] uppercase font-bold tracking-wider opacity-60">Execution</p>
+                                                            <p className="text-xs font-semibold truncate">Action Executor Agent</p>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </Card>
+
+                                        {/* CONSOLE TERMINAL OUTPUT */}
+                                        <Card className="border-card-border bg-slate-950 p-4 font-mono text-xs flex flex-col justify-between h-[348px]">
+                                            <div className="flex justify-between items-center text-[10px] border-b border-card-border pb-2 text-text-muted uppercase tracking-wider mb-3 font-sans">
+                                                <span>Simulation Output Console</span>
+                                                <span className="flex items-center gap-1.5">
+                                                    <span className={cn(
+                                                        "h-2 w-2 rounded-full",
+                                                        simStatus === "running" ? "bg-emerald-500 animate-pulse" :
+                                                        simStatus === "paused" ? "bg-amber-500" :
+                                                        simStatus === "done" ? "bg-blue-500" : "bg-slate-600"
+                                                    )} />
+                                                    {simStatus}
+                                                </span>
+                                            </div>
+
+                                            <div className="flex-1 overflow-y-auto space-y-3 pr-2 scrollbar-thin scrollbar-thumb-white/10 text-left">
+                                                {arenaLogs.map((log, idx) => (
+                                                    <div key={idx} className="leading-relaxed border-l-2 pl-3 border-card-border py-0.5">
+                                                        <span className="text-slate-500">[{log.time}]</span>{" "}
+                                                        <span className={cn(
+                                                            "font-semibold",
+                                                            log.agent.includes("Coordinator") ? "text-cyan-300" :
+                                                            log.agent.includes("Ingestion") ? "text-violet-300" :
+                                                            log.agent.includes("Validation") ? "text-amber-300" : "text-emerald-300"
+                                                        )}>{log.agent}</span>:{" "}
+                                                        <span className="text-text-title underline font-semibold">{log.action}</span>
+                                                        <p className="text-text-muted ml-4 mt-1 whitespace-pre-wrap leading-relaxed font-sans text-[11px]">{log.details}</p>
+                                                    </div>
+                                                ))}
+                                                {arenaLogs.length === 0 && (
+                                                    <div className="h-full flex items-center justify-center text-slate-500 italic">
+                                                        Click &apos;Start Simulation&apos; to run the agentic workflow.
+                                                    </div>
+                                                )}
                                             </div>
                                         </Card>
                                     </div>

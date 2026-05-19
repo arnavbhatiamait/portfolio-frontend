@@ -1,13 +1,35 @@
 @import "tailwindcss";
 
 :root {
+  /* Dark theme values */
   --background: #030712;
   --foreground: #e5e7eb;
+  --card-bg: rgba(8, 15, 35, 0.66);
+  --card-border: rgba(148, 163, 184, 0.14);
+  --text-muted: #94a3b8;
+  --text-title: #ffffff;
+  --panel-bg: #0b1531;
+}
+
+.light {
+  /* Light theme overrides */
+  --background: #f3f4f6;
+  --foreground: #1f2937;
+  --card-bg: rgba(255, 255, 255, 0.85);
+  --card-border: rgba(31, 41, 55, 0.12);
+  --text-muted: #4b5563;
+  --text-title: #111827;
+  --panel-bg: #e5e7eb;
 }
 
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
+  --color-card-bg: var(--card-bg);
+  --color-card-border: var(--card-border);
+  --color-text-muted: var(--text-muted);
+  --color-text-title: var(--text-title);
+  --color-panel-bg: var(--panel-bg);
   --font-sans: var(--font-space-grotesk);
   --font-mono: var(--font-ibm-plex-mono);
 }
@@ -20,6 +42,7 @@ body {
   background: var(--background);
   color: var(--foreground);
   font-family: var(--font-space-grotesk), sans-serif;
+  transition: background-color 0.3s ease, color 0.3s ease;
 }
 
 html {
@@ -38,10 +61,11 @@ html {
 }
 
 .glass-panel {
-  background: rgba(8, 15, 35, 0.66);
-  border: 1px solid rgba(148, 163, 184, 0.14);
-  box-shadow: 0 24px 60px rgba(3, 7, 18, 0.45);
+  background: var(--card-bg);
+  border: 1px solid var(--card-border);
+  box-shadow: 0 24px 60px rgba(3, 7, 18, 0.25);
   backdrop-filter: blur(18px);
+  transition: background-color 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
 }
 
 .glow-ring {
@@ -49,7 +73,7 @@ html {
 }
 
 .text-gradient {
-  background: linear-gradient(135deg, #dbeafe 0%, #a855f7 45%, #38bdf8 100%);
+  background: linear-gradient(135deg, #3b82f6 0%, #a855f7 45%, #06b6d4 100%);
   -webkit-background-clip: text;
   background-clip: text;
   color: transparent;
