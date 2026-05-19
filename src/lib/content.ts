@@ -188,6 +188,45 @@ export const siteContent: SiteContent = {
     ],
     projects: [
         {
+            name: "The Benchmark Hub",
+            tag: "AI Benchmarking / ML",
+            description:
+                "A centralized analytics platform to evaluate and compare transcription accuracy, vision classification, and text generation models.",
+            features: [
+                "Audio transcription benchmarks comparing WER, latency, and cost for Gemini, ElevenLabs, Whisper, and OpenAI",
+                "Histoscan medical benchmark comparing AWS Rekognition and Gemini Vision on 1,000 histology images for tumor cell classification",
+                "Generative LLM benchmarks evaluating factual accuracy and conciseness trade-offs for legal headnote summaries",
+                "Data ingestion piping metrics directly into structured comparative reports and CSV databases",
+            ],
+            tech: ["Python", "PyTorch", "boto3", "Gemini API", "Whisper ASR", "Pandas", "Librosa"],
+        },
+        {
+            name: "speech2vec Voice Biometrics",
+            tag: "Acoustic ML / Signal Processing",
+            description:
+                "Self-supervised voice biometric model capable of identifying individual speakers purely based on acoustic embeddings.",
+            features: [
+                "Ingests raw audio, normalizes signal levels, and applies band-pass filters using Librosa and NumPy",
+                "Extracts Mel-Frequency Cepstral Coefficients (MFCCs) isolating speaker vocal tract physical details",
+                "Projects variable-length speech segments into high-dimensional speech2vec and wav2vec 2.0 acoustic vectors",
+                "Groups voice signatures organically using DBSCAN and K-Means clustering, training a classification layer for fast inference",
+            ],
+            tech: ["Python", "PyTorch", "Librosa", "Scikit-Learn", "wav2vec 2.0", "NumPy", "AWS S3"],
+        },
+        {
+            name: "Investor Base Fintech MVP",
+            tag: "FinTech / BaaS / Database",
+            description:
+                "A secure fintech venture platform connecting angel investors with startup deals, built on top of Supabase.",
+            features: [
+                "Automated database triggers syncing GoTrue Auth accounts to public profile tables",
+                "Designed strict Row-Level Security (RLS) policies separating investor access to private, public, and group deals",
+                "Created database functions (pledge_to_deal) for atomic, secure transactional pledges",
+                "Interactive investor scorecard dashboards showing market research, AI viability, and financial criteria",
+            ],
+            tech: ["Supabase", "PostgreSQL", "SQL (RLS Policies)", "React", "Next.js", "Tailwind CSS"],
+        },
+        {
             name: "Council CRM / ERP",
             tag: "B2B SaaS / FinTech",
             description:
@@ -252,19 +291,6 @@ export const siteContent: SiteContent = {
             ],
             tech: ["Python", "PyTorch", "Gradio", "Hugging Face Spaces", "Computer Vision"],
             link: "https://huggingface.co/spaces/Arnavbhatia/Food_Vision",
-        },
-        {
-            name: "AI Meeting Scheduler Agent",
-            tag: "Automation / LLM",
-            description:
-                "An AI assistant parsing audio transcripts and managing calendars and action items using natural language.",
-            features: [
-                "Meeting scheduler integrating Google Calendar and Google Meet APIs",
-                "Semantic transcript parsing creating task objects synchronized with Todoist",
-                "Telegram bot fronting the agent interface for real-time user notification",
-                "Multi-model support integrating OpenAI, Gemini, Groq, and Ollama APIs",
-            ],
-            tech: ["FastAPI", "Python", "LangChain", "Telegram API", "Todoist API", "Google Calendar API"],
         },
     ],
     certifications: [

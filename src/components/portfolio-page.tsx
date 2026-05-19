@@ -19,6 +19,7 @@ import { SiHuggingface } from "react-icons/si";
 import { ContactForm } from "@/components/contact-form";
 import { SiteHeader } from "@/components/site-header";
 import { AISandbox } from "@/components/ai-sandbox";
+import { MethodologyCards } from "@/components/methodology-cards";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { cn } from "@/lib/utils";
@@ -352,6 +353,8 @@ export function PortfolioPage({ content }: PortfolioPageProps) {
                 </MotionSection>
 
                 <AISandbox />
+
+                <MethodologyCards />
 
                 <MotionSection id="projects">
                     <SectionHeading

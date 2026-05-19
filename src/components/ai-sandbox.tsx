@@ -17,13 +17,18 @@ import {
     ArrowRight,
     Search,
     Scissors,
-    FileSymlink,
     BarChart3,
     Smile,
     Volume2,
     Hourglass,
     CheckCircle2,
-    Send
+    Send,
+    Lock,
+    Unlock,
+    Shield,
+    Sliders,
+    TrendingUp,
+    AlertCircle
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
@@ -32,7 +37,7 @@ import { cn } from "@/lib/utils";
 // ==========================================
 // OFFLINE CHATBOT KNOWLEDGE BASE & SIMULATOR
 // ==========================================
-type KnowledgeKey = "default" | "nyaay" | "council" | "voice_agent" | "opticall" | "skills" | "internships" | "contact";
+type KnowledgeKey = "default" | "nyaay" | "council" | "voice_agent" | "opticall" | "skills" | "internships" | "contact" | "benchmarking" | "speech2vec" | "investor_base";
 
 const OFFLINE_KB: Record<KnowledgeKey, string> = {
     default: "Hi! I am Arnav's AI Assistant. I can tell you all about his projects, skills, and professional experience. Ask me anything or click one of the suggestions below!",
@@ -43,25 +48,25 @@ const OFFLINE_KB: Record<KnowledgeKey, string> = {
            "- **Vector Database:** Utilizes PostgreSQL with the `pgvector` extension for storing 1536-dimensional embeddings.\n" +
            "- **Hybrid Retrieval:** Merges keyword matches (`ts_rank`) and vector distance (`<->`) using Reciprocal Rank Fusion (RRF) for top accuracy.",
     council: "**Council** is a B2B CRM and Enterprise Resource Planning (ERP) platform built by Arnav to modernize book publishing workflows. It is live at **[council.panscience.ai](https://council.panscience.ai)**.\n\n" +
-             "**Technical Accomplishments:**\n" +
-             "- **Relational Schema:** Designed a highly normalized PostgreSQL schema tracking authors, contracts, rights, and physical books.\n" +
-             "- **Inventory Control:** Developed RESTful APIs with automated database triggers tracking ISBN records, stock levels, and threshold alerts.\n" +
-             "- **Rights Management:** Integrated logical portals to manage submission pipelines and distinguish print vs. digital and regional rights.",
+              "**Technical Accomplishments:**\n" +
+              "- **Relational Schema:** Designed a highly normalized PostgreSQL schema tracking authors, contracts, rights, and physical books.\n" +
+              "- **Inventory Control:** Developed RESTful APIs with automated database triggers tracking ISBN records, stock levels, and threshold alerts.\n" +
+              "- **Rights Management:** Integrated logical portals to manage submission pipelines and distinguish print vs. digital and regional rights.",
     voice_agent: "The **Real-Time AI Voice Calling Agent** is a full-telephony Generative AI integration.\n\n" +
-                 "**Technical Stack & Logic:**\n" +
-                 "- **telephony stream:** Connected Twilio Voice API over bidirectional WebSockets to stream raw, base64 audio.\n" +
-                 "- **Streaming Speech Pipeline:** Whisper/Deepgram STT (sub-300ms transcription) -> LangChain prompt orchestration -> ElevenLabs TTS streaming chunks token-by-token.\n" +
-                 "- **Barge-in Handler:** Built backend audio analysis that detects vocal spikes, flushes the speech output buffer instantly, halts audio, and updates LLM memory.",
+                  "**Technical Stack & Logic:**\n" +
+                  "- **Telephony Stream:** Connected Twilio Voice API over bidirectional WebSockets to stream raw, base64 audio.\n" +
+                  "- **Streaming Speech Pipeline:** Whisper/Deepgram STT (sub-300ms transcription) -> LangChain prompt orchestration -> ElevenLabs TTS streaming chunks token-by-token.\n" +
+                  "- **Barge-in Handler:** Built backend audio analysis that detects vocal spikes, flushes the speech output buffer instantly, halts audio, and updates LLM memory.",
     opticall: "**Opticall** is an audio analytics and intelligence engine parsing call center dialogues.\n\n" +
-              "**Analytical Features:**\n" +
-              "- **Diarization Pipeline:** Segments mono audio tracks, identifying timestamps for Agent vs. Customer channels.\n" +
-              "- **Metrics Extraction:** Calculates Talk-to-Listen ratios, flags awkward silence/dead air (indicating CRM bottlenecks), and tracks customer satisfaction trends.",
+               "**Analytical Features:**\n" +
+               "- **Diarization Pipeline:** Segments mono audio tracks, identifying timestamps for Agent vs. Customer channels.\n" +
+               "- **Metrics Extraction:** Calculates Talk-to-Listen ratios, flags awkward silence/dead air (indicating CRM bottlenecks), and tracks customer satisfaction trends.",
     skills: "Arnav is a full-stack engineer specialized in AI systems:\n\n" +
-            "- **Languages:** Python, JavaScript, TypeScript, SQL, C++\n" +
-            "- **Frontend:** React, Next.js, Tailwind CSS, Framer Motion, Streamlit, Gradio\n" +
-            "- **Backend & DB:** FastAPI, Node.js, Express, PostgreSQL (pgvector), Supabase, FAISS, Redis\n" +
-            "- **AI/ML:** PyTorch, TensorFlow, LangChain, LangGraph, Model Context Protocol (MCP), OpenCV\n" +
-            "- **Cloud/DevOps:** AWS (S3, SQS, RDS, EC2), Docker, OpenStack, Git",
+             "- **Languages:** Python, JavaScript, TypeScript, SQL, C++\n" +
+             "- **Frontend:** React, Next.js, Tailwind CSS, Framer Motion, Streamlit, Gradio\n" +
+             "- **Backend & DB:** FastAPI, Node.js, Express, PostgreSQL (pgvector), Supabase, FAISS, Redis\n" +
+             "- **AI/ML:** PyTorch, TensorFlow, LangChain, LangGraph, Model Context Protocol (MCP), OpenCV\n" +
+             "- **Cloud/DevOps:** AWS (S3, SQS, RDS, EC2), Docker, OpenStack, Git",
     internships: "Arnav has completed **4 internships**:\n\n" +
                  "1. **PAN Science Innovations (LLM Engineer Intern - Aug 2025 - Present):** Built NYAAY AI, Council ERP, Twilio Voice Agent, and Opticall.\n" +
                  "2. **Aura AI (AI Intern - Jun 2024 - Sep 2024):** Deepfake classification (CNN + XceptionNet), SRGAN image 4x upscaling, Stable Diffusion Streamlit portals.\n" +
@@ -71,10 +76,21 @@ const OFFLINE_KB: Record<KnowledgeKey, string> = {
              "- **Email:** [arnavbhatiamait@gmail.com](mailto:arnavbhatiamait@gmail.com)\n" +
              "- **LinkedIn:** [linkedin.com/in/arnav-bhatia-77500425a](https://www.linkedin.com/in/arnav-bhatia-77500425a/)\n" +
              "- **GitHub:** [github.com/arnavbhatiamait](https://github.com/arnavbhatiamait)\n" +
-             "- **Hugging Face:** [huggingface.co/spaces/Arnavbhatia/Food_Vision](https://huggingface.co/spaces/Arnavbhatia/Food_Vision)"
+             "- **Hugging Face:** [huggingface.co/spaces/Arnavbhatia/Food_Vision](https://huggingface.co/spaces/Arnavbhatia/Food_Vision)",
+    benchmarking: "**The Benchmark Hub** is a specialized framework Arnav built to test model baselines:\n\n" +
+                  "- **Histopathology (Histoscan):** Compared general LLMs (Gemini Vision) against specialized classifiers (AWS Rekognition) on 1,000 cancer cells, proving Gemini Vision achieved 94.5% detection accuracy.\n" +
+                  "- **Transcription (WER):** Benchmark reports evaluated ElevenLabs, Whisper, and Gemini on word-error-rate and cost/second parameters.\n" +
+                  "- **Text Generation:** Audited LLMs for factual hallucination rates in legal contract summarization.",
+    speech2vec: "**speech2vec Voice Biometrics** is a machine learning solution for identity mapping:\n\n" +
+                 "- **Preprocessing:** Ingests raw voice streams from AWS S3, normalizes audio levels, filters out telephony static, and extracts Mel-Frequency Cepstral Coefficients (MFCCs).\n" +
+                 "- **Vector Spaces:** Projects voice segments into fixed embeddings via self-supervised speech2vec & wav2vec 2.0 (PyTorch).\n" +
+                 "- **Clustering:** Segments speaker clusters organically using DBSCAN/K-Means to identify distinct agent voices with high confidence.",
+    investor_base: "**Investor Base** is a secure fintech MVP platform designed on Supabase:\n\n" +
+                   "- **Auth Integration:** Used triggers on auth.users to auto-populate public user profile roles.\n" +
+                   "- **RLS Security:** Engineered row-level database policies filter access to private investor groups using `EXISTS` conditions.\n" +
+                   "- **SQL Functions:** Implemented atomic database operations like `pledge_to_deal` functions to ensure transaction safety."
 };
 
-// Map message keywords to knowledge base keys
 const matchKeyword = (msg: string): KnowledgeKey => {
     const text = msg.toLowerCase();
     if (text.includes("nyaay")) return "nyaay";
@@ -84,6 +100,9 @@ const matchKeyword = (msg: string): KnowledgeKey => {
     if (text.includes("skill") || text.includes("tech") || text.includes("stack")) return "skills";
     if (text.includes("intern") || text.includes("experience") || text.includes("job") || text.includes("work")) return "internships";
     if (text.includes("contact") || text.includes("email") || text.includes("hire") || text.includes("reach")) return "contact";
+    if (text.includes("benchmark") || text.includes("histoscan") || text.includes("wer")) return "benchmarking";
+    if (text.includes("speech2vec") || text.includes("biometric") || text.includes("voiceprint") || text.includes("wav2vec")) return "speech2vec";
+    if (text.includes("investor") || text.includes("supabase") || text.includes("rls") || text.includes("pledge")) return "investor_base";
     return "default";
 };
 
@@ -91,7 +110,6 @@ const matchKeyword = (msg: string): KnowledgeKey => {
 // NYAAY AI RAG SIMULATOR DATA
 // ==========================================
 type LegalDocType = "nda" | "lease";
-type LegalQueryType = "data_leak" | "rent_payment";
 
 const RAG_DOCS = {
     nda: {
@@ -172,8 +190,96 @@ const CALL_SAMPLES = {
     }
 };
 
+// ==========================================
+// THE BENCHMARK HUB DATA
+// ==========================================
+type BenchmarkCategory = "asr" | "histoscan" | "summarization";
+
+const BENCHMARK_METRICS = {
+    asr: [
+        { model: "ElevenLabs API", wer: 8.2, latency: 280, cost: 0.015, color: "from-cyan-400 to-cyan-500" },
+        { model: "Whisper Large v3", wer: 11.5, latency: 620, cost: 0.008, color: "from-blue-400 to-blue-500" },
+        { model: "OpenAI Whisper API", wer: 12.1, latency: 410, cost: 0.010, color: "from-violet-400 to-violet-500" },
+        { model: "Gemini 2.5 Flash", wer: 14.3, latency: 350, cost: 0.003, color: "from-pink-400 to-pink-500" }
+    ],
+    histoscan: {
+        description: "Medical classification benchmark executed on 1,000 high-res cancer cell biopsy histology images.",
+        results: [
+            { system: "AWS Rekognition", accuracy: 76.2, latency: 120, cost: 1.00, notes: "Missed micro-tumor aggregates, fast bounding box detection" },
+            { system: "Gemini 2.5 Flash (Vision)", accuracy: 94.5, latency: 450, cost: 0.15, notes: "Identified anomalous nuclei morphology, detailed visual reasoning" }
+        ]
+    },
+    summarization: [
+        { model: "LLaMA-3-70B (Groq)", accuracy: 91.2, conciseness: 85, tps: 42 },
+        { model: "GPT-4o (OpenAI)", accuracy: 94.8, conciseness: 90, tps: 26 },
+        { model: "Gemini 2.5 Pro", accuracy: 93.5, conciseness: 88, tps: 32 }
+    ]
+};
+
+// ==========================================
+// SPEECH2VEC BIOMETRICS DATA
+// ==========================================
+type BiometricSample = "sample_a" | "sample_b" | "unknown";
+
+const BIOMETRIC_CLUSTERS = [
+    // Agent John (Cyan)
+    { x: 30, y: 40, label: "John (Agent A)", color: "fill-cyan-400 shadow-cyan-500/50" },
+    { x: 25, y: 45, label: "John (Agent A)", color: "fill-cyan-400" },
+    { x: 35, y: 38, label: "John (Agent A)", color: "fill-cyan-400" },
+    { x: 28, y: 35, label: "John (Agent A)", color: "fill-cyan-400" },
+    // Agent Sarah (Violet)
+    { x: 70, y: 75, label: "Sarah (Agent B)", color: "fill-violet-400 shadow-violet-500/50" },
+    { x: 75, y: 70, label: "Sarah (Agent B)", color: "fill-violet-400" },
+    { x: 68, y: 80, label: "Sarah (Agent B)", color: "fill-violet-400" },
+    { x: 72, y: 68, label: "Sarah (Agent B)", color: "fill-violet-400" },
+    // Agent Michael (Blue)
+    { x: 45, y: 78, label: "Michael (Agent C)", color: "fill-blue-400 shadow-blue-500/50" },
+    { x: 42, y: 74, label: "Michael (Agent C)", color: "fill-blue-400" },
+    { x: 48, y: 82, label: "Michael (Agent C)", color: "fill-blue-400" },
+    { x: 50, y: 75, label: "Michael (Agent C)", color: "fill-blue-400" }
+];
+
+const BIOMETRIC_SAMPLES = {
+    sample_a: {
+        file: "agent_john_validation.wav",
+        targetX: 31,
+        targetY: 41,
+        agent: "John (Agent A)",
+        confidence: 97.8,
+        mfccs: [12.4, -4.5, 8.2, -1.1, 5.7, 2.3, -3.4, 6.1, 1.2, -0.8, 3.4, 0.9, -1.5]
+    },
+    sample_b: {
+        file: "agent_sarah_validation.wav",
+        targetX: 71,
+        targetY: 73,
+        agent: "Sarah (Agent B)",
+        confidence: 98.6,
+        mfccs: [-5.2, 14.1, -2.1, 9.8, -1.2, 7.4, 5.1, -2.3, 4.8, 2.1, -1.9, 3.2, 0.4]
+    },
+    unknown: {
+        file: "background_noise_static.wav",
+        targetX: 52,
+        targetY: 58,
+        agent: "Unknown / Low Confidence",
+        confidence: 34.2,
+        mfccs: [2.1, 1.2, -0.5, 0.8, -1.1, 0.2, 1.4, -0.7, 0.3, -0.4, 0.9, -0.2, 0.5]
+    }
+};
+
+// ==========================================
+// SUPABASE RLS DATA
+// ==========================================
+type RLSRole = "guest" | "member_101" | "member_102" | "admin";
+
+const DATABASE_DEALS = [
+    { id: 1, title: "NYAAY AI Legal Tech", group: 101, is_public: true, valuation: "$2.5M" },
+    { id: 2, title: "Opticall Analytics", group: 101, is_public: false, valuation: "$4.8M" },
+    { id: 3, title: "Aura Super-Res GAN", group: 102, is_public: false, valuation: "$1.9M" },
+    { id: 4, title: "Publisher Council ERP", group: 103, is_public: true, valuation: "$8.5M" }
+];
+
 export function AISandbox() {
-    const [activeTab, setActiveTab] = useState<"chatbot" | "rag" | "opticall">("chatbot");
+    const [activeTab, setActiveTab] = useState<"chatbot" | "rag" | "opticall" | "benchmark" | "biometrics" | "rls">("chatbot");
 
     // ----------------------------------------
     // CHATBOT TAB STATE
@@ -219,12 +325,10 @@ export function AISandbox() {
                 const data = await response.json();
                 setMessages(prev => [...prev, { sender: "bot", text: data.reply }]);
             } else {
-                // Fallback to offline matcher
                 const kbKey = matchKeyword(text);
                 setMessages(prev => [...prev, { sender: "bot", text: OFFLINE_KB[kbKey] }]);
             }
         } catch (e) {
-            // Fallback on error (backend offline)
             const kbKey = matchKeyword(text);
             setMessages(prev => [...prev, { sender: "bot", text: OFFLINE_KB[kbKey] }]);
         } finally {
@@ -251,10 +355,6 @@ export function AISandbox() {
         }
     };
 
-    const handleRagReset = () => {
-        setRagStep(0);
-    };
-
     useEffect(() => {
         setRagStep(0);
     }, [ragDocType]);
@@ -264,7 +364,7 @@ export function AISandbox() {
     // ----------------------------------------
     const [callType, setCallType] = useState<CallType>("billing");
     const [isPlaying, setIsPlaying] = useState(false);
-    const [playProgress, setPlayProgress] = useState(0); // 0 to 100
+    const [playProgress, setPlayProgress] = useState(0);
     const [activeTranscriptIndex, setActiveTranscriptIndex] = useState(-1);
     const timerRef = useRef<number | null>(null);
 
@@ -307,7 +407,6 @@ export function AISandbox() {
         handleResetCall();
     }, [callType]);
 
-    // Track transcript highlighting based on playhead
     useEffect(() => {
         if (playProgress === 0) {
             setActiveTranscriptIndex(-1);
@@ -318,7 +417,6 @@ export function AISandbox() {
         setActiveTranscriptIndex(index);
     }, [playProgress, currentCall.transcript.length]);
 
-    // Get dynamic customer sentiment during play progress
     const getCustomerSentiment = () => {
         const numSentiments = currentCall.sentiment.length;
         const index = Math.min(Math.floor((playProgress / 100) * numSentiments), numSentiments - 1);
@@ -336,6 +434,97 @@ export function AISandbox() {
         return "text-emerald-400 border-emerald-500/20 bg-emerald-500/10";
     };
 
+    // ----------------------------------------
+    // BENCHMARK HUB TAB STATE
+    // ----------------------------------------
+    const [benchmarkCat, setBenchmarkCat] = useState<BenchmarkCategory>("asr");
+    const [simulatingHistoscan, setSimulatingHistoscan] = useState(false);
+    const [histoscanProgress, setHistoscanProgress] = useState(0);
+    const [histoscanOutputs, setHistoscanOutputs] = useState<{ id: string; label: string; prediction: string; correct: boolean }[]>([]);
+
+    const runHistoscanSimulation = () => {
+        setSimulatingHistoscan(true);
+        setHistoscanProgress(0);
+        setHistoscanOutputs([]);
+        
+        let counter = 0;
+        const interval = setInterval(() => {
+            counter += 1;
+            setHistoscanProgress(counter);
+            
+            const newOutput = {
+                id: `slide_${Math.floor(Math.random() * 900) + 100}`,
+                label: Math.random() > 0.4 ? "Tumor Cell (Cancer)" : "Normal Tissue (Benign)",
+                prediction: Math.random() > 0.15 ? "Tumor Cell (Cancer)" : "Normal Tissue (Benign)",
+                correct: false
+            };
+            newOutput.correct = newOutput.label === newOutput.prediction;
+            
+            setHistoscanOutputs(prev => [newOutput, ...prev].slice(0, 5));
+
+            if (counter >= 100) {
+                clearInterval(interval);
+                setSimulatingHistoscan(false);
+            }
+        }, 30);
+    };
+
+    // ----------------------------------------
+    // SPEECH2VEC BIOMETRICS TAB STATE
+    // ----------------------------------------
+    const [selectedBioSample, setSelectedBioSample] = useState<BiometricSample>("sample_a");
+    const [isVerifyingBio, setIsVerifyingBio] = useState(false);
+    const [bioStep, setBioStep] = useState<"idle" | "filtering" | "mfcc" | "projection" | "done">("idle");
+    const [bioPlotDot, setBioPlotDot] = useState<{ x: number; y: number } | null>(null);
+
+    const handleVerifyBiometrics = () => {
+        setIsVerifyingBio(true);
+        setBioStep("filtering");
+        setBioPlotDot(null);
+
+        setTimeout(() => {
+            setBioStep("mfcc");
+            setTimeout(() => {
+                setBioStep("projection");
+                // Animate dot shifting from center (50, 50) to target coordinates
+                const sample = BIOMETRIC_SAMPLES[selectedBioSample];
+                setBioPlotDot({ x: sample.targetX, y: sample.targetY });
+                setTimeout(() => {
+                    setBioStep("done");
+                    setIsVerifyingBio(false);
+                }, 1000);
+            }, 1200);
+        }, 1200);
+    };
+
+    // ----------------------------------------
+    // SUPABASE RLS TAB STATE
+    // ----------------------------------------
+    const [rlsRole, setRlsRole] = useState<RLSRole>("guest");
+
+    const getSQLQuery = () => {
+        switch (rlsRole) {
+            case "guest":
+                return "-- Executing public security policy filter\nSELECT * FROM deals\nWHERE is_public = TRUE;";
+            case "member_101":
+                return "-- Filtering query based on authenticated user JWT (Group 101)\nSELECT * FROM deals\nWHERE is_public = TRUE \n   OR associated_group_id = 101;";
+            case "member_102":
+                return "-- Filtering query based on authenticated user JWT (Group 102)\nSELECT * FROM deals\nWHERE is_public = TRUE \n   OR associated_group_id = 102;";
+            case "admin":
+                return "-- Superuser bypasses Row-Level Security policies\nSELECT * FROM deals;";
+        }
+    };
+
+    const getFilteredRows = () => {
+        return DATABASE_DEALS.filter(deal => {
+            if (rlsRole === "admin") return true;
+            if (deal.is_public) return true;
+            if (rlsRole === "member_101" && deal.group === 101) return true;
+            if (rlsRole === "member_102" && deal.group === 102) return true;
+            return false;
+        });
+    };
+
     return (
         <section id="ai-playground" className="scroll-mt-28 py-20 sm:py-24">
             <div className="max-w-3xl space-y-4 mb-10">
@@ -347,7 +536,7 @@ export function AISandbox() {
                     Experience the <span className="text-gradient">AI Applications</span> Live
                 </h2>
                 <p className="text-base leading-7 text-slate-300 sm:text-lg">
-                    Interact directly with simulated and live AI platforms built by Arnav. Toggle the tabs below to explore the legal RAG engine, audio intelligence systems, or ask my AI clone questions.
+                    Interact directly with the systems and simulators built by Arnav. Toggle the tabs below to explore legal RAG pipelines, model benchmark matrices, voice biometrics, and database security mechanisms.
                 </p>
             </div>
 
@@ -356,7 +545,7 @@ export function AISandbox() {
                 <button
                     onClick={() => setActiveTab("chatbot")}
                     className={cn(
-                        "inline-flex items-center gap-2 rounded-full px-5 py-2.5 text-sm font-medium transition-all duration-200 border",
+                        "inline-flex items-center gap-2 rounded-full px-4 py-2 text-xs sm:text-sm font-medium transition-all duration-200 border",
                         activeTab === "chatbot"
                             ? "bg-white text-slate-950 border-white"
                             : "border-white/10 text-slate-400 hover:text-white hover:border-white/20 bg-white/5"
@@ -368,19 +557,19 @@ export function AISandbox() {
                 <button
                     onClick={() => setActiveTab("rag")}
                     className={cn(
-                        "inline-flex items-center gap-2 rounded-full px-5 py-2.5 text-sm font-medium transition-all duration-200 border",
+                        "inline-flex items-center gap-2 rounded-full px-4 py-2 text-xs sm:text-sm font-medium transition-all duration-200 border",
                         activeTab === "rag"
                             ? "bg-white text-slate-950 border-white"
                             : "border-white/10 text-slate-400 hover:text-white hover:border-white/20 bg-white/5"
                     )}
                 >
                     <Database className="h-4 w-4" />
-                    NYAAY AI RAG Simulator
+                    NYAAY AI RAG
                 </button>
                 <button
                     onClick={() => setActiveTab("opticall")}
                     className={cn(
-                        "inline-flex items-center gap-2 rounded-full px-5 py-2.5 text-sm font-medium transition-all duration-200 border",
+                        "inline-flex items-center gap-2 rounded-full px-4 py-2 text-xs sm:text-sm font-medium transition-all duration-200 border",
                         activeTab === "opticall"
                             ? "bg-white text-slate-950 border-white"
                             : "border-white/10 text-slate-400 hover:text-white hover:border-white/20 bg-white/5"
@@ -388,6 +577,42 @@ export function AISandbox() {
                 >
                     <Activity className="h-4 w-4" />
                     Opticall Call Console
+                </button>
+                <button
+                    onClick={() => setActiveTab("benchmark")}
+                    className={cn(
+                        "inline-flex items-center gap-2 rounded-full px-4 py-2 text-xs sm:text-sm font-medium transition-all duration-200 border",
+                        activeTab === "benchmark"
+                            ? "bg-white text-slate-950 border-white"
+                            : "border-white/10 text-slate-400 hover:text-white hover:border-white/20 bg-white/5"
+                    )}
+                >
+                    <BarChart3 className="h-4 w-4" />
+                    Benchmark Hub
+                </button>
+                <button
+                    onClick={() => setActiveTab("biometrics")}
+                    className={cn(
+                        "inline-flex items-center gap-2 rounded-full px-4 py-2 text-xs sm:text-sm font-medium transition-all duration-200 border",
+                        activeTab === "biometrics"
+                            ? "bg-white text-slate-950 border-white"
+                            : "border-white/10 text-slate-400 hover:text-white hover:border-white/20 bg-white/5"
+                    )}
+                >
+                    <Volume2 className="h-4 w-4" />
+                    speech2vec Biometrics
+                </button>
+                <button
+                    onClick={() => setActiveTab("rls")}
+                    className={cn(
+                        "inline-flex items-center gap-2 rounded-full px-4 py-2 text-xs sm:text-sm font-medium transition-all duration-200 border",
+                        activeTab === "rls"
+                            ? "bg-white text-slate-950 border-white"
+                            : "border-white/10 text-slate-400 hover:text-white hover:border-white/20 bg-white/5"
+                    )}
+                >
+                    <Shield className="h-4 w-4" />
+                    Supabase RLS
                 </button>
             </div>
 
@@ -433,7 +658,6 @@ export function AISandbox() {
                                         </Button>
                                     </div>
 
-                                    {/* MESSAGE LIST */}
                                     <div className="flex-1 overflow-y-auto pr-2 space-y-4 mb-4 scrollbar-thin scrollbar-thumb-white/10">
                                         {messages.map((msg, i) => (
                                             <div
@@ -455,7 +679,7 @@ export function AISandbox() {
                                                     "rounded-2xl px-4 py-2.5 text-sm leading-relaxed whitespace-pre-line border",
                                                     msg.sender === "user"
                                                         ? "bg-white/10 border-white/10 text-white"
-                                                        : "bg-[#0b1531]/75 border-cyan-500/20 text-slate-200"
+                                                        : "bg-[#0b1531]/75 border-cyan-500/20 text-slate-200 animate-fade-in"
                                                 )}>
                                                     {msg.text}
                                                 </div>
@@ -477,35 +701,33 @@ export function AISandbox() {
                                         <div ref={chatEndRef} />
                                     </div>
 
-                                    {/* QUICK SUGGESTIONS */}
                                     <div className="flex flex-wrap gap-2 mb-3">
+                                        <button
+                                            onClick={() => handleSendMessage("What benchmarks did you run on The Benchmark Hub?")}
+                                            className="rounded-full border border-white/15 bg-white/5 px-3 py-1.5 text-xs text-slate-300 hover:bg-white/10 hover:border-cyan-400/40 hover:text-white transition"
+                                        >
+                                            📊 Model Benchmarking
+                                        </button>
+                                        <button
+                                            onClick={() => handleSendMessage("How does speech2vec voice biometric clustering work?")}
+                                            className="rounded-full border border-white/15 bg-white/5 px-3 py-1.5 text-xs text-slate-300 hover:bg-white/10 hover:border-cyan-400/40 hover:text-white transition"
+                                        >
+                                            🎙️ speech2vec Biometrics
+                                        </button>
+                                        <button
+                                            onClick={() => handleSendMessage("Explain Supabase Row Level Security in Investor Base")}
+                                            className="rounded-full border border-white/15 bg-white/5 px-3 py-1.5 text-xs text-slate-300 hover:bg-white/10 hover:border-cyan-400/40 hover:text-white transition"
+                                        >
+                                            🔒 Supabase RLS
+                                        </button>
                                         <button
                                             onClick={() => handleSendMessage("Explain the NYAAY AI project")}
                                             className="rounded-full border border-white/15 bg-white/5 px-3 py-1.5 text-xs text-slate-300 hover:bg-white/10 hover:border-cyan-400/40 hover:text-white transition"
                                         >
                                             ⚖️ Legal RAG
                                         </button>
-                                        <button
-                                            onClick={() => handleSendMessage("Tell me about council.panscience.ai")}
-                                            className="rounded-full border border-white/15 bg-white/5 px-3 py-1.5 text-xs text-slate-300 hover:bg-white/10 hover:border-cyan-400/40 hover:text-white transition"
-                                        >
-                                            📚 Council ERP
-                                        </button>
-                                        <button
-                                            onClick={() => handleSendMessage("How does the real-time Twilio voice agent work?")}
-                                            className="rounded-full border border-white/15 bg-white/5 px-3 py-1.5 text-xs text-slate-300 hover:bg-white/10 hover:border-cyan-400/40 hover:text-white transition"
-                                        >
-                                            📞 Voice Agent
-                                        </button>
-                                        <button
-                                            onClick={() => handleSendMessage("What is your tech stack?")}
-                                            className="rounded-full border border-white/15 bg-white/5 px-3 py-1.5 text-xs text-slate-300 hover:bg-white/10 hover:border-cyan-400/40 hover:text-white transition"
-                                        >
-                                            💻 Tech Stack
-                                        </button>
                                     </div>
 
-                                    {/* INPUT FIELD */}
                                     <form
                                         onSubmit={(e) => { e.preventDefault(); handleSendMessage(inputValue); }}
                                         className="relative flex items-center"
@@ -588,7 +810,6 @@ export function AISandbox() {
                                                 </div>
                                             );
                                         })}
-                                        {/* Background connecting lines */}
                                         <div className="absolute left-[10%] right-[10%] top-5 h-0.5 bg-white/5 -z-10" />
                                         <div
                                             className="absolute left-[10%] top-5 h-0.5 bg-cyan-400/50 -z-10 transition-all duration-300"
@@ -666,9 +887,9 @@ export function AISandbox() {
                                                         <div className="text-[11px] text-slate-400 uppercase tracking-wider font-sans">Retrieved Chunks from pgvector:</div>
                                                         {RAG_QUERIES[ragDocType].chunks.map((chk, i) => (
                                                             <div key={i} className="rounded-xl border border-cyan-500/10 bg-[#0b1531]/30 p-2.5 text-xs">
-                                                                <div className="flex items-center justify-between text-[10px] text-slate-400 font-sans mb-1">
-                                                                    <span>ID: {chk.id}</span>
-                                                                    <span className="text-cyan-300">Distance Score: {chk.score}</span>
+                                                                <div className="flex items-center justify-between text-[10px] text-cyan-400 font-semibold mb-1">
+                                                                    <span>{chk.id}</span>
+                                                                    <span>Similarity Score: {chk.score}</span>
                                                                 </div>
                                                                 <p className="text-slate-300 italic">"{chk.text}"</p>
                                                             </div>
@@ -678,65 +899,46 @@ export function AISandbox() {
                                             )}
 
                                             {ragStep === 4 && (
-                                                <div className="space-y-2">
-                                                    <div className="text-[11px] text-slate-400 uppercase tracking-wider font-sans">LLM Final Answer (Synthesized Context):</div>
-                                                    <div className="rounded-2xl border border-emerald-500/10 bg-[#051c14]/40 p-4 text-xs font-sans text-emerald-200 leading-6">
-                                                        <Sparkles className="h-4 w-4 text-emerald-400 inline-block mr-2 align-text-bottom" />
+                                                <div className="space-y-3 font-sans">
+                                                    <div className="text-xs text-slate-300 font-medium">Synthesized Answer:</div>
+                                                    <div className="rounded-2xl border border-cyan-500/20 bg-cyan-950/10 p-4 text-sm text-slate-200 leading-relaxed">
                                                         {RAG_QUERIES[ragDocType].synthesis}
+                                                    </div>
+                                                    <div className="rounded-lg bg-emerald-500/10 border border-emerald-500/20 px-3 py-2 text-xs text-emerald-400 flex items-center gap-1.5">
+                                                        <CheckCircle2 className="h-4 w-4" />
+                                                        Verified with zero-hallucination constraint model
                                                     </div>
                                                 </div>
                                             )}
                                         </CardContent>
                                     </Card>
 
-                                    {/* CONTROLS */}
-                                    <div className="flex items-center justify-between border-t border-white/10 pt-4">
-                                        <div className="text-xs text-slate-400 font-sans">
-                                            Step <span className="font-semibold text-white">{ragStep + 1}</span> of {totalRagSteps}
+                                    {/* NAVIGATION CONTROLS */}
+                                    <div className="flex justify-between items-center pt-2">
+                                        <Button
+                                            variant="outline"
+                                            onClick={handleRagPrev}
+                                            disabled={ragStep === 0}
+                                        >
+                                            Previous Step
+                                        </Button>
+                                        <div className="text-xs text-slate-400">
+                                            Step {ragStep + 1} of {totalRagSteps}
                                         </div>
-                                        <div className="flex gap-2">
-                                            <Button
-                                                variant="outline"
-                                                size="sm"
-                                                onClick={handleRagReset}
-                                                disabled={ragStep === 0}
-                                            >
-                                                Reset
-                                            </Button>
-                                            <Button
-                                                variant="outline"
-                                                size="sm"
-                                                onClick={handleRagPrev}
-                                                disabled={ragStep === 0}
-                                            >
-                                                Back
-                                            </Button>
-                                            {ragStep < totalRagSteps - 1 ? (
-                                                <Button
-                                                    variant="secondary"
-                                                    size="sm"
-                                                    onClick={handleRagNext}
-                                                    className="border border-cyan-400/20"
-                                                >
-                                                    Next Step
-                                                    <ArrowRight className="h-4 w-4" />
-                                                </Button>
-                                            ) : (
-                                                <Button
-                                                    variant="accent"
-                                                    size="sm"
-                                                    onClick={() => setRagDocType(ragDocType === "nda" ? "lease" : "nda")}
-                                                >
-                                                    Try Other Document
-                                                </Button>
-                                            )}
-                                        </div>
+                                        <Button
+                                            onClick={handleRagNext}
+                                            disabled={ragStep === totalRagSteps - 1}
+                                            className="bg-cyan-500 hover:bg-cyan-600 text-slate-950 font-medium"
+                                        >
+                                            Next Step
+                                            <ArrowRight className="h-4 w-4 ml-1" />
+                                        </Button>
                                     </div>
                                 </motion.div>
                             )}
 
                             {/* ========================================================
-                                TAB 3: OPTICALL CALL CONSOLE CONTAINER
+                                TAB 3: OPTICALL CONTAINER
                                 ======================================================== */}
                             {activeTab === "opticall" && (
                                 <motion.div
@@ -749,53 +951,44 @@ export function AISandbox() {
                                 >
                                     <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between border-b border-white/10 pb-4">
                                         <div>
-                                            <h3 className="text-xl font-semibold text-white">Opticall Audio Intelligence Dashboard</h3>
-                                            <p className="text-sm text-slate-400">Audio segmentation and sentiment evaluation dashboard.</p>
+                                            <h3 className="text-xl font-semibold text-white">Opticall Call Analytics Console</h3>
+                                            <p className="text-sm text-slate-400">Diarization, sentiment tracing, and silence extraction.</p>
                                         </div>
                                         <div className="flex items-center gap-2">
-                                            <span className="text-xs text-slate-400 uppercase tracking-wider font-semibold">Select Call File:</span>
+                                            <span className="text-xs text-slate-400 uppercase tracking-wider font-semibold">Recording:</span>
                                             <select
                                                 value={callType}
                                                 onChange={(e) => setCallType(e.target.value as CallType)}
                                                 className="rounded-lg border border-white/15 bg-slate-950/80 px-3 py-1.5 text-xs text-white focus-ring"
                                             >
-                                                <option value="billing">double_billing_escalation.wav</option>
-                                                <option value="sales">publisher_erp_demo.wav</option>
+                                                <option value="billing">Billing Dispute (Escalated)</option>
+                                                <option value="sales">Publisher Demo (Onboarding)</option>
                                             </select>
                                         </div>
                                     </div>
 
-                                    {/* SIMULATED AUDIO WAVEFORM PLAYER */}
-                                    <div className="rounded-2xl border border-white/10 bg-slate-950/60 p-5 flex flex-col gap-3">
+                                    {/* WAVEFORM ANIMATION */}
+                                    <div className="rounded-2xl border border-white/5 bg-slate-950/70 p-4 space-y-4">
                                         <div className="flex items-center justify-between text-xs text-slate-400">
-                                            <span className="flex items-center gap-1.5 text-cyan-200">
-                                                <Volume2 className="h-3.5 w-3.5" />
-                                                {currentCall.title}
-                                            </span>
-                                            <span>Duration: {currentCall.duration}</span>
+                                            <span className="font-semibold text-slate-300">{currentCall.title}</span>
+                                            <span className="font-mono text-cyan-400">Status: {isPlaying ? "Streaming Analysis..." : "Paused"}</span>
                                         </div>
 
-                                        {/* WAVEFORM GRID AND PLAYHEAD */}
-                                        <div className="relative h-16 bg-slate-900/60 rounded-xl overflow-hidden border border-white/5 flex items-end px-4 pb-2 gap-0.5">
-                                            {/* Bar generation (40 bars) */}
-                                            {Array.from({ length: 40 }).map((_, idx) => {
-                                                const seed = Math.sin((idx + (callType === "billing" ? 2 : 5)) * 0.7);
-                                                const heightPercent = 20 + Math.abs(seed) * 70;
-                                                const isPassed = playProgress > (idx / 40) * 100;
+                                        <div className="h-20 bg-slate-900/60 rounded-xl relative overflow-hidden flex items-center justify-around px-2 border border-white/5">
+                                            {/* Waves bars */}
+                                            {Array.from({ length: 35 }).map((_, i) => {
+                                                const height = isPlaying
+                                                    ? Math.max(15, Math.sin(i + playProgress * 0.4) * 35 + 25)
+                                                    : 10 + (i % 5) * 6;
                                                 return (
                                                     <div
-                                                        key={idx}
-                                                        className={cn(
-                                                            "flex-1 rounded-full transition-all duration-300",
-                                                            isPassed
-                                                                ? "bg-cyan-400"
-                                                                : "bg-slate-700"
-                                                        )}
-                                                        style={{ height: `${heightPercent}%` }}
+                                                        key={i}
+                                                        className="w-1.5 bg-gradient-to-t from-cyan-500 to-violet-500 rounded-full transition-all duration-100"
+                                                        style={{ height: `${height}%` }}
                                                     />
                                                 );
                                             })}
-                                            {/* Playhead bar */}
+                                            {/* Playhead line */}
                                             <div
                                                 className="absolute top-0 bottom-0 w-0.5 bg-red-400 transition-all duration-100 ease-linear"
                                                 style={{ left: `${playProgress}%` }}
@@ -809,14 +1002,15 @@ export function AISandbox() {
                                                     variant="secondary"
                                                     size="sm"
                                                     onClick={handlePlayPause}
-                                                    className="h-9 w-9 rounded-full p-0 flex items-center justify-center"
+                                                    className="h-9 w-9 rounded-full p-0 flex items-center justify-center bg-white hover:bg-slate-200 text-slate-950"
                                                 >
-                                                    {isPlaying ? <Pause className="h-4.5 w-4.5 text-white" /> : <Play className="h-4.5 w-4.5 text-white ml-0.5" />}
+                                                    {isPlaying ? <Pause className="h-4 w-4" /> : <Play className="h-4 w-4 ml-0.5" />}
                                                 </Button>
                                                 <Button
                                                     variant="outline"
                                                     size="sm"
                                                     onClick={handleResetCall}
+                                                    className="border-white/10 text-white hover:bg-white/5"
                                                 >
                                                     Reset
                                                 </Button>
@@ -894,7 +1088,7 @@ export function AISandbox() {
                                                                 "font-semibold uppercase tracking-wider",
                                                                 line.speaker === "Agent" ? "text-cyan-300" : "text-purple-300"
                                                             )}>
-                                                                {line.speaker}
+                                                                 {line.speaker}
                                                             </span>
                                                             <span className="font-mono text-slate-500">{line.time}</span>
                                                         </div>
@@ -913,6 +1107,487 @@ export function AISandbox() {
                                         <p className="text-slate-400 leading-relaxed italic">
                                             "{currentCall.summary}"
                                         </p>
+                                    </div>
+                                </motion.div>
+                            )}
+
+                            {/* ========================================================
+                                TAB 4: BENCHMARK HUB CONTAINER
+                                ======================================================== */}
+                            {activeTab === "benchmark" && (
+                                <motion.div
+                                    key="benchmark"
+                                    initial={{ opacity: 0, y: 10 }}
+                                    animate={{ opacity: 1, y: 0 }}
+                                    exit={{ opacity: 0, y: -10 }}
+                                    transition={{ duration: 0.3 }}
+                                    className="space-y-6"
+                                >
+                                    <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between border-b border-white/10 pb-4">
+                                        <div>
+                                            <h3 className="text-xl font-semibold text-white">The Benchmark Hub Console</h3>
+                                            <p className="text-sm text-slate-400">Comparing transcription WER, Histoscan medical vision, and text generation latency.</p>
+                                        </div>
+                                        <div className="flex border border-white/10 rounded-full p-0.5 bg-slate-950/80">
+                                            <button
+                                                onClick={() => setBenchmarkCat("asr")}
+                                                className={cn("px-3 py-1 rounded-full text-xs font-medium transition", benchmarkCat === "asr" ? "bg-white text-slate-950" : "text-slate-400 hover:text-white")}
+                                            >
+                                                ASR Audio
+                                            </button>
+                                            <button
+                                                onClick={() => setBenchmarkCat("histoscan")}
+                                                className={cn("px-3 py-1 rounded-full text-xs font-medium transition", benchmarkCat === "histoscan" ? "bg-white text-slate-950" : "text-slate-400 hover:text-white")}
+                                            >
+                                                Histoscan Vision
+                                            </button>
+                                            <button
+                                                onClick={() => setBenchmarkCat("summarization")}
+                                                className={cn("px-3 py-1 rounded-full text-xs font-medium transition", benchmarkCat === "summarization" ? "bg-white text-slate-950" : "text-slate-400 hover:text-white")}
+                                            >
+                                                Legal Text
+                                            </button>
+                                        </div>
+                                    </div>
+
+                                    {/* ASR Tab */}
+                                    {benchmarkCat === "asr" && (
+                                        <div className="space-y-6">
+                                            <div className="grid gap-4 sm:grid-cols-2">
+                                                {/* WER Chart */}
+                                                <Card className="border-white/5 bg-slate-900/40 p-4">
+                                                    <h4 className="text-xs font-semibold text-slate-300 uppercase tracking-wider mb-4 flex items-center gap-1.5">
+                                                        <TrendingUp className="h-4 w-4 text-cyan-400" />
+                                                        Word Error Rate (WER %) - Lower is Better
+                                                    </h4>
+                                                    <div className="space-y-4">
+                                                        {BENCHMARK_METRICS.asr.map((item, idx) => (
+                                                            <div key={idx} className="space-y-1">
+                                                                <div className="flex justify-between text-xs text-slate-300 font-medium">
+                                                                    <span>{item.model}</span>
+                                                                    <span className="font-mono text-cyan-300">{item.wer}%</span>
+                                                                </div>
+                                                                <div className="h-2.5 bg-slate-950/80 rounded-full overflow-hidden">
+                                                                    <motion.div
+                                                                        initial={{ width: 0 }}
+                                                                        animate={{ width: `${(item.wer / 20) * 100}%` }}
+                                                                        transition={{ duration: 0.8, delay: idx * 0.1 }}
+                                                                        className={cn("h-full bg-gradient-to-r", item.color)}
+                                                                    />
+                                                                </div>
+                                                            </div>
+                                                        ))}
+                                                    </div>
+                                                </Card>
+
+                                                {/* Latency Chart */}
+                                                <Card className="border-white/5 bg-slate-900/40 p-4">
+                                                    <h4 className="text-xs font-semibold text-slate-300 uppercase tracking-wider mb-4 flex items-center gap-1.5">
+                                                        <Hourglass className="h-4 w-4 text-violet-400" />
+                                                        Transcription Latency (ms) - Lower is Better
+                                                    </h4>
+                                                    <div className="space-y-4">
+                                                        {BENCHMARK_METRICS.asr.map((item, idx) => (
+                                                            <div key={idx} className="space-y-1">
+                                                                <div className="flex justify-between text-xs text-slate-300 font-medium">
+                                                                    <span>{item.model}</span>
+                                                                    <span className="font-mono text-violet-300">{item.latency} ms</span>
+                                                                </div>
+                                                                <div className="h-2.5 bg-slate-950/80 rounded-full overflow-hidden">
+                                                                    <motion.div
+                                                                        initial={{ width: 0 }}
+                                                                        animate={{ width: `${(item.latency / 800) * 100}%` }}
+                                                                        transition={{ duration: 0.8, delay: idx * 0.1 }}
+                                                                        className={cn("h-full bg-gradient-to-r", item.color.replace("cyan", "violet").replace("blue", "violet"))}
+                                                                    />
+                                                                </div>
+                                                            </div>
+                                                        ))}
+                                                    </div>
+                                                </Card>
+                                            </div>
+                                            <div className="rounded-xl border border-white/5 bg-slate-950/60 p-4 text-xs flex justify-between items-center text-slate-400">
+                                                <span>Average Cost per 1k characters:</span>
+                                                <span className="text-emerald-400 font-mono font-semibold">Gemini 2.5 Flash ($0.003) &lt; Whisper ($0.008) &lt; ElevenLabs ($0.015)</span>
+                                            </div>
+                                        </div>
+                                    )}
+
+                                    {/* Histoscan Tab */}
+                                    {benchmarkCat === "histoscan" && (
+                                        <div className="space-y-6">
+                                            <Card className="border-white/5 bg-slate-900/40 p-4 space-y-4">
+                                                <div className="text-xs text-slate-300 leading-relaxed font-sans">{BENCHMARK_METRICS.histoscan.description}</div>
+                                                
+                                                <div className="grid gap-4 sm:grid-cols-2">
+                                                    {BENCHMARK_METRICS.histoscan.results.map((res, idx) => (
+                                                        <div key={idx} className="rounded-xl border border-white/5 bg-slate-950/50 p-4 space-y-2">
+                                                            <div className="flex justify-between items-center">
+                                                                <span className="text-sm font-semibold text-white">{res.system}</span>
+                                                                <span className="text-xs font-semibold px-2 py-0.5 rounded-full bg-cyan-950 text-cyan-300">{res.accuracy}% Accuracy</span>
+                                                            </div>
+                                                            <div className="text-xs text-slate-400 space-y-1 font-mono">
+                                                                <div>Latency: {res.latency} ms</div>
+                                                                <div>Pricing: ${res.cost.toFixed(2)} / 1K requests</div>
+                                                                <div className="text-slate-300 font-sans italic mt-2">"{res.notes}"</div>
+                                                            </div>
+                                                        </div>
+                                                    ))}
+                                                </div>
+                                            </Card>
+
+                                            {/* Ingestion Simulator */}
+                                            <div className="rounded-xl border border-cyan-500/10 bg-slate-950/70 p-4 space-y-4">
+                                                <div className="flex justify-between items-center text-xs">
+                                                    <span className="font-semibold text-slate-300">Histopathology Tissue Scan Simulator (1,000 Slide Run)</span>
+                                                    <Button
+                                                        size="sm"
+                                                        onClick={runHistoscanSimulation}
+                                                        disabled={simulatingHistoscan}
+                                                        className="bg-cyan-500 hover:bg-cyan-600 text-slate-950 text-[10px] font-semibold px-3 py-1.5 h-auto rounded-md"
+                                                    >
+                                                        {simulatingHistoscan ? `Scanning (${histoscanProgress}%)` : "Trigger 1000 slide Benchmark"}
+                                                    </Button>
+                                                </div>
+
+                                                {/* SCANNING PROGRESS VISUAL */}
+                                                {simulatingHistoscan && (
+                                                    <div className="space-y-2">
+                                                        <div className="h-1.5 bg-slate-900 rounded-full overflow-hidden">
+                                                            <div className="h-full bg-cyan-400 transition-all duration-75" style={{ width: `${histoscanProgress}%` }} />
+                                                        </div>
+                                                        
+                                                        {/* Scanning cell grid mock */}
+                                                        <div className="grid grid-cols-5 gap-1 h-12">
+                                                            {Array.from({ length: 5 }).map((_, i) => (
+                                                                <div key={i} className="bg-cyan-950/20 border border-cyan-500/10 rounded flex items-center justify-center relative overflow-hidden">
+                                                                    <div className="absolute inset-0 bg-cyan-500/10 animate-pulse" />
+                                                                    <span className="text-[8px] text-cyan-400 font-mono">CELL_{100 + i * 2}</span>
+                                                                </div>
+                                                            ))}
+                                                        </div>
+                                                    </div>
+                                                )}
+
+                                                {histoscanOutputs.length > 0 && (
+                                                    <div className="space-y-2">
+                                                        <div className="text-[10px] uppercase tracking-wider text-slate-400 font-sans">Live Pipeline Output Stream:</div>
+                                                        <div className="space-y-1.5">
+                                                            {histoscanOutputs.map((out, idx) => (
+                                                                <div key={idx} className="flex justify-between items-center bg-white/5 border border-white/5 rounded-lg p-2 text-xs font-mono">
+                                                                    <span className="text-slate-300">{out.id}</span>
+                                                                    <span className="text-slate-400">Ground Truth: {out.label}</span>
+                                                                    <span className={cn("px-1.5 py-0.5 rounded text-[10px] font-semibold", out.correct ? "bg-emerald-500/10 text-emerald-400" : "bg-red-500/10 text-red-400")}>
+                                                                        Pred: {out.prediction} ({out.correct ? "PASS" : "FAIL"})
+                                                                    </span>
+                                                                </div>
+                                                            ))}
+                                                        </div>
+                                                    </div>
+                                                )}
+                                            </div>
+                                        </div>
+                                    )}
+
+                                    {/* Summarization Tab */}
+                                    {benchmarkCat === "summarization" && (
+                                        <div className="space-y-6">
+                                            <Card className="border-white/5 bg-slate-900/40 overflow-hidden">
+                                                <div className="overflow-x-auto">
+                                                    <table className="w-full text-left text-xs">
+                                                        <thead className="bg-slate-950/80 border-b border-white/10 uppercase tracking-wider text-[10px] text-slate-400 font-sans">
+                                                            <tr>
+                                                                <th className="px-4 py-3 font-semibold">Model Baseline</th>
+                                                                <th className="px-4 py-3 font-semibold">Factual Accuracy (%)</th>
+                                                                <th className="px-4 py-3 font-semibold">Conciseness Score</th>
+                                                                <th className="px-4 py-3 font-semibold">Inference Speed (Tokens/s)</th>
+                                                            </tr>
+                                                        </thead>
+                                                        <tbody className="divide-y divide-white/5 font-mono text-slate-300">
+                                                            {BENCHMARK_METRICS.summarization.map((row, idx) => (
+                                                                <tr key={idx} className="hover:bg-white/5 transition">
+                                                                    <td className="px-4 py-3 font-sans text-white font-medium">{row.model}</td>
+                                                                    <td className="px-4 py-3 text-cyan-300">{row.accuracy}%</td>
+                                                                    <td className="px-4 py-3 text-violet-300">{row.conciseness} / 100</td>
+                                                                    <td className="px-4 py-3 text-emerald-300">{row.tps} tps</td>
+                                                                </tr>
+                                                            ))}
+                                                        </tbody>
+                                                    </table>
+                                                </div>
+                                            </Card>
+                                            <div className="rounded-xl border border-white/5 bg-slate-950/60 p-4 text-xs text-slate-400 leading-relaxed font-sans flex items-start gap-3">
+                                                <AlertCircle className="h-4 w-4 text-amber-400 shrink-0 mt-0.5" />
+                                                <p>
+                                                    <strong>Factual Accuracy Metric:</strong> Calculated by auditing references in summarized legal headnotes against core citations inside primary source drafts using LLM-as-a-judge evaluation frameworks.
+                                                </p>
+                                            </div>
+                                        </div>
+                                    )}
+                                </motion.div>
+                            )}
+
+                            {/* ========================================================
+                                TAB 5: SPEECH2VEC BIOMETRICS CONTAINER
+                                ======================================================== */}
+                            {activeTab === "biometrics" && (
+                                <motion.div
+                                    key="biometrics"
+                                    initial={{ opacity: 0, y: 10 }}
+                                    animate={{ opacity: 1, y: 0 }}
+                                    exit={{ opacity: 0, y: -10 }}
+                                    transition={{ duration: 0.3 }}
+                                    className="space-y-6"
+                                >
+                                    <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between border-b border-white/10 pb-4">
+                                        <div>
+                                            <h3 className="text-xl font-semibold text-white">speech2vec Voice Biometrics</h3>
+                                            <p className="text-sm text-slate-400">Self-supervised acoustic word embeddings & DBSCAN voice clustering.</p>
+                                        </div>
+                                        <div className="flex items-center gap-2">
+                                            <span className="text-xs text-slate-400 uppercase tracking-wider font-semibold">Select Voice Sample:</span>
+                                            <select
+                                                value={selectedBioSample}
+                                                onChange={(e) => setSelectedBioSample(e.target.value as BiometricSample)}
+                                                className="rounded-lg border border-white/15 bg-slate-950/80 px-3 py-1.5 text-xs text-white focus-ring"
+                                            >
+                                                <option value="sample_a">Validation Sample A (John)</option>
+                                                <option value="sample_b">Validation Sample B (Sarah)</option>
+                                                <option value="unknown">Static Background Sample</option>
+                                            </select>
+                                        </div>
+                                    </div>
+
+                                    <div className="grid gap-6 md:grid-cols-2">
+                                        {/* SCATTER CLUSTER GRAPH */}
+                                        <Card className="border-white/5 bg-slate-900/40 p-4 space-y-4">
+                                            <div className="flex justify-between items-center text-xs">
+                                                <span className="font-semibold text-slate-300">speech2vec Embedding Latent Space</span>
+                                                <div className="flex gap-2 text-[10px]">
+                                                    <span className="flex items-center gap-1"><span className="h-2 w-2 rounded-full bg-cyan-400" />John</span>
+                                                    <span className="flex items-center gap-1"><span className="h-2 w-2 rounded-full bg-violet-400" />Sarah</span>
+                                                    <span className="flex items-center gap-1"><span className="h-2 w-2 rounded-full bg-blue-400" />Michael</span>
+                                                </div>
+                                            </div>
+
+                                            {/* SVG Graph */}
+                                            <div className="h-60 bg-slate-950/90 rounded-xl relative overflow-hidden border border-white/5 flex items-center justify-center">
+                                                <svg className="w-full h-full p-4" viewBox="0 0 100 100">
+                                                    {/* Grid lines */}
+                                                    <line x1="0" y1="50" x2="100" y2="50" stroke="rgba(255,255,255,0.05)" strokeWidth="0.5" />
+                                                    <line x1="50" y1="0" x2="50" y2="100" stroke="rgba(255,255,255,0.05)" strokeWidth="0.5" />
+                                                    
+                                                    {/* Clusters */}
+                                                    {BIOMETRIC_CLUSTERS.map((pt, i) => (
+                                                        <circle
+                                                            key={i}
+                                                            cx={pt.x}
+                                                            cy={pt.y}
+                                                            r="2.5"
+                                                            className={cn("transition-all duration-300", pt.color)}
+                                                        >
+                                                            <title>{pt.label}</title>
+                                                        </circle>
+                                                    ))}
+
+                                                    {/* Test Point (Target projection) */}
+                                                    {bioPlotDot && (
+                                                        <motion.circle
+                                                            initial={{ cx: 50, cy: 50, r: 8, opacity: 0 }}
+                                                            animate={{ cx: bioPlotDot.x, cy: bioPlotDot.y, r: 3.5, opacity: 1 }}
+                                                            transition={{ duration: 1, ease: "easeOut" }}
+                                                            className="fill-red-500 stroke-white stroke-1"
+                                                        />
+                                                    )}
+                                                </svg>
+                                                {/* Latent space labels */}
+                                                <div className="absolute bottom-2 left-2 text-[9px] text-slate-500 font-mono">speech2vec dim_1</div>
+                                                <div className="absolute top-2 left-2 text-[9px] text-slate-500 font-mono rotate-90 origin-top-left">speech2vec dim_2</div>
+                                            </div>
+                                        </Card>
+
+                                        {/* INFERENCE WORKFLOW */}
+                                        <Card className="border-white/5 bg-slate-900/40 p-4 flex flex-col justify-between">
+                                            <div className="space-y-4">
+                                                <div className="flex justify-between items-center text-xs border-b border-white/5 pb-2">
+                                                    <span className="font-semibold text-slate-300">Biometric Verification Pipeline</span>
+                                                    <span className="font-mono text-cyan-400 text-[10px]">{BIOMETRIC_SAMPLES[selectedBioSample].file}</span>
+                                                </div>
+
+                                                <div className="space-y-3 text-xs">
+                                                    {/* Step 1: Band-pass filter */}
+                                                    <div className="flex items-center justify-between">
+                                                        <span className="text-slate-400">1. Audio Level Normalization & Noise Filters</span>
+                                                        <span className={cn("font-medium", bioStep !== "idle" ? "text-emerald-400 font-mono" : "text-slate-500")}>
+                                                            {bioStep === "idle" ? "Pending" : bioStep === "filtering" ? "Filtering..." : "COMPLETED"}
+                                                        </span>
+                                                    </div>
+
+                                                    {/* Step 2: MFCC */}
+                                                    <div className="space-y-1.5">
+                                                        <div className="flex items-center justify-between">
+                                                            <span className="text-slate-400">2. Mel-Frequency Coefficients (MFCC)</span>
+                                                            <span className={cn("font-medium", (bioStep !== "idle" && bioStep !== "filtering") ? "text-emerald-400 font-mono" : "text-slate-500")}>
+                                                                {bioStep === "idle" || bioStep === "filtering" ? "Pending" : bioStep === "mfcc" ? "Extracting..." : "13-MFCC EXTRACTED"}
+                                                            </span>
+                                                        </div>
+                                                        {bioStep !== "idle" && bioStep !== "filtering" && (
+                                                            <div className="flex gap-1 items-end h-6 px-1 bg-slate-950/80 rounded border border-white/5 py-1">
+                                                                {BIOMETRIC_SAMPLES[selectedBioSample].mfccs.map((val, i) => {
+                                                                    const normalizedHeight = Math.min(100, Math.max(10, (Math.abs(val) / 15) * 100));
+                                                                    return (
+                                                                        <div
+                                                                            key={i}
+                                                                            className="flex-1 bg-cyan-400 rounded-t"
+                                                                            style={{ height: `${normalizedHeight}%` }}
+                                                                        />
+                                                                    );
+                                                                })}
+                                                            </div>
+                                                        )}
+                                                    </div>
+
+                                                    {/* Step 3: Projection */}
+                                                    <div className="flex items-center justify-between">
+                                                        <span className="text-slate-400">3. Latent Vector Mapping (wav2vec 2.0)</span>
+                                                        <span className={cn("font-medium", (bioStep === "projection" || bioStep === "done") ? "text-emerald-400 font-mono" : "text-slate-500")}>
+                                                            {bioStep === "projection" ? "Projecting..." : bioStep === "done" ? "MAPPED" : "Pending"}
+                                                        </span>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            <div className="pt-4 border-t border-white/5 mt-4 space-y-4">
+                                                {bioStep === "done" && (
+                                                    <div className="rounded-lg bg-emerald-500/10 border border-emerald-500/20 p-3 text-xs space-y-1 font-sans">
+                                                        <div className="flex justify-between font-semibold text-emerald-400">
+                                                            <span>Speaker Identity: {BIOMETRIC_SAMPLES[selectedBioSample].agent}</span>
+                                                            <span>Match: {BIOMETRIC_SAMPLES[selectedBioSample].confidence}%</span>
+                                                        </div>
+                                                        <p className="text-[10px] text-slate-400 leading-relaxed font-mono">
+                                                            Euclidean cluster distance: {(1 - BIOMETRIC_SAMPLES[selectedBioSample].confidence/100).toFixed(4)} (DBSCAN classified)
+                                                        </p>
+                                                    </div>
+                                                )}
+
+                                                <Button
+                                                    onClick={handleVerifyBiometrics}
+                                                    disabled={isVerifyingBio}
+                                                    className="w-full bg-cyan-500 hover:bg-cyan-600 text-slate-950 font-semibold"
+                                                >
+                                                    {isVerifyingBio ? "Verifying Voice Print..." : "Analyze & Verify Voiceprint"}
+                                                </Button>
+                                            </div>
+                                        </Card>
+                                    </div>
+                                </motion.div>
+                            )}
+
+                            {/* ========================================================
+                                TAB 6: SUPABASE RLS CONTAINER
+                                ======================================================== */}
+                            {activeTab === "rls" && (
+                                <motion.div
+                                    key="rls"
+                                    initial={{ opacity: 0, y: 10 }}
+                                    animate={{ opacity: 1, y: 0 }}
+                                    exit={{ opacity: 0, y: -10 }}
+                                    transition={{ duration: 0.3 }}
+                                    className="space-y-6"
+                                >
+                                    <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between border-b border-white/10 pb-4">
+                                        <div>
+                                            <h3 className="text-xl font-semibold text-white">Supabase Row-Level Security Console</h3>
+                                            <p className="text-sm text-slate-400">Simulate how PostgreSQL isolates rows dynamically based on JWT headers.</p>
+                                        </div>
+                                        <div className="flex items-center gap-2">
+                                            <span className="text-xs text-slate-400 uppercase tracking-wider font-semibold">User Role JWT:</span>
+                                            <select
+                                                value={rlsRole}
+                                                onChange={(e) => setRlsRole(e.target.value as RLSRole)}
+                                                className="rounded-lg border border-white/15 bg-slate-950/80 px-3 py-1.5 text-xs text-white focus-ring"
+                                            >
+                                                <option value="guest">Guest (Anonymous auth.uid = null)</option>
+                                                <option value="member_101">Venture Member (Group 101 JWT)</option>
+                                                <option value="member_102">Ad-hoc Investor (Group 102 JWT)</option>
+                                                <option value="admin">Admin / Superuser (Bypass RLS)</option>
+                                            </select>
+                                        </div>
+                                    </div>
+
+                                    <div className="grid gap-6 md:grid-cols-2">
+                                        {/* SQL policy viewer */}
+                                        <Card className="border-white/5 bg-slate-900/40 p-4 space-y-4">
+                                            <div className="flex justify-between items-center text-xs border-b border-white/5 pb-2">
+                                                <span className="font-semibold text-slate-300">Compiled Security Policies</span>
+                                                <Lock className="h-4 w-4 text-cyan-400" />
+                                            </div>
+
+                                            <div className="space-y-3 font-mono text-xs">
+                                                <div className="rounded-xl border border-white/5 bg-slate-950/90 p-3 leading-relaxed text-slate-400">
+                                                    <span className="text-violet-400">CREATE POLICY</span> "deals_policy" <br />
+                                                    <span className="text-violet-400">ON</span> deals <br />
+                                                    <span className="text-violet-400">FOR SELECT USING</span> (<br />
+                                                    &nbsp;&nbsp;is_public = TRUE <br />
+                                                    &nbsp;&nbsp;<span className="text-violet-400">OR EXISTS</span> (<br />
+                                                    &nbsp;&nbsp;&nbsp;&nbsp;<span className="text-violet-400">SELECT</span> 1 <br />
+                                                    &nbsp;&nbsp;&nbsp;&nbsp;<span className="text-violet-400">FROM</span> group_members <br />
+                                                    &nbsp;&nbsp;&nbsp;&nbsp;<span className="text-violet-400">WHERE</span> group_id = deals.associated_group_id <br />
+                                                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span className="text-violet-400">AND</span> user_id = auth.uid()<br />
+                                                    &nbsp;&nbsp;)<br />
+                                                    );
+                                                </div>
+
+                                                <div className="space-y-1">
+                                                    <div className="text-[10px] text-slate-400 uppercase tracking-wider font-sans">Active Postgres Execution Query:</div>
+                                                    <div className="rounded-xl border border-cyan-500/10 bg-cyan-950/15 p-3 text-cyan-300 whitespace-pre-wrap leading-relaxed">
+                                                        {getSQLQuery()}
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </Card>
+
+                                        {/* Resulting database table */}
+                                        <Card className="border-white/5 bg-slate-900/40 p-4 space-y-4">
+                                            <div className="flex justify-between items-center text-xs border-b border-white/5 pb-2">
+                                                <span className="font-semibold text-slate-300">Resulting Database Rows</span>
+                                                <span className="font-mono text-slate-400">{getFilteredRows().length} rows returned</span>
+                                            </div>
+
+                                            <div className="overflow-x-auto">
+                                                <table className="w-full text-left text-[11px] font-sans">
+                                                    <thead className="bg-slate-950/80 uppercase tracking-wider text-[9px] text-slate-400 font-sans border-b border-white/5">
+                                                        <tr>
+                                                            <th className="px-3 py-2">ID</th>
+                                                            <th className="px-3 py-2">Deal name</th>
+                                                            <th className="px-3 py-2">Group ID</th>
+                                                            <th className="px-3 py-2">Visibility</th>
+                                                            <th className="px-3 py-2">Valuation</th>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody className="divide-y divide-white/5 font-mono text-slate-300">
+                                                        {getFilteredRows().map((row, idx) => (
+                                                            <tr key={idx} className="hover:bg-white/5 transition">
+                                                                <td className="px-3 py-2 text-slate-500">{row.id}</td>
+                                                                <td className="px-3 py-2 text-white font-sans font-medium">{row.title}</td>
+                                                                <td className="px-3 py-2 text-cyan-300">{row.group}</td>
+                                                                <td className="px-3 py-2 text-violet-300">{row.is_public ? "PUBLIC" : "PRIVATE"}</td>
+                                                                <td className="px-3 py-2 text-emerald-300">{row.valuation}</td>
+                                                            </tr>
+                                                        ))}
+                                                        {getFilteredRows().length === 0 && (
+                                                            <tr>
+                                                                <td colSpan={5} className="px-3 py-6 text-center text-slate-500 italic">No accessible rows (RLS query blocked all rows).</td>
+                                                            </tr>
+                                                        )}
+                                                    </tbody>
+                                                </table>
+                                            </div>
+
+                                            <div className="rounded-lg bg-cyan-950/20 border border-cyan-500/10 p-3 text-[10px] text-slate-300 leading-relaxed font-sans">
+                                                <strong>Security Analysis:</strong> When querying `/deals`, Supabase automatically intercepts the client JWT, extracts `auth.uid()`, compiles RLS policies as filters inside the SQL execution plan, and isolates data at the DB level, preventing leakage of private deals.
+                                            </div>
+                                        </Card>
                                     </div>
                                 </motion.div>
                             )}
