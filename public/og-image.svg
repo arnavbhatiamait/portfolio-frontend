@@ -1,0 +1,23 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 630" fill="none">
+  <defs>
+    <linearGradient id="bg" x1="88" y1="48" x2="1102" y2="586" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#020617" />
+      <stop offset="0.55" stop-color="#0f172a" />
+      <stop offset="1" stop-color="#1e1b4b" />
+    </linearGradient>
+    <linearGradient id="accent" x1="176" y1="132" x2="1028" y2="498" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#22d3ee" />
+      <stop offset="0.48" stop-color="#3b82f6" />
+      <stop offset="1" stop-color="#a855f7" />
+    </linearGradient>
+  </defs>
+  <rect width="1200" height="630" rx="48" fill="url(#bg)" />
+  <circle cx="1020" cy="140" r="180" fill="#8b5cf620" />
+  <circle cx="180" cy="520" r="220" fill="#06b6d420" />
+  <rect x="88" y="88" width="1024" height="454" rx="36" fill="#ffffff08" stroke="#ffffff14" />
+  <text x="148" y="190" fill="white" font-size="64" font-family="Arial, Helvetica, sans-serif" font-weight="700">Arnav Bhatia</text>
+  <text x="148" y="252" fill="#cbd5e1" font-size="28" font-family="Arial, Helvetica, sans-serif">AI/ML Engineer | Generative AI Developer | Full Stack Developer</text>
+  <text x="148" y="328" fill="#e2e8f0" font-size="36" font-family="Arial, Helvetica, sans-serif" font-weight="600">Building AI-powered applications, intelligent automation systems, and scalable cloud solutions.</text>
+  <rect x="148" y="392" width="440" height="12" rx="6" fill="url(#accent)" />
+  <text x="148" y="472" fill="#93c5fd" font-size="24" font-family="Arial, Helvetica, sans-serif">Next.js • FastAPI • Framer Motion • Tailwind CSS • AI/ML</text>
+</svg>
