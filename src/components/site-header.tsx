@@ -33,9 +33,9 @@ export function SiteHeader({ content }: SiteHeaderProps) {
             }
         } else {
         */
-            // Default to dark mode unconditionally for now
-            setTheme("dark");
-            document.documentElement.classList.add("dark");
+        // Default to dark mode unconditionally for now
+        setTheme("dark");
+        document.documentElement.classList.add("dark");
         /*
         }
         */
