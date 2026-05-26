@@ -23,6 +23,7 @@ export function SiteHeader({ content }: SiteHeaderProps) {
 
         // Theme initialization
         const savedTheme = localStorage.getItem("portfolio-theme") as "light" | "dark" | null;
+        /*
         if (savedTheme) {
             setTheme(savedTheme);
             if (savedTheme === "dark") {
@@ -31,15 +32,19 @@ export function SiteHeader({ content }: SiteHeaderProps) {
                 document.documentElement.classList.remove("dark");
             }
         } else {
-            // Default to dark mode if no saved preference
+        */
+            // Default to dark mode unconditionally for now
             setTheme("dark");
             document.documentElement.classList.add("dark");
+        /*
         }
+        */
 
         return () => window.removeEventListener("hashchange", handleRoute);
     }, []);
 
     const toggleTheme = () => {
+        /* Light mode functionality temporarily commented out
         const nextTheme = theme === "dark" ? "light" : "dark";
         setTheme(nextTheme);
         localStorage.setItem("portfolio-theme", nextTheme);
@@ -48,6 +53,7 @@ export function SiteHeader({ content }: SiteHeaderProps) {
         } else {
             document.documentElement.classList.remove("dark");
         }
+        */
     };
 
     return (
@@ -82,6 +88,7 @@ export function SiteHeader({ content }: SiteHeaderProps) {
 
                     {/* Desktop Theme Switcher + CTA */}
                     <div className="hidden items-center gap-3 sm:flex">
+                        {/* 
                         <Button
                             type="button"
                             variant="secondary"
@@ -92,6 +99,7 @@ export function SiteHeader({ content }: SiteHeaderProps) {
                         >
                             {theme === "dark" ? <Sun className="h-4.5 w-4.5 text-cyan-300" /> : <Moon className="h-4.5 w-4.5 text-violet-600" />}
                         </Button>
+                        */}
                         <Button asChild variant="secondary" size="sm">
                             <a href={content.resumeHref} target="_blank" rel="noreferrer">
                                 Resume
@@ -104,6 +112,7 @@ export function SiteHeader({ content }: SiteHeaderProps) {
 
                     {/* Mobile Theme Switcher + Menu */}
                     <div className="flex items-center gap-2 lg:hidden">
+                        {/*
                         <Button
                             type="button"
                             variant="secondary"
@@ -114,6 +123,7 @@ export function SiteHeader({ content }: SiteHeaderProps) {
                         >
                             {theme === "dark" ? <Sun className="h-4.5 w-4.5 text-cyan-300" /> : <Moon className="h-4.5 w-4.5 text-violet-600" />}
                         </Button>
+                        */}
                         <button
                             type="button"
                             className="inline-flex h-10 w-10 items-center justify-center rounded-full border border-card-border bg-card-bg text-text-title transition hover:bg-foreground/10"

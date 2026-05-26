@@ -73,36 +73,36 @@ export function ContactForm({ content }: ContactFormProps) {
             <CardContent className="relative space-y-4">
                 <form className="space-y-4" onSubmit={handleSubmit}>
                     <div className="grid gap-4 sm:grid-cols-2">
-                        <label className="space-y-2 text-sm text-slate-200">
+                        <label className="space-y-2 text-sm text-text-title">
                             <span>Name</span>
                             <input
                                 required
                                 value={form.name}
                                 onChange={(event) => setForm({ ...form, name: event.target.value })}
-                                className="focus-ring w-full rounded-2xl border border-white/10 bg-white/5 px-4 py-3 text-white placeholder:text-slate-500"
+                                className="focus-ring w-full rounded-2xl border border-card-border bg-card-bg px-4 py-3 text-text-title placeholder:text-text-muted transition-colors hover:border-cyan-300/40"
                                 placeholder="Your name"
                             />
                         </label>
-                        <label className="space-y-2 text-sm text-slate-200">
+                        <label className="space-y-2 text-sm text-text-title">
                             <span>Email</span>
                             <input
                                 required
                                 type="email"
                                 value={form.email}
                                 onChange={(event) => setForm({ ...form, email: event.target.value })}
-                                className="focus-ring w-full rounded-2xl border border-white/10 bg-white/5 px-4 py-3 text-white placeholder:text-slate-500"
+                                className="focus-ring w-full rounded-2xl border border-card-border bg-card-bg px-4 py-3 text-text-title placeholder:text-text-muted transition-colors hover:border-cyan-300/40"
                                 placeholder="you@example.com"
                             />
                         </label>
                     </div>
-                    <label className="space-y-2 text-sm text-slate-200">
+                    <label className="space-y-2 text-sm text-text-title">
                         <span>Message</span>
                         <textarea
                             required
                             rows={5}
                             value={form.message}
                             onChange={(event) => setForm({ ...form, message: event.target.value })}
-                            className="focus-ring w-full rounded-3xl border border-white/10 bg-white/5 px-4 py-3 text-white placeholder:text-slate-500"
+                            className="focus-ring w-full rounded-3xl border border-card-border bg-card-bg px-4 py-3 text-text-title placeholder:text-text-muted transition-colors hover:border-cyan-300/40 resize-none"
                             placeholder="Tell me about the project, role, or collaboration."
                         />
                     </label>

@@ -206,7 +206,9 @@ export function PortfolioPage({ content }: PortfolioPageProps) {
                                 <p className="inline-flex items-center gap-2 text-sm text-cyan-200">
                                     <Sparkles className="h-4 w-4" /> AI portfolio snapshot
                                 </p>
-                                <CardTitle className="text-3xl sm:text-4xl">Premium engineering with a research mindset</CardTitle>
+                                <CardTitle className="text-3xl text-text-title sm:text-4xl">
+                                    Premium engineering with a research mindset
+                                </CardTitle>
                                 <CardDescription className="text-base text-text-muted">
                                     Legal RAG systems, LLM benchmarking, computer vision pipelines, and production-ready full-stack
                                     experiences.
