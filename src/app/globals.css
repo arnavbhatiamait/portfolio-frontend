@@ -1,18 +1,9 @@
 @import "tailwindcss";
 
-:root {
-  /* Dark theme values */
-  --background: #030712;
-  --foreground: #e5e7eb;
-  --card-bg: rgba(8, 15, 35, 0.66);
-  --card-border: rgba(148, 163, 184, 0.14);
-  --text-muted: #94a3b8;
-  --text-title: #ffffff;
-  --panel-bg: #0b1531;
-}
+@custom-variant dark (&:where(.dark, .dark *));
 
-.light {
-  /* Light theme overrides */
+:root {
+  /* Light theme values */
   --background: #f3f4f6;
   --foreground: #1f2937;
   --card-bg: rgba(255, 255, 255, 0.85);
@@ -20,6 +11,17 @@
   --text-muted: #4b5563;
   --text-title: #111827;
   --panel-bg: #e5e7eb;
+}
+
+.dark {
+  /* Dark theme overrides */
+  --background: #030712;
+  --foreground: #e5e7eb;
+  --card-bg: rgba(8, 15, 35, 0.66);
+  --card-border: rgba(148, 163, 184, 0.14);
+  --text-muted: #94a3b8;
+  --text-title: #ffffff;
+  --panel-bg: #0b1531;
 }
 
 @theme inline {

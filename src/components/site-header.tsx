@@ -25,14 +25,15 @@ export function SiteHeader({ content }: SiteHeaderProps) {
         const savedTheme = localStorage.getItem("portfolio-theme") as "light" | "dark" | null;
         if (savedTheme) {
             setTheme(savedTheme);
-            if (savedTheme === "light") {
-                document.documentElement.classList.add("light");
+            if (savedTheme === "dark") {
+                document.documentElement.classList.add("dark");
             } else {
-                document.documentElement.classList.remove("light");
+                document.documentElement.classList.remove("dark");
             }
         } else {
+            // Default to dark mode if no saved preference
             setTheme("dark");
-            document.documentElement.classList.remove("light");
+            document.documentElement.classList.add("dark");
         }
 
         return () => window.removeEventListener("hashchange", handleRoute);
@@ -42,10 +43,10 @@ export function SiteHeader({ content }: SiteHeaderProps) {
         const nextTheme = theme === "dark" ? "light" : "dark";
         setTheme(nextTheme);
         localStorage.setItem("portfolio-theme", nextTheme);
-        if (nextTheme === "light") {
-            document.documentElement.classList.add("light");
+        if (nextTheme === "dark") {
+            document.documentElement.classList.add("dark");
         } else {
-            document.documentElement.classList.remove("light");
+            document.documentElement.classList.remove("dark");
         }
     };
 
@@ -56,7 +57,7 @@ export function SiteHeader({ content }: SiteHeaderProps) {
                 style={{ scaleX: scrollYProgress }}
             />
             <header className="fixed inset-x-0 top-0 z-40 px-4 pt-4 sm:px-6 lg:px-8">
-                <div className="mx-auto flex max-w-7xl items-center justify-between rounded-full border border-card-border bg-slate-950/70 dark:bg-slate-950/70 px-4 py-3 shadow-2xl shadow-cyan-950/10 backdrop-blur-xl transition-colors duration-300">
+                <div className="mx-auto flex max-w-7xl items-center justify-between rounded-full border border-card-border bg-card-bg px-4 py-3 shadow-2xl shadow-cyan-950/10 backdrop-blur-xl transition-colors duration-300">
                     <a href="#home" className="flex items-center gap-3">
                         <div className="flex h-10 w-10 items-center justify-center rounded-full bg-gradient-to-br from-cyan-400 via-blue-500 to-violet-500 text-sm font-bold text-white shadow-glow">
                             AB
@@ -107,7 +108,7 @@ export function SiteHeader({ content }: SiteHeaderProps) {
                             type="button"
                             variant="secondary"
                             size="sm"
-                            className="h-10 w-10 rounded-full p-0 flex items-center justify-center border border-card-border bg-white/5 text-text-title hover:bg-foreground/10 transition-colors"
+                            className="h-10 w-10 rounded-full p-0 flex items-center justify-center border border-card-border bg-card-bg text-text-title hover:bg-foreground/10 transition-colors"
                             onClick={toggleTheme}
                             aria-label="Toggle theme"
                         >
@@ -115,7 +116,7 @@ export function SiteHeader({ content }: SiteHeaderProps) {
                         </Button>
                         <button
                             type="button"
-                            className="inline-flex h-10 w-10 items-center justify-center rounded-full border border-card-border bg-white/5 text-text-title transition hover:bg-foreground/10"
+                            className="inline-flex h-10 w-10 items-center justify-center rounded-full border border-card-border bg-card-bg text-text-title transition hover:bg-foreground/10"
                             onClick={() => setOpen((value) => !value)}
                             aria-label="Toggle navigation menu"
                             aria-expanded={open}

@@ -137,13 +137,13 @@ export function PortfolioPage({ content }: PortfolioPageProps) {
                             transition={{ duration: 0.7 }}
                             className="space-y-6"
                         >
-                            <p className="inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/5 px-4 py-2 text-xs font-medium uppercase tracking-[0.24em] text-slate-300">
+                            <p className="inline-flex items-center gap-2 rounded-full border border-card-border bg-card-bg px-4 py-2 text-xs font-medium uppercase tracking-[0.24em] text-text-muted">
                                 <Zap className="h-3.5 w-3.5 text-cyan-300" />
                                 India-based AI engineer crafting startup-grade products
                             </p>
 
                             <div className="space-y-4">
-                                <h1 className="max-w-4xl text-5xl font-semibold tracking-tight text-white sm:text-6xl lg:text-7xl">
+                                <h1 className="max-w-4xl text-5xl font-semibold tracking-tight text-text-title sm:text-6xl lg:text-7xl">
                                     Arnav Bhatia builds <span className="text-gradient">AI systems</span> that feel like premium products.
                                 </h1>
                                 <AnimatePresence mode="wait">
@@ -153,7 +153,7 @@ export function PortfolioPage({ content }: PortfolioPageProps) {
                                         animate={{ opacity: 1, y: 0 }}
                                         exit={{ opacity: 0, y: -10 }}
                                         transition={{ duration: 0.35 }}
-                                        className="max-w-2xl text-lg leading-8 text-slate-300 sm:text-xl"
+                                        className="max-w-2xl text-lg leading-8 text-text-muted sm:text-xl"
                                     >
                                         {content.tagline} Currently focused on {activeRole.toLowerCase()} workflows, intelligent automation,
                                         and full-stack AI experiences.
@@ -179,14 +179,14 @@ export function PortfolioPage({ content }: PortfolioPageProps) {
                                 </Button>
                             </div>
 
-                            <div className="flex flex-wrap items-center gap-4 text-slate-300">
-                                <a className="inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/5 px-4 py-2 transition hover:border-cyan-300/40 hover:text-white" href={content.github} target="_blank" rel="noreferrer">
+                            <div className="flex flex-wrap items-center gap-4 text-text-muted">
+                                <a className="inline-flex items-center gap-2 rounded-full border border-card-border bg-card-bg px-4 py-2 transition hover:border-cyan-300/40 hover:text-text-title" href={content.github} target="_blank" rel="noreferrer">
                                     <FaGithub className="h-4 w-4" /> GitHub
                                 </a>
-                                <a className="inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/5 px-4 py-2 transition hover:border-cyan-300/40 hover:text-white" href={content.linkedin} target="_blank" rel="noreferrer">
+                                <a className="inline-flex items-center gap-2 rounded-full border border-card-border bg-card-bg px-4 py-2 transition hover:border-cyan-300/40 hover:text-text-title" href={content.linkedin} target="_blank" rel="noreferrer">
                                     <FaLinkedinIn className="h-4 w-4" /> LinkedIn
                                 </a>
-                                <a className="inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/5 px-4 py-2 transition hover:border-cyan-300/40 hover:text-white" href={content.huggingFace} target="_blank" rel="noreferrer">
+                                <a className="inline-flex items-center gap-2 rounded-full border border-card-border bg-card-bg px-4 py-2 transition hover:border-cyan-300/40 hover:text-text-title" href={content.huggingFace} target="_blank" rel="noreferrer">
                                     <SiHuggingface className="h-4 w-4" /> Hugging Face
                                 </a>
                             </div>
@@ -200,14 +200,14 @@ export function PortfolioPage({ content }: PortfolioPageProps) {
                         className="relative"
                     >
                         <div className="absolute inset-0 -z-10 rounded-[2rem] bg-gradient-to-br from-cyan-400/20 via-blue-500/10 to-violet-500/20 blur-2xl" />
-                        <Card className="relative overflow-hidden border-white/10 bg-white/5">
+                        <Card className="relative overflow-hidden border-card-border bg-card-bg">
                             <div className="absolute inset-0 bg-[radial-gradient(circle_at_top,rgba(56,189,248,0.18),transparent_28%),radial-gradient(circle_at_bottom_right,rgba(168,85,247,0.18),transparent_26%)]" />
                             <CardHeader className="relative">
                                 <p className="inline-flex items-center gap-2 text-sm text-cyan-200">
                                     <Sparkles className="h-4 w-4" /> AI portfolio snapshot
                                 </p>
                                 <CardTitle className="text-3xl sm:text-4xl">Premium engineering with a research mindset</CardTitle>
-                                <CardDescription className="text-base text-slate-300">
+                                <CardDescription className="text-base text-text-muted">
                                     Legal RAG systems, LLM benchmarking, computer vision pipelines, and production-ready full-stack
                                     experiences.
                                 </CardDescription>
@@ -215,14 +215,14 @@ export function PortfolioPage({ content }: PortfolioPageProps) {
                             <CardContent className="relative space-y-5">
                                 <div className="grid gap-4 sm:grid-cols-2">
                                     {content.stats.map((stat) => (
-                                        <div key={stat.label} className="rounded-3xl border border-white/10 bg-slate-950/40 p-5">
+                                        <div key={stat.label} className="rounded-3xl border border-card-border bg-panel-bg/40 p-5">
                                             <AnimatedCounter value={stat.value} suffix={stat.suffix} />
-                                            <p className="mt-2 text-sm text-slate-400">{stat.label}</p>
+                                            <p className="mt-2 text-sm text-text-muted">{stat.label}</p>
                                         </div>
                                     ))}
                                 </div>
 
-                                <div className="grid gap-3 rounded-3xl border border-white/10 bg-slate-950/40 p-5 text-sm text-slate-300">
+                                <div className="grid gap-3 rounded-3xl border border-card-border bg-panel-bg/40 p-5 text-sm text-text-muted">
                                     <div className="flex items-center gap-3">
                                         <MapPin className="h-4 w-4 text-cyan-300" /> {content.location}
                                     </div>
@@ -246,7 +246,7 @@ export function PortfolioPage({ content }: PortfolioPageProps) {
                     />
 
                     <div className="mt-10 grid gap-6 lg:grid-cols-[1.2fr_0.8fr]">
-                        <Card className="border-white/10">
+                        <Card className="border-card-border bg-card-bg">
                             <CardHeader>
                                 <CardTitle>What I build</CardTitle>
                                 <CardDescription>
@@ -260,29 +260,29 @@ export function PortfolioPage({ content }: PortfolioPageProps) {
                                     "Automation platforms powered by APIs and LLMs",
                                     "Cloud-ready, production-minded web applications",
                                 ].map((item) => (
-                                    <div key={item} className="rounded-3xl border border-white/10 bg-white/5 p-5 text-sm leading-6 text-slate-300">
+                                    <div key={item} className="rounded-3xl border border-card-border bg-panel-bg/40 p-5 text-sm leading-6 text-text-muted">
                                         {item}
                                     </div>
                                 ))}
                             </CardContent>
                         </Card>
 
-                        <Card className="border-white/10">
+                        <Card className="border-card-border bg-card-bg">
                             <CardHeader>
                                 <CardTitle>Profile</CardTitle>
                                 <CardDescription>Snapshot of the portfolio identity and current focus.</CardDescription>
                             </CardHeader>
                             <CardContent className="space-y-4">
-                                <div className="rounded-3xl border border-white/10 bg-white/5 p-5">
-                                    <p className="text-xs uppercase tracking-[0.24em] text-slate-400">Role</p>
-                                    <p className="mt-2 text-lg text-white">{content.role}</p>
+                                <div className="rounded-3xl border border-card-border bg-panel-bg/40 p-5">
+                                    <p className="text-xs uppercase tracking-[0.24em] text-text-muted">Role</p>
+                                    <p className="mt-2 text-lg text-text-title">{content.role}</p>
                                 </div>
-                                <div className="rounded-3xl border border-white/10 bg-white/5 p-5">
-                                    <p className="text-xs uppercase tracking-[0.24em] text-slate-400">Focus</p>
-                                    <p className="mt-2 text-lg text-white">Generative AI, Deep Learning, Full Stack Development</p>
+                                <div className="rounded-3xl border border-card-border bg-panel-bg/40 p-5">
+                                    <p className="text-xs uppercase tracking-[0.24em] text-text-muted">Focus</p>
+                                    <p className="mt-2 text-lg text-text-title">Generative AI, Deep Learning, Full Stack Development</p>
                                 </div>
-                                <div className="rounded-3xl border border-white/10 bg-white/5 p-5">
-                                    <p className="text-xs uppercase tracking-[0.24em] text-slate-400">Email</p>
+                                <div className="rounded-3xl border border-card-border bg-panel-bg/40 p-5">
+                                    <p className="text-xs uppercase tracking-[0.24em] text-text-muted">Email</p>
                                     <a className="mt-2 block text-lg text-cyan-200 transition hover:text-cyan-100" href={`mailto:${content.email}`}>
                                         {content.email}
                                     </a>
@@ -301,7 +301,7 @@ export function PortfolioPage({ content }: PortfolioPageProps) {
 
                     <div className="mt-10 grid gap-6 md:grid-cols-2 xl:grid-cols-3">
                         {content.skillGroups.map((group) => (
-                            <Card key={group.label} className="border-white/10">
+                            <Card key={group.label} className="border-card-border bg-card-bg">
                                 <CardHeader>
                                     <CardTitle>{group.label}</CardTitle>
                                     <CardDescription>{group.summary}</CardDescription>
@@ -310,7 +310,7 @@ export function PortfolioPage({ content }: PortfolioPageProps) {
                                     {group.items.map((item) => (
                                         <span
                                             key={item}
-                                            className="rounded-full border border-white/10 bg-white/5 px-3 py-1.5 text-sm text-slate-200"
+                                            className="rounded-full border border-card-border bg-panel-bg/40 px-3 py-1.5 text-sm text-text-muted"
                                         >
                                             {item}
                                         </span>
@@ -461,7 +461,7 @@ export function PortfolioPage({ content }: PortfolioPageProps) {
                                     </div>
                                     <div className="flex flex-wrap gap-2">
                                         {project.tech.map((tech) => (
-                                            <span key={tech} className="rounded-full border border-card-border bg-slate-950/20 px-3 py-1.5 text-xs text-text-muted">
+                                            <span key={tech} className="rounded-full border border-card-border bg-panel-bg/40 px-3 py-1.5 text-xs text-text-muted">
                                                 {tech}
                                             </span>
                                         ))}
@@ -481,13 +481,13 @@ export function PortfolioPage({ content }: PortfolioPageProps) {
 
                     <div className="mt-10 grid gap-6 md:grid-cols-2 xl:grid-cols-4">
                         {content.certifications.map((certification) => (
-                            <Card key={certification.name} className="border-white/10">
+                            <Card key={certification.name} className="border-card-border bg-card-bg">
                                 <CardHeader>
                                     <CardDescription>{certification.category}</CardDescription>
                                     <CardTitle className="text-xl">{certification.name}</CardTitle>
                                 </CardHeader>
                                 <CardContent>
-                                    <p className="text-sm text-slate-400">{certification.issuer}</p>
+                                    <p className="text-sm text-text-muted">{certification.issuer}</p>
                                 </CardContent>
                             </Card>
                         ))}
@@ -502,21 +502,21 @@ export function PortfolioPage({ content }: PortfolioPageProps) {
                     />
 
                     <div className="mt-10 grid gap-6 lg:grid-cols-[0.9fr_1.1fr]">
-                        <Card className="border-white/10">
+                        <Card className="border-card-border bg-card-bg">
                             <CardHeader>
                                 <CardTitle>Selected stack</CardTitle>
                                 <CardDescription>Core technologies used across engineering, ML, and frontend delivery.</CardDescription>
                             </CardHeader>
                             <CardContent className="flex flex-wrap gap-2">
                                 {content.techStack.map((tech) => (
-                                    <span key={tech} className="rounded-full border border-white/10 bg-white/5 px-3 py-1.5 text-sm text-slate-200">
+                                    <span key={tech} className="rounded-full border border-card-border bg-panel-bg/40 px-3 py-1.5 text-sm text-text-muted">
                                         {tech}
                                     </span>
                                 ))}
                             </CardContent>
                         </Card>
 
-                        <Card className="border-white/10">
+                        <Card className="border-card-border bg-card-bg">
                             <CardHeader>
                                 <CardTitle>Resume download</CardTitle>
                                 <CardDescription>
@@ -546,22 +546,22 @@ export function PortfolioPage({ content }: PortfolioPageProps) {
                     />
 
                     <div className="mt-10 grid gap-6 lg:grid-cols-[0.85fr_1.15fr]">
-                        <Card className="border-white/10">
+                        <Card className="border-card-border bg-card-bg">
                             <CardHeader>
                                 <CardTitle>Reach out</CardTitle>
                                 <CardDescription>Open for AI/ML internships, product builds, and collaborative research work.</CardDescription>
                             </CardHeader>
-                            <CardContent className="space-y-4 text-sm text-slate-300">
-                                <p className="rounded-3xl border border-white/10 bg-white/5 p-5">Email: {content.email}</p>
-                                <p className="rounded-3xl border border-white/10 bg-white/5 p-5">Location: {content.location}</p>
+                            <CardContent className="space-y-4 text-sm text-text-muted">
+                                <p className="rounded-3xl border border-card-border bg-panel-bg/40 p-5">Email: {content.email}</p>
+                                <p className="rounded-3xl border border-card-border bg-panel-bg/40 p-5">Location: {content.location}</p>
                                 <div className="grid gap-3 sm:grid-cols-3">
-                                    <a className="rounded-2xl border border-white/10 bg-white/5 px-4 py-3 transition hover:border-cyan-300/40 hover:bg-white/10" href={content.github} target="_blank" rel="noreferrer">
+                                    <a className="rounded-2xl border border-card-border bg-panel-bg/40 px-4 py-3 transition hover:border-cyan-300/40 hover:bg-foreground/5" href={content.github} target="_blank" rel="noreferrer">
                                         GitHub
                                     </a>
-                                    <a className="rounded-2xl border border-white/10 bg-white/5 px-4 py-3 transition hover:border-cyan-300/40 hover:bg-white/10" href={content.linkedin} target="_blank" rel="noreferrer">
+                                    <a className="rounded-2xl border border-card-border bg-panel-bg/40 px-4 py-3 transition hover:border-cyan-300/40 hover:bg-foreground/5" href={content.linkedin} target="_blank" rel="noreferrer">
                                         LinkedIn
                                     </a>
-                                    <a className="rounded-2xl border border-white/10 bg-white/5 px-4 py-3 transition hover:border-cyan-300/40 hover:bg-white/10" href={content.huggingFace} target="_blank" rel="noreferrer">
+                                    <a className="rounded-2xl border border-card-border bg-panel-bg/40 px-4 py-3 transition hover:border-cyan-300/40 hover:bg-foreground/5" href={content.huggingFace} target="_blank" rel="noreferrer">
                                         Hugging Face
                                     </a>
                                 </div>
@@ -572,12 +572,12 @@ export function PortfolioPage({ content }: PortfolioPageProps) {
                     </div>
                 </MotionSection>
 
-                <footer className="border-t border-white/10 py-8 text-sm text-slate-500">
+                <footer className="border-t border-card-border py-8 text-sm text-text-muted">
                     <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
                         <p>© {new Date().getFullYear()} {content.name}. Built for AI, speed, and clarity.</p>
                         <div className="flex items-center gap-4">
-                            <a className="transition hover:text-white" href="#home">Back to top</a>
-                            <a className="transition hover:text-white" href={content.github} target="_blank" rel="noreferrer">
+                            <a className="transition hover:text-text-title" href="#home">Back to top</a>
+                            <a className="transition hover:text-text-title" href={content.github} target="_blank" rel="noreferrer">
                                 GitHub
                             </a>
                         </div>

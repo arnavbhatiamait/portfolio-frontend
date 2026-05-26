@@ -730,14 +730,14 @@ export function AISandbox() {
             </div>
 
             {/* TAB SELECTOR */}
-            <div className="flex flex-wrap gap-2 border-b border-white/10 pb-4 mb-8">
+            <div className="flex flex-wrap gap-2 border-b border-card-border pb-4 mb-8">
                 <button
                     onClick={() => setActiveTab("chatbot")}
                     className={cn(
-                        "inline-flex items-center gap-2 rounded-full px-4 py-2 text-xs sm:text-sm font-medium transition-all duration-200 border",
+                        "inline-flex items-center gap-2 rounded-full px-4 py-2 text-xs sm:text-sm font-medium transition-all duration-200 border cursor-pointer",
                         activeTab === "chatbot"
-                            ? "bg-white text-slate-950 border-white"
-                            : "border-white/10 text-slate-400 hover:text-white hover:border-white/20 bg-white/5"
+                            ? "bg-foreground text-background border-foreground"
+                            : "border-card-border text-text-muted hover:text-text-title hover:border-foreground/20 bg-card-bg"
                     )}
                 >
                     <MessageSquare className="h-4 w-4" />
@@ -746,10 +746,10 @@ export function AISandbox() {
                 <button
                     onClick={() => setActiveTab("rag")}
                     className={cn(
-                        "inline-flex items-center gap-2 rounded-full px-4 py-2 text-xs sm:text-sm font-medium transition-all duration-200 border",
+                        "inline-flex items-center gap-2 rounded-full px-4 py-2 text-xs sm:text-sm font-medium transition-all duration-200 border cursor-pointer",
                         activeTab === "rag"
-                            ? "bg-white text-slate-950 border-white"
-                            : "border-white/10 text-slate-400 hover:text-white hover:border-white/20 bg-white/5"
+                            ? "bg-foreground text-background border-foreground"
+                            : "border-card-border text-text-muted hover:text-text-title hover:border-foreground/20 bg-card-bg"
                     )}
                 >
                     <Database className="h-4 w-4" />
@@ -758,10 +758,10 @@ export function AISandbox() {
                 <button
                     onClick={() => setActiveTab("opticall")}
                     className={cn(
-                        "inline-flex items-center gap-2 rounded-full px-4 py-2 text-xs sm:text-sm font-medium transition-all duration-200 border",
+                        "inline-flex items-center gap-2 rounded-full px-4 py-2 text-xs sm:text-sm font-medium transition-all duration-200 border cursor-pointer",
                         activeTab === "opticall"
-                            ? "bg-white text-slate-950 border-white"
-                            : "border-white/10 text-slate-400 hover:text-white hover:border-white/20 bg-white/5"
+                            ? "bg-foreground text-background border-foreground"
+                            : "border-card-border text-text-muted hover:text-text-title hover:border-foreground/20 bg-card-bg"
                     )}
                 >
                     <Activity className="h-4 w-4" />
@@ -770,10 +770,10 @@ export function AISandbox() {
                 <button
                     onClick={() => setActiveTab("benchmark")}
                     className={cn(
-                        "inline-flex items-center gap-2 rounded-full px-4 py-2 text-xs sm:text-sm font-medium transition-all duration-200 border",
+                        "inline-flex items-center gap-2 rounded-full px-4 py-2 text-xs sm:text-sm font-medium transition-all duration-200 border cursor-pointer",
                         activeTab === "benchmark"
-                            ? "bg-white text-slate-950 border-white"
-                            : "border-white/10 text-slate-400 hover:text-white hover:border-white/20 bg-white/5"
+                            ? "bg-foreground text-background border-foreground"
+                            : "border-card-border text-text-muted hover:text-text-title hover:border-foreground/20 bg-card-bg"
                     )}
                 >
                     <BarChart3 className="h-4 w-4" />
@@ -782,10 +782,10 @@ export function AISandbox() {
                 <button
                     onClick={() => setActiveTab("biometrics")}
                     className={cn(
-                        "inline-flex items-center gap-2 rounded-full px-4 py-2 text-xs sm:text-sm font-medium transition-all duration-200 border",
+                        "inline-flex items-center gap-2 rounded-full px-4 py-2 text-xs sm:text-sm font-medium transition-all duration-200 border cursor-pointer",
                         activeTab === "biometrics"
-                            ? "bg-white text-slate-950 border-white"
-                            : "border-white/10 text-slate-400 hover:text-white hover:border-white/20 bg-white/5"
+                            ? "bg-foreground text-background border-foreground"
+                            : "border-card-border text-text-muted hover:text-text-title hover:border-foreground/20 bg-card-bg"
                     )}
                 >
                     <Volume2 className="h-4 w-4" />
@@ -794,10 +794,10 @@ export function AISandbox() {
                 <button
                     onClick={() => setActiveTab("rls")}
                     className={cn(
-                        "inline-flex items-center gap-2 rounded-full px-4 py-2 text-xs sm:text-sm font-medium transition-all duration-200 border",
+                        "inline-flex items-center gap-2 rounded-full px-4 py-2 text-xs sm:text-sm font-medium transition-all duration-200 border cursor-pointer",
                         activeTab === "rls"
-                            ? "bg-white text-slate-950 border-white"
-                            : "border-white/10 text-slate-400 hover:text-white hover:border-white/20 bg-white/5"
+                            ? "bg-foreground text-background border-foreground"
+                            : "border-card-border text-text-muted hover:text-text-title hover:border-foreground/20 bg-card-bg"
                     )}
                 >
                     <Shield className="h-4 w-4" />
@@ -808,8 +808,8 @@ export function AISandbox() {
                     className={cn(
                         "inline-flex items-center gap-2 rounded-full px-4 py-2 text-xs sm:text-sm font-medium transition-all duration-200 border cursor-pointer",
                         activeTab === "agent_arena"
-                            ? "bg-white text-slate-950 border-white"
-                            : "border-white/10 text-slate-400 hover:text-white hover:border-white/20 bg-white/5"
+                            ? "bg-foreground text-background border-foreground"
+                            : "border-card-border text-text-muted hover:text-text-title hover:border-foreground/20 bg-card-bg"
                     )}
                 >
                     <Cpu className="h-4 w-4" />
@@ -821,7 +821,7 @@ export function AISandbox() {
             <div className="relative">
                 <div className="absolute inset-0 -z-10 rounded-[2rem] bg-gradient-to-br from-cyan-500/10 via-violet-500/5 to-blue-500/10 blur-xl" />
 
-                <Card className="glass-panel border-white/10 overflow-hidden min-h-[500px]">
+                <Card className="glass-panel border-card-border overflow-hidden min-h-[500px] bg-card-bg">
                     <CardContent className="p-6 sm:p-8">
                         <AnimatePresence mode="wait">
                             {/* ========================================================
@@ -836,13 +836,13 @@ export function AISandbox() {
                                     transition={{ duration: 0.3 }}
                                     className="flex flex-col h-[520px]"
                                 >
-                                    <div className="border-b border-white/15 pb-4 mb-4 flex items-center justify-between">
+                                    <div className="border-b border-card-border pb-4 mb-4 flex items-center justify-between">
                                         <div className="flex items-center gap-3">
                                             <div className="h-10 w-10 rounded-full bg-gradient-to-br from-cyan-400 to-violet-500 flex items-center justify-center">
                                                 <Bot className="h-5 w-5 text-white" />
                                             </div>
                                             <div>
-                                                <h3 className="font-semibold text-white">Arnav's AI Copilot</h3>
+                                                <h3 className="font-semibold text-text-title">Arnav's AI Copilot</h3>
                                                 <p className="text-xs text-cyan-300/80 flex items-center gap-1">
                                                     <span className="h-1.5 w-1.5 rounded-full bg-emerald-400 animate-ping" />
                                                     Online Agent (Auto-Switching Simulation)
@@ -854,12 +854,13 @@ export function AISandbox() {
                                             size="icon"
                                             onClick={() => setMessages([{ sender: "bot", text: OFFLINE_KB.default }])}
                                             title="Clear conversation"
+                                            className="cursor-pointer text-text-muted hover:text-text-title"
                                         >
-                                            <RefreshCw className="h-4 w-4 text-slate-400 hover:text-white" />
+                                            <RefreshCw className="h-4 w-4" />
                                         </Button>
                                     </div>
 
-                                    <div className="flex-1 overflow-y-auto pr-2 space-y-4 mb-4 scrollbar-thin scrollbar-thumb-white/10">
+                                    <div className="flex-1 overflow-y-auto pr-2 space-y-4 mb-4 scrollbar-thin scrollbar-thumb-foreground/10">
                                         {messages.map((msg, i) => (
                                             <div
                                                 key={i}
@@ -879,8 +880,8 @@ export function AISandbox() {
                                                 <div className={cn(
                                                     "rounded-2xl px-4 py-2.5 text-sm leading-relaxed whitespace-pre-line border",
                                                     msg.sender === "user"
-                                                        ? "bg-white/10 border-white/10 text-white"
-                                                        : "bg-[#0b1531]/75 border-cyan-500/20 text-slate-200 animate-fade-in"
+                                                        ? "bg-foreground/10 border-card-border text-text-title"
+                                                        : "bg-panel-bg border-cyan-500/20 text-text-muted animate-fade-in"
                                                 )}>
                                                     {msg.text}
                                                 </div>
@@ -892,7 +893,7 @@ export function AISandbox() {
                                                 <div className="h-8 w-8 rounded-full bg-gradient-to-br from-cyan-500 to-blue-600 flex items-center justify-center shrink-0 text-white">
                                                     <Bot className="h-4 w-4" />
                                                 </div>
-                                                <div className="rounded-2xl px-4 py-3 bg-[#0b1531]/75 border border-cyan-500/10 text-slate-400 text-sm flex gap-1.5 items-center">
+                                                <div className="rounded-2xl px-4 py-3 bg-panel-bg border border-cyan-500/10 text-text-muted text-sm flex gap-1.5 items-center">
                                                     <span className="h-2 w-2 bg-cyan-400 rounded-full animate-bounce [animation-delay:-0.3s]" />
                                                     <span className="h-2 w-2 bg-cyan-400 rounded-full animate-bounce [animation-delay:-0.15s]" />
                                                     <span className="h-2 w-2 bg-cyan-400 rounded-full animate-bounce" />
@@ -905,25 +906,25 @@ export function AISandbox() {
                                     <div className="flex flex-wrap gap-2 mb-3">
                                         <button
                                             onClick={() => handleSendMessage("What benchmarks did you run on The Benchmark Hub?")}
-                                            className="rounded-full border border-white/15 bg-white/5 px-3 py-1.5 text-xs text-slate-300 hover:bg-white/10 hover:border-cyan-400/40 hover:text-white transition"
+                                            className="rounded-full border border-card-border bg-panel-bg px-3 py-1.5 text-xs text-text-muted hover:bg-foreground/5 hover:border-cyan-400/40 hover:text-text-title transition"
                                         >
                                             📊 Model Benchmarking
                                         </button>
                                         <button
                                             onClick={() => handleSendMessage("How does speech2vec voice biometric clustering work?")}
-                                            className="rounded-full border border-white/15 bg-white/5 px-3 py-1.5 text-xs text-slate-300 hover:bg-white/10 hover:border-cyan-400/40 hover:text-white transition"
+                                            className="rounded-full border border-card-border bg-panel-bg px-3 py-1.5 text-xs text-text-muted hover:bg-foreground/5 hover:border-cyan-400/40 hover:text-text-title transition"
                                         >
                                             🎙️ speech2vec Biometrics
                                         </button>
                                         <button
                                             onClick={() => handleSendMessage("Explain Supabase Row Level Security in Investor Base")}
-                                            className="rounded-full border border-white/15 bg-white/5 px-3 py-1.5 text-xs text-slate-300 hover:bg-white/10 hover:border-cyan-400/40 hover:text-white transition"
+                                            className="rounded-full border border-card-border bg-panel-bg px-3 py-1.5 text-xs text-text-muted hover:bg-foreground/5 hover:border-cyan-400/40 hover:text-text-title transition"
                                         >
                                             🔒 Supabase RLS
                                         </button>
                                         <button
                                             onClick={() => handleSendMessage("Explain the NYAAY AI project")}
-                                            className="rounded-full border border-white/15 bg-white/5 px-3 py-1.5 text-xs text-slate-300 hover:bg-white/10 hover:border-cyan-400/40 hover:text-white transition"
+                                            className="rounded-full border border-card-border bg-panel-bg px-3 py-1.5 text-xs text-text-muted hover:bg-foreground/5 hover:border-cyan-400/40 hover:text-text-title transition"
                                         >
                                             ⚖️ Legal RAG
                                         </button>
@@ -938,7 +939,7 @@ export function AISandbox() {
                                             value={inputValue}
                                             onChange={(e) => setInputValue(e.target.value)}
                                             placeholder="Ask about projects, internships, or contact info..."
-                                            className="w-full rounded-full border border-white/15 bg-slate-950/60 py-3.5 pl-5 pr-14 text-sm text-white placeholder-slate-400 focus-ring"
+                                            className="w-full rounded-full border border-card-border bg-panel-bg py-3.5 pl-5 pr-14 text-sm text-text-title placeholder-text-muted/60 focus-ring"
                                         />
                                         <button
                                             type="submit"
@@ -962,17 +963,17 @@ export function AISandbox() {
                                     transition={{ duration: 0.3 }}
                                     className="space-y-6"
                                 >
-                                    <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between border-b border-white/10 pb-4">
+                                    <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between border-b border-card-border pb-4">
                                         <div>
-                                            <h3 className="text-xl font-semibold text-white">NYAAY AI Legal RAG Simulator</h3>
-                                            <p className="text-sm text-slate-400">Step-by-step visualizer of custom pgvector hybrid search.</p>
+                                            <h3 className="text-xl font-semibold text-text-title">NYAAY AI Legal RAG Simulator</h3>
+                                            <p className="text-sm text-text-muted">Step-by-step visualizer of custom pgvector hybrid search.</p>
                                         </div>
                                         <div className="flex items-center gap-2">
-                                            <span className="text-xs text-slate-400 uppercase tracking-wider font-semibold">Document:</span>
+                                            <span className="text-xs text-text-muted uppercase tracking-wider font-semibold">Document:</span>
                                             <select
                                                 value={ragDocType}
                                                 onChange={(e) => setRagDocType(e.target.value as LegalDocType)}
-                                                className="rounded-lg border border-white/15 bg-slate-950/80 px-3 py-1.5 text-xs text-white focus-ring"
+                                                className="rounded-lg border border-card-border bg-panel-bg px-3 py-1.5 text-xs text-text-title focus-ring"
                                             >
                                                 <option value="nda">Mutual NDA File</option>
                                                 <option value="lease">Lease Agreement</option>
@@ -998,20 +999,20 @@ export function AISandbox() {
                                                             ? "bg-cyan-400 border-cyan-400 text-slate-950 scale-110"
                                                             : ragStep > idx
                                                                 ? "bg-cyan-950 border-cyan-500/50 text-cyan-300"
-                                                                : "bg-white/5 border-white/10 text-slate-500"
+                                                                : "bg-panel-bg border-card-border text-text-muted/60"
                                                     )}>
                                                         <StepIcon className="h-5 w-5" />
                                                     </div>
                                                     <span className={cn(
                                                         "mt-2 text-[10px] sm:text-xs font-medium tracking-tight",
-                                                        ragStep === idx ? "text-cyan-200" : "text-slate-400"
+                                                        ragStep === idx ? "text-cyan-500" : "text-text-muted"
                                                     )}>
                                                         {step.label}
                                                     </span>
                                                 </div>
                                             );
                                         })}
-                                        <div className="absolute left-[10%] right-[10%] top-5 h-0.5 bg-white/5 -z-10" />
+                                        <div className="absolute left-[10%] right-[10%] top-5 h-0.5 bg-card-border -z-10" />
                                         <div
                                             className="absolute left-[10%] top-5 h-0.5 bg-cyan-400/50 -z-10 transition-all duration-300"
                                             style={{ width: `${(ragStep / 4) * 80}%` }}
@@ -1019,17 +1020,17 @@ export function AISandbox() {
                                     </div>
 
                                     {/* STEP DETAILS CARD */}
-                                    <Card className="border-cyan-500/10 bg-slate-950/50 min-h-[220px] relative overflow-hidden">
+                                    <Card className="border-cyan-500/15 bg-panel-bg/40 min-h-[220px] relative overflow-hidden">
                                         <div className="absolute top-0 left-0 w-1 h-full bg-cyan-400/50" />
                                         <CardHeader className="py-4">
-                                            <CardTitle className="text-base text-cyan-200 flex items-center gap-2">
+                                            <CardTitle className="text-base text-cyan-500 flex items-center gap-2">
                                                 {ragStep === 0 && "Step 1: Event-Driven Document S3 Upload"}
                                                 {ragStep === 1 && "Step 2: Recursive Character Text Splitter (Chunking)"}
                                                 {ragStep === 2 && "Step 3: Generating Embedding Vectors"}
                                                 {ragStep === 3 && "Step 4: Hybrid Search & pgvector Cosine Retrieval"}
                                                 {ragStep === 4 && "Step 5: LLM Context Synthesis"}
                                             </CardTitle>
-                                            <CardDescription className="text-xs text-slate-400">
+                                            <CardDescription className="text-xs text-text-muted">
                                                 {ragStep === 0 && "File uploaded to bucket -> S3 notification triggers SQS message queue -> EC2 poller retrieves file."}
                                                 {ragStep === 1 && "Document broken into 1000-char semantic chunks, preserving legal syntax headers."}
                                                 {ragStep === 2 && "Generates 1536-dimensional vector representing search semantics."}
@@ -1039,15 +1040,15 @@ export function AISandbox() {
                                         </CardHeader>
                                         <CardContent className="text-sm font-mono leading-relaxed pb-4">
                                             {ragStep === 0 && (
-                                                <div className="rounded-2xl border border-white/5 bg-white/5 p-4 flex items-center justify-between">
+                                                <div className="rounded-2xl border border-card-border bg-panel-bg/40 p-4 flex items-center justify-between">
                                                     <div className="flex items-center gap-4">
-                                                        <FileText className="h-10 w-10 text-cyan-300" />
+                                                        <FileText className="h-10 w-10 text-cyan-500" />
                                                         <div>
-                                                            <p className="text-white font-medium">{RAG_DOCS[ragDocType].title}</p>
-                                                            <p className="text-xs text-slate-400">{RAG_DOCS[ragDocType].file}</p>
+                                                            <p className="text-text-title font-medium">{RAG_DOCS[ragDocType].title}</p>
+                                                            <p className="text-xs text-text-muted">{RAG_DOCS[ragDocType].file}</p>
                                                         </div>
                                                     </div>
-                                                    <div className="rounded-lg bg-emerald-500/10 border border-emerald-500/20 px-2 py-1 text-xs text-emerald-400 flex items-center gap-1 font-sans">
+                                                    <div className="rounded-lg bg-emerald-500/10 border border-emerald-500/20 px-2 py-1 text-xs text-emerald-500 flex items-center gap-1 font-sans">
                                                         <CheckCircle2 className="h-3 w-3" />
                                                         Uploaded to S3
                                                     </div>
@@ -1056,13 +1057,13 @@ export function AISandbox() {
 
                                             {ragStep === 1 && (
                                                 <div className="space-y-3">
-                                                    <div className="text-[11px] text-slate-400 uppercase tracking-wider font-sans">Applied legal boundary split tags:</div>
+                                                    <div className="text-[11px] text-text-muted uppercase tracking-wider font-sans">Applied legal boundary split tags:</div>
                                                     <div className="flex flex-wrap gap-2 text-xs font-sans">
                                                         {["\\n\\nPART ", "\\n\\nCHAPTER ", "\\n\\nSECTION ", "\\n\\n"].map(tag => (
-                                                            <span key={tag} className="rounded-md bg-white/5 px-2 py-0.5 border border-white/10 text-cyan-200">{tag}</span>
+                                                            <span key={tag} className="rounded-md bg-panel-bg/40 px-2 py-0.5 border border-card-border text-cyan-500">{tag}</span>
                                                         ))}
                                                     </div>
-                                                    <div className="rounded-2xl border border-cyan-500/10 bg-cyan-950/20 p-3 text-xs max-h-36 overflow-y-auto leading-relaxed whitespace-pre-line text-slate-300">
+                                                    <div className="rounded-2xl border border-cyan-500/10 bg-cyan-950/20 p-3 text-xs max-h-36 overflow-y-auto leading-relaxed whitespace-pre-line text-text-muted">
                                                         {RAG_DOCS[ragDocType].text}
                                                     </div>
                                                 </div>
@@ -1070,9 +1071,9 @@ export function AISandbox() {
 
                                             {ragStep === 2 && (
                                                 <div className="space-y-2">
-                                                    <div className="text-xs text-slate-300 font-sans font-medium">Query: <span className="text-cyan-200 font-mono">"{RAG_QUERIES[ragDocType].query}"</span></div>
-                                                    <div className="text-[11px] text-slate-400 uppercase tracking-wider font-sans mt-2">OpenAI `text-embedding-3-small` Output:</div>
-                                                    <div className="rounded-2xl border border-white/5 bg-slate-900/60 p-4 text-xs text-cyan-400 break-words leading-5">
+                                                    <div className="text-xs text-text-title font-sans font-medium">Query: <span className="text-cyan-500 font-mono">"{RAG_QUERIES[ragDocType].query}"</span></div>
+                                                    <div className="text-[11px] text-text-muted uppercase tracking-wider font-sans mt-2">OpenAI `text-embedding-3-small` Output:</div>
+                                                    <div className="rounded-2xl border border-card-border bg-panel-bg/80 p-4 text-xs text-cyan-500 break-words leading-5">
                                                         {RAG_QUERIES[ragDocType].vector}
                                                     </div>
                                                 </div>
@@ -1080,19 +1081,19 @@ export function AISandbox() {
 
                                             {ragStep === 3 && (
                                                 <div className="space-y-3">
-                                                    <div className="text-[11px] text-slate-400 uppercase tracking-wider font-sans">Executing Hybrid SQL query:</div>
-                                                    <div className="rounded-2xl border border-white/5 bg-slate-900/60 p-3 text-xs text-violet-300 break-all leading-4">
+                                                    <div className="text-[11px] text-text-muted uppercase tracking-wider font-sans">Executing Hybrid SQL query:</div>
+                                                    <div className="rounded-2xl border border-card-border bg-panel-bg/80 p-3 text-xs text-violet-500 dark:text-violet-300 break-all leading-4">
                                                         {RAG_QUERIES[ragDocType].sql}
                                                     </div>
                                                     <div className="space-y-2">
-                                                        <div className="text-[11px] text-slate-400 uppercase tracking-wider font-sans">Retrieved Chunks from pgvector:</div>
+                                                        <div className="text-[11px] text-text-muted uppercase tracking-wider font-sans">Retrieved Chunks from pgvector:</div>
                                                         {RAG_QUERIES[ragDocType].chunks.map((chk, i) => (
-                                                            <div key={i} className="rounded-xl border border-cyan-500/10 bg-[#0b1531]/30 p-2.5 text-xs">
-                                                                <div className="flex items-center justify-between text-[10px] text-cyan-400 font-semibold mb-1">
+                                                            <div key={i} className="rounded-xl border border-cyan-500/10 bg-panel-bg/40 p-2.5 text-xs">
+                                                                <div className="flex items-center justify-between text-[10px] text-cyan-500 font-semibold mb-1">
                                                                     <span>{chk.id}</span>
                                                                     <span>Similarity Score: {chk.score}</span>
                                                                 </div>
-                                                                <p className="text-slate-300 italic">"{chk.text}"</p>
+                                                                <p className="text-text-muted italic">"{chk.text}"</p>
                                                             </div>
                                                         ))}
                                                     </div>
@@ -1101,11 +1102,11 @@ export function AISandbox() {
 
                                             {ragStep === 4 && (
                                                 <div className="space-y-3 font-sans">
-                                                    <div className="text-xs text-slate-300 font-medium">Synthesized Answer:</div>
-                                                    <div className="rounded-2xl border border-cyan-500/20 bg-cyan-950/10 p-4 text-sm text-slate-200 leading-relaxed">
+                                                    <div className="text-xs text-text-title font-medium">Synthesized Answer:</div>
+                                                    <div className="rounded-2xl border border-cyan-500/20 bg-cyan-950/10 p-4 text-sm text-text-muted leading-relaxed">
                                                         {RAG_QUERIES[ragDocType].synthesis}
                                                     </div>
-                                                    <div className="rounded-lg bg-emerald-500/10 border border-emerald-500/20 px-3 py-2 text-xs text-emerald-400 flex items-center gap-1.5">
+                                                    <div className="rounded-lg bg-emerald-500/10 border border-emerald-500/20 px-3 py-2 text-xs text-emerald-500 flex items-center gap-1.5">
                                                         <CheckCircle2 className="h-4 w-4" />
                                                         Verified with zero-hallucination constraint model
                                                     </div>
@@ -1123,7 +1124,7 @@ export function AISandbox() {
                                         >
                                             Previous Step
                                         </Button>
-                                        <div className="text-xs text-slate-400">
+                                        <div className="text-xs text-text-muted">
                                             Step {ragStep + 1} of {totalRagSteps}
                                         </div>
                                         <Button
@@ -1150,17 +1151,17 @@ export function AISandbox() {
                                     transition={{ duration: 0.3 }}
                                     className="space-y-6"
                                 >
-                                    <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between border-b border-white/10 pb-4">
+                                    <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between border-b border-card-border pb-4">
                                         <div>
-                                            <h3 className="text-xl font-semibold text-white">Opticall Call Analytics Console</h3>
-                                            <p className="text-sm text-slate-400">Diarization, sentiment tracing, and silence extraction.</p>
+                                            <h3 className="text-xl font-semibold text-text-title">Opticall Call Analytics Console</h3>
+                                            <p className="text-sm text-text-muted">Diarization, sentiment tracing, and silence extraction.</p>
                                         </div>
                                         <div className="flex items-center gap-2">
-                                            <span className="text-xs text-slate-400 uppercase tracking-wider font-semibold">Recording:</span>
+                                            <span className="text-xs text-text-muted uppercase tracking-wider font-semibold">Recording:</span>
                                             <select
                                                 value={callType}
                                                 onChange={(e) => setCallType(e.target.value as CallType)}
-                                                className="rounded-lg border border-white/15 bg-slate-950/80 px-3 py-1.5 text-xs text-white focus-ring"
+                                                className="rounded-lg border border-card-border bg-panel-bg px-3 py-1.5 text-xs text-text-title focus-ring"
                                             >
                                                 <option value="billing">Billing Dispute (Escalated)</option>
                                                 <option value="sales">Publisher Demo (Onboarding)</option>
@@ -1169,13 +1170,13 @@ export function AISandbox() {
                                     </div>
 
                                     {/* WAVEFORM ANIMATION */}
-                                    <div className="rounded-2xl border border-white/5 bg-slate-950/70 p-4 space-y-4">
-                                        <div className="flex items-center justify-between text-xs text-slate-400">
-                                            <span className="font-semibold text-slate-300">{currentCall.title}</span>
-                                            <span className="font-mono text-cyan-400">Status: {isPlaying ? "Streaming Analysis..." : "Paused"}</span>
+                                    <div className="rounded-2xl border border-card-border bg-panel-bg/40 p-4 space-y-4">
+                                        <div className="flex items-center justify-between text-xs text-text-muted">
+                                            <span className="font-semibold text-text-title">{currentCall.title}</span>
+                                            <span className="font-mono text-cyan-500">Status: {isPlaying ? "Streaming Analysis..." : "Paused"}</span>
                                         </div>
 
-                                        <div className="h-20 bg-slate-900/60 rounded-xl relative overflow-hidden flex items-center justify-around px-2 border border-white/5">
+                                        <div className="h-20 bg-panel-bg/80 rounded-xl relative overflow-hidden flex items-center justify-around px-2 border border-card-border">
                                             {/* Waves bars */}
                                             {Array.from({ length: 35 }).map((_, i) => {
                                                 const height = isPlaying
@@ -1211,12 +1212,12 @@ export function AISandbox() {
                                                     variant="outline"
                                                     size="sm"
                                                     onClick={handleResetCall}
-                                                    className="border-white/10 text-white hover:bg-white/5"
+                                                    className="border-card-border text-text-title hover:bg-foreground/5"
                                                 >
                                                     Reset
                                                 </Button>
                                             </div>
-                                            <div className="text-xs text-slate-400 font-mono">
+                                            <div className="text-xs text-text-muted font-mono">
                                                 Playhead: {Math.floor((playProgress / 100) * parseInt(currentCall.duration)) || 0}s / {currentCall.duration}
                                             </div>
                                         </div>
@@ -1224,16 +1225,16 @@ export function AISandbox() {
 
                                     {/* AUDIO INTELLIGENCE ANALYTICS CARDS */}
                                     <div className="grid gap-4 sm:grid-cols-3">
-                                        <Card className="border-white/5 bg-slate-900/40 p-4">
-                                            <p className="text-[10px] uppercase tracking-wider text-slate-400 font-sans">Diarization Talk Ratio</p>
+                                        <Card className="border-card-border bg-panel-bg/40 p-4">
+                                            <p className="text-[10px] uppercase tracking-wider text-text-muted font-sans">Diarization Talk Ratio</p>
                                             <div className="mt-3 flex items-center gap-2">
-                                                <BarChart3 className="h-5 w-5 text-cyan-300" />
+                                                <BarChart3 className="h-5 w-5 text-cyan-500" />
                                                 <div className="flex-1">
-                                                    <div className="flex justify-between text-xs text-slate-300 font-medium mb-1">
+                                                    <div className="flex justify-between text-xs text-text-title font-medium mb-1">
                                                         <span>Agent {currentCall.agentTalk}%</span>
                                                         <span>Cust {currentCall.customerTalk}%</span>
                                                     </div>
-                                                    <div className="h-2 bg-slate-800 rounded-full overflow-hidden flex">
+                                                    <div className="h-2 bg-foreground/10 rounded-full overflow-hidden flex">
                                                         <div className="h-full bg-cyan-400" style={{ width: `${currentCall.agentTalk}%` }} />
                                                         <div className="h-full bg-purple-500" style={{ width: `${currentCall.customerTalk}%` }} />
                                                     </div>
@@ -1241,21 +1242,21 @@ export function AISandbox() {
                                             </div>
                                         </Card>
 
-                                        <Card className="border-white/5 bg-slate-900/40 p-4">
-                                            <p className="text-[10px] uppercase tracking-wider text-slate-400 font-sans">Silence / Dead Air</p>
+                                        <Card className="border-card-border bg-panel-bg/40 p-4">
+                                            <p className="text-[10px] uppercase tracking-wider text-text-muted font-sans">Silence / Dead Air</p>
                                             <div className="mt-3 flex items-center gap-2">
-                                                <Hourglass className="h-5 w-5 text-amber-300" />
+                                                <Hourglass className="h-5 w-5 text-amber-500" />
                                                 <div>
-                                                    <span className="text-xl font-bold text-white">{currentCall.silence}</span>
-                                                    <span className="text-xs text-slate-400 block">Total Silence Duration</span>
+                                                    <span className="text-xl font-bold text-text-title">{currentCall.silence}</span>
+                                                    <span className="text-xs text-text-muted block">Total Silence Duration</span>
                                                 </div>
                                             </div>
                                         </Card>
 
-                                        <Card className="border-white/5 bg-slate-900/40 p-4">
-                                            <p className="text-[10px] uppercase tracking-wider text-slate-400 font-sans">Live Customer Sentiment</p>
+                                        <Card className="border-card-border bg-panel-bg/40 p-4">
+                                            <p className="text-[10px] uppercase tracking-wider text-text-muted font-sans">Live Customer Sentiment</p>
                                             <div className="mt-3 flex items-center gap-2">
-                                                <Smile className="h-5 w-5 text-emerald-300" />
+                                                <Smile className="h-5 w-5 text-emerald-500" />
                                                 <div className={cn(
                                                     "rounded-lg border px-3 py-1 text-xs font-semibold uppercase tracking-wider transition-all duration-300",
                                                     getSentimentColor(getCustomerSentiment())
@@ -1267,11 +1268,11 @@ export function AISandbox() {
                                     </div>
 
                                     {/* DIARIZED TRANSCRIPT SYNC */}
-                                    <Card className="border-white/5 bg-slate-900/40">
-                                        <CardHeader className="py-3 px-4 border-b border-white/5">
-                                            <CardTitle className="text-xs text-slate-400 uppercase tracking-wider">Diarized Audio Transcript Timeline</CardTitle>
+                                    <Card className="border-card-border bg-panel-bg/40">
+                                        <CardHeader className="py-3 px-4 border-b border-card-border">
+                                            <CardTitle className="text-xs text-text-muted uppercase tracking-wider">Diarized Audio Transcript Timeline</CardTitle>
                                         </CardHeader>
-                                        <CardContent className="p-4 max-h-[160px] overflow-y-auto space-y-3 font-sans text-xs scrollbar-thin scrollbar-thumb-white/10">
+                                        <CardContent className="p-4 max-h-[160px] overflow-y-auto space-y-3 font-sans text-xs scrollbar-thin scrollbar-thumb-foreground/10">
                                             {currentCall.transcript.map((line, idx) => {
                                                 const isActive = activeTranscriptIndex === idx;
                                                 return (
@@ -1280,20 +1281,20 @@ export function AISandbox() {
                                                         className={cn(
                                                             "p-2.5 rounded-xl border transition-all duration-300 flex flex-col gap-1",
                                                             isActive
-                                                                ? "bg-[#0b1531]/60 border-cyan-500/40 scale-[1.01]"
-                                                                : "bg-slate-950/20 border-transparent text-slate-400"
+                                                                ? "bg-cyan-500/5 border-cyan-500/30 scale-[1.01]"
+                                                                : "bg-transparent border-transparent text-text-muted/60"
                                                         )}
                                                     >
                                                         <div className="flex items-center justify-between text-[10px] mb-0.5">
                                                             <span className={cn(
                                                                 "font-semibold uppercase tracking-wider",
-                                                                line.speaker === "Agent" ? "text-cyan-300" : "text-purple-300"
+                                                                line.speaker === "Agent" ? "text-cyan-500" : "text-purple-500"
                                                             )}>
                                                                  {line.speaker}
                                                             </span>
-                                                            <span className="font-mono text-slate-500">{line.time}</span>
+                                                            <span className="font-mono text-text-muted/50">{line.time}</span>
                                                         </div>
-                                                        <p className={isActive ? "text-slate-100 font-medium" : "text-slate-400"}>
+                                                        <p className={isActive ? "text-text-title font-medium" : "text-text-muted"}>
                                                             {line.text}
                                                         </p>
                                                     </div>
@@ -1303,9 +1304,9 @@ export function AISandbox() {
                                     </Card>
 
                                     {/* BUSINESS SUMMARY METRICS */}
-                                    <div className="rounded-2xl border border-white/5 bg-slate-950/60 p-4 text-xs">
-                                        <span className="font-semibold text-slate-300 block mb-1 font-sans">Automated AI Call Summary:</span>
-                                        <p className="text-slate-400 leading-relaxed italic">
+                                    <div className="rounded-2xl border border-card-border bg-panel-bg/40 p-4 text-xs">
+                                        <span className="font-semibold text-text-title block mb-1 font-sans">Automated AI Call Summary:</span>
+                                        <p className="text-text-muted leading-relaxed italic">
                                             "{currentCall.summary}"
                                         </p>
                                     </div>
@@ -1324,27 +1325,27 @@ export function AISandbox() {
                                     transition={{ duration: 0.3 }}
                                     className="space-y-6"
                                 >
-                                    <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between border-b border-white/10 pb-4">
+                                    <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between border-b border-card-border pb-4">
                                         <div>
-                                            <h3 className="text-xl font-semibold text-white">The Benchmark Hub Console</h3>
-                                            <p className="text-sm text-slate-400">Comparing transcription WER, Histoscan medical vision, and text generation latency.</p>
+                                            <h3 className="text-xl font-semibold text-text-title">The Benchmark Hub Console</h3>
+                                            <p className="text-sm text-text-muted">Comparing transcription WER, Histoscan medical vision, and text generation latency.</p>
                                         </div>
-                                        <div className="flex border border-white/10 rounded-full p-0.5 bg-slate-950/80">
+                                        <div className="flex border border-card-border rounded-full p-0.5 bg-panel-bg">
                                             <button
                                                 onClick={() => setBenchmarkCat("asr")}
-                                                className={cn("px-3 py-1 rounded-full text-xs font-medium transition", benchmarkCat === "asr" ? "bg-white text-slate-950" : "text-slate-400 hover:text-white")}
+                                                className={cn("px-3 py-1 rounded-full text-xs font-medium transition cursor-pointer", benchmarkCat === "asr" ? "bg-foreground text-background" : "text-text-muted hover:text-text-title")}
                                             >
                                                 ASR Audio
                                             </button>
                                             <button
                                                 onClick={() => setBenchmarkCat("histoscan")}
-                                                className={cn("px-3 py-1 rounded-full text-xs font-medium transition", benchmarkCat === "histoscan" ? "bg-white text-slate-950" : "text-slate-400 hover:text-white")}
+                                                className={cn("px-3 py-1 rounded-full text-xs font-medium transition cursor-pointer", benchmarkCat === "histoscan" ? "bg-foreground text-background" : "text-text-muted hover:text-text-title")}
                                             >
                                                 Histoscan Vision
                                             </button>
                                             <button
                                                 onClick={() => setBenchmarkCat("summarization")}
-                                                className={cn("px-3 py-1 rounded-full text-xs font-medium transition", benchmarkCat === "summarization" ? "bg-white text-slate-950" : "text-slate-400 hover:text-white")}
+                                                className={cn("px-3 py-1 rounded-full text-xs font-medium transition cursor-pointer", benchmarkCat === "summarization" ? "bg-foreground text-background" : "text-text-muted hover:text-text-title")}
                                             >
                                                 Legal Text
                                             </button>
@@ -1356,19 +1357,19 @@ export function AISandbox() {
                                         <div className="space-y-6">
                                             <div className="grid gap-4 sm:grid-cols-2">
                                                 {/* WER Chart */}
-                                                <Card className="border-white/5 bg-slate-900/40 p-4">
-                                                    <h4 className="text-xs font-semibold text-slate-300 uppercase tracking-wider mb-4 flex items-center gap-1.5">
-                                                        <TrendingUp className="h-4 w-4 text-cyan-400" />
+                                                <Card className="border-card-border bg-panel-bg/40 p-4">
+                                                    <h4 className="text-xs font-semibold text-text-title uppercase tracking-wider mb-4 flex items-center gap-1.5">
+                                                        <TrendingUp className="h-4 w-4 text-cyan-500" />
                                                         Word Error Rate (WER %) - Lower is Better
                                                     </h4>
                                                     <div className="space-y-4">
                                                         {BENCHMARK_METRICS.asr.map((item, idx) => (
                                                             <div key={idx} className="space-y-1">
-                                                                <div className="flex justify-between text-xs text-slate-300 font-medium">
+                                                                 <div className="flex justify-between text-xs text-text-title font-medium">
                                                                     <span>{item.model}</span>
-                                                                    <span className="font-mono text-cyan-300">{item.wer}%</span>
+                                                                    <span className="font-mono text-cyan-500">{item.wer}%</span>
                                                                 </div>
-                                                                <div className="h-2.5 bg-slate-950/80 rounded-full overflow-hidden">
+                                                                <div className="h-2.5 bg-foreground/10 rounded-full overflow-hidden">
                                                                     <motion.div
                                                                         initial={{ width: 0 }}
                                                                         animate={{ width: `${(item.wer / 20) * 100}%` }}
@@ -1382,19 +1383,19 @@ export function AISandbox() {
                                                 </Card>
 
                                                 {/* Latency Chart */}
-                                                <Card className="border-white/5 bg-slate-900/40 p-4">
-                                                    <h4 className="text-xs font-semibold text-slate-300 uppercase tracking-wider mb-4 flex items-center gap-1.5">
-                                                        <Hourglass className="h-4 w-4 text-violet-400" />
+                                                <Card className="border-card-border bg-panel-bg/40 p-4">
+                                                    <h4 className="text-xs font-semibold text-text-title uppercase tracking-wider mb-4 flex items-center gap-1.5">
+                                                        <Hourglass className="h-4 w-4 text-violet-500" />
                                                         Transcription Latency (ms) - Lower is Better
                                                     </h4>
                                                     <div className="space-y-4">
                                                         {BENCHMARK_METRICS.asr.map((item, idx) => (
                                                             <div key={idx} className="space-y-1">
-                                                                <div className="flex justify-between text-xs text-slate-300 font-medium">
+                                                                 <div className="flex justify-between text-xs text-text-title font-medium">
                                                                     <span>{item.model}</span>
-                                                                    <span className="font-mono text-violet-300">{item.latency} ms</span>
+                                                                    <span className="font-mono text-violet-500">{item.latency} ms</span>
                                                                 </div>
-                                                                <div className="h-2.5 bg-slate-950/80 rounded-full overflow-hidden">
+                                                                <div className="h-2.5 bg-foreground/10 rounded-full overflow-hidden">
                                                                     <motion.div
                                                                         initial={{ width: 0 }}
                                                                         animate={{ width: `${(item.latency / 800) * 100}%` }}
@@ -1407,9 +1408,9 @@ export function AISandbox() {
                                                     </div>
                                                 </Card>
                                             </div>
-                                            <div className="rounded-xl border border-white/5 bg-slate-950/60 p-4 text-xs flex justify-between items-center text-slate-400">
+                                            <div className="rounded-xl border border-card-border bg-panel-bg/40 p-4 text-xs flex justify-between items-center text-text-muted">
                                                 <span>Average Cost per 1k characters:</span>
-                                                <span className="text-emerald-400 font-mono font-semibold">Gemini 2.5 Flash ($0.003) &lt; Whisper ($0.008) &lt; ElevenLabs ($0.015)</span>
+                                                <span className="text-emerald-500 font-mono font-semibold">Gemini 2.5 Flash ($0.003) &lt; Whisper ($0.008) &lt; ElevenLabs ($0.015)</span>
                                             </div>
                                         </div>
                                     )}
@@ -1417,20 +1418,20 @@ export function AISandbox() {
                                     {/* Histoscan Tab */}
                                     {benchmarkCat === "histoscan" && (
                                         <div className="space-y-6">
-                                            <Card className="border-white/5 bg-slate-900/40 p-4 space-y-4">
-                                                <div className="text-xs text-slate-300 leading-relaxed font-sans">{BENCHMARK_METRICS.histoscan.description}</div>
+                                            <Card className="border-card-border bg-panel-bg/40 p-4 space-y-4">
+                                                <div className="text-xs text-text-muted leading-relaxed font-sans">{BENCHMARK_METRICS.histoscan.description}</div>
                                                 
                                                 <div className="grid gap-4 sm:grid-cols-2">
                                                     {BENCHMARK_METRICS.histoscan.results.map((res, idx) => (
-                                                        <div key={idx} className="rounded-xl border border-white/5 bg-slate-950/50 p-4 space-y-2">
+                                                        <div key={idx} className="rounded-xl border border-card-border bg-panel-bg/80 p-4 space-y-2">
                                                             <div className="flex justify-between items-center">
-                                                                <span className="text-sm font-semibold text-white">{res.system}</span>
-                                                                <span className="text-xs font-semibold px-2 py-0.5 rounded-full bg-cyan-950 text-cyan-300">{res.accuracy}% Accuracy</span>
+                                                                <span className="text-sm font-semibold text-text-title">{res.system}</span>
+                                                                <span className="text-xs font-semibold px-2 py-0.5 rounded-full bg-cyan-500/10 text-cyan-600 dark:text-cyan-300">{res.accuracy}% Accuracy</span>
                                                             </div>
-                                                            <div className="text-xs text-slate-400 space-y-1 font-mono">
+                                                            <div className="text-xs text-text-muted space-y-1 font-mono">
                                                                 <div>Latency: {res.latency} ms</div>
                                                                 <div>Pricing: ${res.cost.toFixed(2)} / 1K requests</div>
-                                                                <div className="text-slate-300 font-sans italic mt-2">"{res.notes}"</div>
+                                                                <div className="text-text-title font-sans italic mt-2">"{res.notes}"</div>
                                                             </div>
                                                         </div>
                                                     ))}
@@ -1438,14 +1439,14 @@ export function AISandbox() {
                                             </Card>
 
                                             {/* Ingestion Simulator */}
-                                            <div className="rounded-xl border border-cyan-500/10 bg-slate-950/70 p-4 space-y-4">
+                                            <div className="rounded-xl border border-cyan-500/10 bg-panel-bg/40 p-4 space-y-4">
                                                 <div className="flex justify-between items-center text-xs">
-                                                    <span className="font-semibold text-slate-300">Histopathology Tissue Scan Simulator (1,000 Slide Run)</span>
+                                                    <span className="font-semibold text-text-title">Histopathology Tissue Scan Simulator (1,000 Slide Run)</span>
                                                     <Button
                                                         size="sm"
                                                         onClick={runHistoscanSimulation}
                                                         disabled={simulatingHistoscan}
-                                                        className="bg-cyan-500 hover:bg-cyan-600 text-slate-950 text-[10px] font-semibold px-3 py-1.5 h-auto rounded-md"
+                                                        className="bg-cyan-500 hover:bg-cyan-600 text-slate-950 text-[10px] font-semibold px-3 py-1.5 h-auto rounded-md cursor-pointer"
                                                     >
                                                         {simulatingHistoscan ? `Scanning (${histoscanProgress}%)` : "Trigger 1000 slide Benchmark"}
                                                     </Button>
@@ -1454,7 +1455,7 @@ export function AISandbox() {
                                                 {/* SCANNING PROGRESS VISUAL */}
                                                 {simulatingHistoscan && (
                                                     <div className="space-y-2">
-                                                        <div className="h-1.5 bg-slate-900 rounded-full overflow-hidden">
+                                                        <div className="h-1.5 bg-foreground/10 rounded-full overflow-hidden">
                                                             <div className="h-full bg-cyan-400 transition-all duration-75" style={{ width: `${histoscanProgress}%` }} />
                                                         </div>
                                                         
@@ -1472,13 +1473,13 @@ export function AISandbox() {
 
                                                 {histoscanOutputs.length > 0 && (
                                                     <div className="space-y-2">
-                                                        <div className="text-[10px] uppercase tracking-wider text-slate-400 font-sans">Live Pipeline Output Stream:</div>
+                                                        <div className="text-[10px] uppercase tracking-wider text-text-muted font-sans">Live Pipeline Output Stream:</div>
                                                         <div className="space-y-1.5">
                                                             {histoscanOutputs.map((out, idx) => (
-                                                                <div key={idx} className="flex justify-between items-center bg-white/5 border border-white/5 rounded-lg p-2 text-xs font-mono">
-                                                                    <span className="text-slate-300">{out.id}</span>
-                                                                    <span className="text-slate-400">Ground Truth: {out.label}</span>
-                                                                    <span className={cn("px-1.5 py-0.5 rounded text-[10px] font-semibold", out.correct ? "bg-emerald-500/10 text-emerald-400" : "bg-red-500/10 text-red-400")}>
+                                                                <div key={idx} className="flex justify-between items-center bg-panel-bg border border-card-border rounded-lg p-2 text-xs font-mono">
+                                                                    <span className="text-text-title">{out.id}</span>
+                                                                    <span className="text-text-muted">Ground Truth: {out.label}</span>
+                                                                    <span className={cn("px-1.5 py-0.5 rounded text-[10px] font-semibold", out.correct ? "bg-emerald-500/10 text-emerald-500" : "bg-red-500/10 text-red-500")}>
                                                                         Pred: {out.prediction} ({out.correct ? "PASS" : "FAIL"})
                                                                     </span>
                                                                 </div>
@@ -1493,10 +1494,10 @@ export function AISandbox() {
                                     {/* Summarization Tab */}
                                     {benchmarkCat === "summarization" && (
                                         <div className="space-y-6">
-                                            <Card className="border-white/5 bg-slate-900/40 overflow-hidden">
+                                            <Card className="border-card-border bg-panel-bg/40 overflow-hidden">
                                                 <div className="overflow-x-auto">
                                                     <table className="w-full text-left text-xs">
-                                                        <thead className="bg-slate-950/80 border-b border-white/10 uppercase tracking-wider text-[10px] text-slate-400 font-sans">
+                                                        <thead className="bg-panel-bg border-b border-card-border uppercase tracking-wider text-[10px] text-text-muted font-sans">
                                                             <tr>
                                                                 <th className="px-4 py-3 font-semibold">Model Baseline</th>
                                                                 <th className="px-4 py-3 font-semibold">Factual Accuracy (%)</th>
@@ -1504,21 +1505,21 @@ export function AISandbox() {
                                                                 <th className="px-4 py-3 font-semibold">Inference Speed (Tokens/s)</th>
                                                             </tr>
                                                         </thead>
-                                                        <tbody className="divide-y divide-white/5 font-mono text-slate-300">
+                                                        <tbody className="divide-y divide-card-border font-mono text-text-muted">
                                                             {BENCHMARK_METRICS.summarization.map((row, idx) => (
-                                                                <tr key={idx} className="hover:bg-white/5 transition">
-                                                                    <td className="px-4 py-3 font-sans text-white font-medium">{row.model}</td>
-                                                                    <td className="px-4 py-3 text-cyan-300">{row.accuracy}%</td>
-                                                                    <td className="px-4 py-3 text-violet-300">{row.conciseness} / 100</td>
-                                                                    <td className="px-4 py-3 text-emerald-300">{row.tps} tps</td>
+                                                                <tr key={idx} className="hover:bg-foreground/5 transition">
+                                                                    <td className="px-4 py-3 font-sans text-text-title font-medium">{row.model}</td>
+                                                                    <td className="px-4 py-3 text-cyan-600 dark:text-cyan-300">{row.accuracy}%</td>
+                                                                    <td className="px-4 py-3 text-violet-600 dark:text-violet-300">{row.conciseness} / 100</td>
+                                                                    <td className="px-4 py-3 text-emerald-600 dark:text-emerald-500">{row.tps} tps</td>
                                                                 </tr>
                                                             ))}
                                                         </tbody>
                                                     </table>
                                                 </div>
                                             </Card>
-                                            <div className="rounded-xl border border-white/5 bg-slate-950/60 p-4 text-xs text-slate-400 leading-relaxed font-sans flex items-start gap-3">
-                                                <AlertCircle className="h-4 w-4 text-amber-400 shrink-0 mt-0.5" />
+                                            <div className="rounded-xl border border-card-border bg-panel-bg/40 p-4 text-xs text-text-muted leading-relaxed font-sans flex items-start gap-3">
+                                                <AlertCircle className="h-4 w-4 text-amber-500 shrink-0 mt-0.5" />
                                                 <p>
                                                     <strong>Factual Accuracy Metric:</strong> Calculated by auditing references in summarized legal headnotes against core citations inside primary source drafts using LLM-as-a-judge evaluation frameworks.
                                                 </p>
@@ -1540,17 +1541,17 @@ export function AISandbox() {
                                     transition={{ duration: 0.3 }}
                                     className="space-y-6"
                                 >
-                                    <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between border-b border-white/10 pb-4">
+                                    <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between border-b border-card-border pb-4">
                                         <div>
-                                            <h3 className="text-xl font-semibold text-white">speech2vec Voice Biometrics</h3>
-                                            <p className="text-sm text-slate-400">Self-supervised acoustic word embeddings & DBSCAN voice clustering.</p>
+                                            <h3 className="text-xl font-semibold text-text-title">speech2vec Voice Biometrics</h3>
+                                            <p className="text-sm text-text-muted">Self-supervised acoustic word embeddings & DBSCAN voice clustering.</p>
                                         </div>
                                         <div className="flex items-center gap-2">
-                                            <span className="text-xs text-slate-400 uppercase tracking-wider font-semibold">Select Voice Sample:</span>
+                                            <span className="text-xs text-text-muted uppercase tracking-wider font-semibold">Select Voice Sample:</span>
                                             <select
                                                 value={selectedBioSample}
                                                 onChange={(e) => setSelectedBioSample(e.target.value as BiometricSample)}
-                                                className="rounded-lg border border-white/15 bg-slate-950/80 px-3 py-1.5 text-xs text-white focus-ring"
+                                                className="rounded-lg border border-card-border bg-panel-bg px-3 py-1.5 text-xs text-text-title focus-ring"
                                             >
                                                 <option value="sample_a">Validation Sample A (John)</option>
                                                 <option value="sample_b">Validation Sample B (Sarah)</option>
@@ -1561,9 +1562,9 @@ export function AISandbox() {
 
                                     <div className="grid gap-6 md:grid-cols-2">
                                         {/* SCATTER CLUSTER GRAPH */}
-                                        <Card className="border-white/5 bg-slate-900/40 p-4 space-y-4">
+                                        <Card className="border-card-border bg-panel-bg/40 p-4 space-y-4">
                                             <div className="flex justify-between items-center text-xs">
-                                                <span className="font-semibold text-slate-300">speech2vec Embedding Latent Space</span>
+                                                <span className="font-semibold text-text-title">speech2vec Embedding Latent Space</span>
                                                 <div className="flex gap-2 text-[10px]">
                                                     <span className="flex items-center gap-1"><span className="h-2 w-2 rounded-full bg-cyan-400" />John</span>
                                                     <span className="flex items-center gap-1"><span className="h-2 w-2 rounded-full bg-violet-400" />Sarah</span>
@@ -1572,11 +1573,11 @@ export function AISandbox() {
                                             </div>
 
                                             {/* SVG Graph */}
-                                            <div className="h-60 bg-slate-950/90 rounded-xl relative overflow-hidden border border-white/5 flex items-center justify-center">
+                                            <div className="h-60 bg-panel-bg rounded-xl relative overflow-hidden border border-card-border flex items-center justify-center">
                                                 <svg className="w-full h-full p-4" viewBox="0 0 100 100">
                                                     {/* Grid lines */}
-                                                    <line x1="0" y1="50" x2="100" y2="50" stroke="rgba(255,255,255,0.05)" strokeWidth="0.5" />
-                                                    <line x1="50" y1="0" x2="50" y2="100" stroke="rgba(255,255,255,0.05)" strokeWidth="0.5" />
+                                                    <line x1="0" y1="50" x2="100" y2="50" stroke="currentColor" strokeOpacity="0.05" strokeWidth="0.5" />
+                                                    <line x1="50" y1="0" x2="50" y2="100" stroke="currentColor" strokeOpacity="0.05" strokeWidth="0.5" />
                                                     
                                                     {/* Clusters */}
                                                     {BIOMETRIC_CLUSTERS.map((pt, i) => (
@@ -1602,24 +1603,24 @@ export function AISandbox() {
                                                     )}
                                                 </svg>
                                                 {/* Latent space labels */}
-                                                <div className="absolute bottom-2 left-2 text-[9px] text-slate-500 font-mono">speech2vec dim_1</div>
-                                                <div className="absolute top-2 left-2 text-[9px] text-slate-500 font-mono rotate-90 origin-top-left">speech2vec dim_2</div>
+                                                <div className="absolute bottom-2 left-2 text-[9px] text-text-muted/60 font-mono">speech2vec dim_1</div>
+                                                <div className="absolute top-2 left-2 text-[9px] text-text-muted/60 font-mono rotate-90 origin-top-left">speech2vec dim_2</div>
                                             </div>
                                         </Card>
 
                                         {/* INFERENCE WORKFLOW */}
-                                        <Card className="border-white/5 bg-slate-900/40 p-4 flex flex-col justify-between">
+                                        <Card className="border-card-border bg-panel-bg/40 p-4 flex flex-col justify-between">
                                             <div className="space-y-4">
-                                                <div className="flex justify-between items-center text-xs border-b border-white/5 pb-2">
-                                                    <span className="font-semibold text-slate-300">Biometric Verification Pipeline</span>
-                                                    <span className="font-mono text-cyan-400 text-[10px]">{BIOMETRIC_SAMPLES[selectedBioSample].file}</span>
+                                                <div className="flex justify-between items-center text-xs border-b border-card-border pb-2">
+                                                    <span className="font-semibold text-text-title">Biometric Verification Pipeline</span>
+                                                    <span className="font-mono text-cyan-500 text-[10px]">{BIOMETRIC_SAMPLES[selectedBioSample].file}</span>
                                                 </div>
 
                                                 <div className="space-y-3 text-xs">
                                                     {/* Step 1: Band-pass filter */}
                                                     <div className="flex items-center justify-between">
-                                                        <span className="text-slate-400">1. Audio Level Normalization & Noise Filters</span>
-                                                        <span className={cn("font-medium", bioStep !== "idle" ? "text-emerald-400 font-mono" : "text-slate-500")}>
+                                                        <span className="text-text-muted">1. Audio Level Normalization & Noise Filters</span>
+                                                        <span className={cn("font-medium", bioStep !== "idle" ? "text-emerald-500 font-mono" : "text-text-muted/50")}>
                                                             {bioStep === "idle" ? "Pending" : bioStep === "filtering" ? "Filtering..." : "COMPLETED"}
                                                         </span>
                                                     </div>
@@ -1627,13 +1628,13 @@ export function AISandbox() {
                                                     {/* Step 2: MFCC */}
                                                     <div className="space-y-1.5">
                                                         <div className="flex items-center justify-between">
-                                                            <span className="text-slate-400">2. Mel-Frequency Coefficients (MFCC)</span>
-                                                            <span className={cn("font-medium", (bioStep !== "idle" && bioStep !== "filtering") ? "text-emerald-400 font-mono" : "text-slate-500")}>
+                                                            <span className="text-text-muted">2. Mel-Frequency Coefficients (MFCC)</span>
+                                                            <span className={cn("font-medium", (bioStep !== "idle" && bioStep !== "filtering") ? "text-emerald-500 font-mono" : "text-text-muted/50")}>
                                                                 {bioStep === "idle" || bioStep === "filtering" ? "Pending" : bioStep === "mfcc" ? "Extracting..." : "13-MFCC EXTRACTED"}
                                                             </span>
                                                         </div>
                                                         {bioStep !== "idle" && bioStep !== "filtering" && (
-                                                            <div className="flex gap-1 items-end h-6 px-1 bg-slate-950/80 rounded border border-white/5 py-1">
+                                                            <div className="flex gap-1 items-end h-6 px-1 bg-panel-bg/85 rounded border border-card-border py-1">
                                                                 {BIOMETRIC_SAMPLES[selectedBioSample].mfccs.map((val, i) => {
                                                                     const normalizedHeight = Math.min(100, Math.max(10, (Math.abs(val) / 15) * 100));
                                                                     return (
@@ -1650,22 +1651,22 @@ export function AISandbox() {
 
                                                     {/* Step 3: Projection */}
                                                     <div className="flex items-center justify-between">
-                                                        <span className="text-slate-400">3. Latent Vector Mapping (wav2vec 2.0)</span>
-                                                        <span className={cn("font-medium", (bioStep === "projection" || bioStep === "done") ? "text-emerald-400 font-mono" : "text-slate-500")}>
+                                                        <span className="text-text-muted">3. Latent Vector Mapping (wav2vec 2.0)</span>
+                                                        <span className={cn("font-medium", (bioStep === "projection" || bioStep === "done") ? "text-emerald-500 font-mono" : "text-text-muted/50")}>
                                                             {bioStep === "projection" ? "Projecting..." : bioStep === "done" ? "MAPPED" : "Pending"}
                                                         </span>
                                                     </div>
                                                 </div>
                                             </div>
 
-                                            <div className="pt-4 border-t border-white/5 mt-4 space-y-4">
+                                            <div className="pt-4 border-t border-card-border mt-4 space-y-4">
                                                 {bioStep === "done" && (
                                                     <div className="rounded-lg bg-emerald-500/10 border border-emerald-500/20 p-3 text-xs space-y-1 font-sans">
-                                                        <div className="flex justify-between font-semibold text-emerald-400">
+                                                        <div className="flex justify-between font-semibold text-emerald-500">
                                                             <span>Speaker Identity: {BIOMETRIC_SAMPLES[selectedBioSample].agent}</span>
                                                             <span>Match: {BIOMETRIC_SAMPLES[selectedBioSample].confidence}%</span>
                                                         </div>
-                                                        <p className="text-[10px] text-slate-400 leading-relaxed font-mono">
+                                                        <p className="text-[10px] text-text-muted leading-relaxed font-mono">
                                                             Euclidean cluster distance: {(1 - BIOMETRIC_SAMPLES[selectedBioSample].confidence/100).toFixed(4)} (DBSCAN classified)
                                                         </p>
                                                     </div>
@@ -1674,7 +1675,7 @@ export function AISandbox() {
                                                 <Button
                                                     onClick={handleVerifyBiometrics}
                                                     disabled={isVerifyingBio}
-                                                    className="w-full bg-cyan-500 hover:bg-cyan-600 text-slate-950 font-semibold"
+                                                    className="w-full bg-cyan-500 hover:bg-cyan-600 text-slate-950 font-semibold cursor-pointer"
                                                 >
                                                     {isVerifyingBio ? "Verifying Voice Print..." : "Analyze & Verify Voiceprint"}
                                                 </Button>
@@ -1696,17 +1697,17 @@ export function AISandbox() {
                                     transition={{ duration: 0.3 }}
                                     className="space-y-6"
                                 >
-                                    <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between border-b border-white/10 pb-4">
+                                    <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between border-b border-card-border pb-4">
                                         <div>
-                                            <h3 className="text-xl font-semibold text-white">Supabase Row-Level Security Console</h3>
-                                            <p className="text-sm text-slate-400">Simulate how PostgreSQL isolates rows dynamically based on JWT headers.</p>
+                                            <h3 className="text-xl font-semibold text-text-title">Supabase Row-Level Security Console</h3>
+                                            <p className="text-sm text-text-muted">Simulate how PostgreSQL isolates rows dynamically based on JWT headers.</p>
                                         </div>
                                         <div className="flex items-center gap-2">
-                                            <span className="text-xs text-slate-400 uppercase tracking-wider font-semibold">User Role JWT:</span>
+                                            <span className="text-xs text-text-muted uppercase tracking-wider font-semibold">User Role JWT:</span>
                                             <select
                                                 value={rlsRole}
                                                 onChange={(e) => setRlsRole(e.target.value as RLSRole)}
-                                                className="rounded-lg border border-white/15 bg-slate-950/80 px-3 py-1.5 text-xs text-white focus-ring"
+                                                className="rounded-lg border border-card-border bg-panel-bg px-3 py-1.5 text-xs text-text-title focus-ring"
                                             >
                                                 <option value="guest">Guest (Anonymous auth.uid = null)</option>
                                                 <option value="member_101">Venture Member (Group 101 JWT)</option>
@@ -1718,14 +1719,14 @@ export function AISandbox() {
 
                                     <div className="grid gap-6 md:grid-cols-2">
                                         {/* SQL policy viewer */}
-                                        <Card className="border-white/5 bg-slate-900/40 p-4 space-y-4">
-                                            <div className="flex justify-between items-center text-xs border-b border-white/5 pb-2">
-                                                <span className="font-semibold text-slate-300">Compiled Security Policies</span>
+                                        <Card className="border-card-border bg-panel-bg/40 p-4 space-y-4">
+                                            <div className="flex justify-between items-center text-xs border-b border-card-border pb-2">
+                                                <span className="font-semibold text-text-title">Compiled Security Policies</span>
                                                 <Lock className="h-4 w-4 text-cyan-400" />
                                             </div>
 
                                             <div className="space-y-3 font-mono text-xs">
-                                                <div className="rounded-xl border border-white/5 bg-slate-950/90 p-3 leading-relaxed text-slate-400">
+                                                <div className="rounded-xl border border-card-border bg-panel-bg p-3 leading-relaxed text-text-muted">
                                                     <span className="text-violet-400">CREATE POLICY</span> "deals_policy" <br />
                                                     <span className="text-violet-400">ON</span> deals <br />
                                                     <span className="text-violet-400">FOR SELECT USING</span> (<br />
@@ -1740,8 +1741,8 @@ export function AISandbox() {
                                                 </div>
 
                                                 <div className="space-y-1">
-                                                    <div className="text-[10px] text-slate-400 uppercase tracking-wider font-sans">Active Postgres Execution Query:</div>
-                                                    <div className="rounded-xl border border-cyan-500/10 bg-cyan-950/15 p-3 text-cyan-300 whitespace-pre-wrap leading-relaxed">
+                                                    <div className="text-[10px] text-text-muted uppercase tracking-wider font-sans">Active Postgres Execution Query:</div>
+                                                    <div className="rounded-xl border border-cyan-500/10 bg-cyan-500/5 p-3 text-cyan-600 dark:text-cyan-300 whitespace-pre-wrap leading-relaxed">
                                                         {getSQLQuery()}
                                                     </div>
                                                 </div>
@@ -1749,15 +1750,15 @@ export function AISandbox() {
                                         </Card>
 
                                         {/* Resulting database table */}
-                                        <Card className="border-white/5 bg-slate-900/40 p-4 space-y-4">
-                                            <div className="flex justify-between items-center text-xs border-b border-white/5 pb-2">
-                                                <span className="font-semibold text-slate-300">Resulting Database Rows</span>
-                                                <span className="font-mono text-slate-400">{getFilteredRows().length} rows returned</span>
+                                        <Card className="border-card-border bg-panel-bg/40 p-4 space-y-4">
+                                            <div className="flex justify-between items-center text-xs border-b border-card-border pb-2">
+                                                <span className="font-semibold text-text-title">Resulting Database Rows</span>
+                                                <span className="font-mono text-text-muted">{getFilteredRows().length} rows returned</span>
                                             </div>
 
                                             <div className="overflow-x-auto">
                                                 <table className="w-full text-left text-[11px] font-sans">
-                                                    <thead className="bg-slate-950/80 uppercase tracking-wider text-[9px] text-slate-400 font-sans border-b border-white/5">
+                                                    <thead className="bg-panel-bg uppercase tracking-wider text-[9px] text-text-muted font-sans border-b border-card-border">
                                                         <tr>
                                                             <th className="px-3 py-2">ID</th>
                                                             <th className="px-3 py-2">Deal name</th>
@@ -1766,26 +1767,26 @@ export function AISandbox() {
                                                             <th className="px-3 py-2">Valuation</th>
                                                         </tr>
                                                     </thead>
-                                                    <tbody className="divide-y divide-white/5 font-mono text-slate-300">
+                                                    <tbody className="divide-y divide-card-border font-mono text-text-muted">
                                                         {getFilteredRows().map((row, idx) => (
-                                                            <tr key={idx} className="hover:bg-white/5 transition">
-                                                                <td className="px-3 py-2 text-slate-500">{row.id}</td>
-                                                                <td className="px-3 py-2 text-white font-sans font-medium">{row.title}</td>
-                                                                <td className="px-3 py-2 text-cyan-300">{row.group}</td>
-                                                                <td className="px-3 py-2 text-violet-300">{row.is_public ? "PUBLIC" : "PRIVATE"}</td>
-                                                                <td className="px-3 py-2 text-emerald-300">{row.valuation}</td>
+                                                            <tr key={idx} className="hover:bg-foreground/5 transition">
+                                                                <td className="px-3 py-2 text-text-muted/60">{row.id}</td>
+                                                                <td className="px-3 py-2 text-text-title font-sans font-medium">{row.title}</td>
+                                                                <td className="px-3 py-2 text-cyan-600 dark:text-cyan-300">{row.group}</td>
+                                                                <td className="px-3 py-2 text-violet-600 dark:text-violet-300">{row.is_public ? "PUBLIC" : "PRIVATE"}</td>
+                                                                <td className="px-3 py-2 text-emerald-600 dark:text-emerald-500">{row.valuation}</td>
                                                             </tr>
                                                         ))}
                                                         {getFilteredRows().length === 0 && (
                                                             <tr>
-                                                                <td colSpan={5} className="px-3 py-6 text-center text-slate-500 italic">No accessible rows (RLS query blocked all rows).</td>
+                                                                <td colSpan={5} className="px-3 py-6 text-center text-text-muted/50 italic">No accessible rows (RLS query blocked all rows).</td>
                                                             </tr>
                                                         )}
                                                     </tbody>
                                                 </table>
                                             </div>
 
-                                            <div className="rounded-lg bg-cyan-950/20 border border-cyan-500/10 p-3 text-[10px] text-slate-300 leading-relaxed font-sans">
+                                            <div className="rounded-lg bg-cyan-500/5 border border-cyan-500/10 p-3 text-[10px] text-text-muted leading-relaxed font-sans">
                                                 <strong>Security Analysis:</strong> When querying `/deals`, Supabase automatically intercepts the client JWT, extracts `auth.uid()`, compiles RLS policies as filters inside the SQL execution plan, and isolates data at the DB level, preventing leakage of private deals.
                                             </div>
                                         </Card>
@@ -1820,7 +1821,7 @@ export function AISandbox() {
                                                         setScenario(e.target.value as ScenarioId);
                                                         handleResetSim();
                                                     }}
-                                                    className="rounded-lg border border-card-border bg-slate-950/80 px-3 py-1.5 text-xs text-text-title focus-ring cursor-pointer"
+                                                    className="rounded-lg border border-card-border bg-panel-bg px-3 py-1.5 text-xs text-text-title focus-ring cursor-pointer"
                                                 >
                                                     <option value="legal_audit">Legal Document Intake Audit</option>
                                                     <option value="telephony_routing">Telephony Lead Routing</option>
@@ -1836,7 +1837,7 @@ export function AISandbox() {
                                                     step="250"
                                                     value={simSpeed}
                                                     onChange={(e) => setSimSpeed(parseInt(e.target.value))}
-                                                    className="h-1.5 w-24 accent-cyan-400 bg-slate-800 rounded-lg cursor-pointer"
+                                                    className="h-1.5 w-24 accent-cyan-500 bg-foreground/10 rounded-lg cursor-pointer"
                                                 />
                                             </div>
                                         </div>
@@ -1848,8 +1849,8 @@ export function AISandbox() {
                                             onClick={handleStartPauseSim}
                                             variant="secondary"
                                             className={cn(
-                                                "gap-2 font-semibold transition-colors",
-                                                simStatus === "running" ? "bg-amber-500/20 text-amber-300 border border-amber-500/30 hover:bg-amber-500/30" : "bg-cyan-500 text-slate-950 hover:bg-cyan-600"
+                                                "gap-2 font-semibold transition-colors cursor-pointer",
+                                                simStatus === "running" ? "bg-amber-500/20 text-amber-600 dark:text-amber-300 border border-amber-500/30 hover:bg-amber-500/30" : "bg-cyan-500 text-slate-950 hover:bg-cyan-600"
                                             )}
                                         >
                                             {simStatus === "running" ? <Pause className="h-4 w-4" /> : <Play className="h-4 w-4 fill-current" />}
@@ -1858,7 +1859,7 @@ export function AISandbox() {
                                         <Button
                                             onClick={handleResetSim}
                                             variant="outline"
-                                            className="border-card-border text-text-title hover:bg-foreground/5"
+                                            className="border-card-border text-text-title hover:bg-foreground/5 cursor-pointer"
                                         >
                                             Reset
                                         </Button>
@@ -1866,13 +1867,13 @@ export function AISandbox() {
 
                                     <div className="grid gap-6 md:grid-cols-2">
                                         {/* AGENT FLOW DIAGRAM VISUALIZER */}
-                                        <Card className="border-card-border bg-slate-900/40 p-4 space-y-4">
+                                        <Card className="border-card-border bg-panel-bg/40 p-4 space-y-4">
                                             <div className="flex justify-between items-center text-xs border-b border-card-border pb-2">
                                                 <span className="font-semibold text-text-muted">Agent System Graph & Connection State</span>
-                                                <Activity className="h-4 w-4 text-cyan-400" />
+                                                <Activity className="h-4 w-4 text-cyan-500" />
                                             </div>
 
-                                            <div className="flex flex-col items-center justify-center p-4 border border-card-border bg-slate-950/60 rounded-2xl relative overflow-hidden h-72">
+                                            <div className="flex flex-col items-center justify-center p-4 border border-card-border bg-panel-bg rounded-2xl relative overflow-hidden h-72">
                                                 {/* Graph Connections */}
                                                 <svg className="absolute inset-0 w-full h-full pointer-events-none stroke-cyan-500/10" viewBox="0 0 100 100" preserveAspectRatio="none">
                                                     <line x1="50" y1="20" x2="20" y2="50" strokeWidth="0.5" strokeDasharray="3 3" />
@@ -1886,10 +1887,10 @@ export function AISandbox() {
                                                     <div className={cn(
                                                         "flex items-center gap-2.5 rounded-2xl border p-3.5 transition-all duration-300 w-48 shadow-lg",
                                                         activeAgent === "coordinator"
-                                                            ? "border-cyan-400 bg-cyan-950/30 shadow-[0_0_15px_rgba(34,211,238,0.25)] text-cyan-300 scale-105"
-                                                            : "border-card-border bg-slate-900/60 text-text-muted"
+                                                            ? "border-cyan-500 bg-cyan-500/10 shadow-[0_0_15px_rgba(34,211,238,0.25)] text-cyan-600 dark:text-cyan-300 scale-105"
+                                                            : "border-card-border bg-panel-bg/60 text-text-muted"
                                                     )}>
-                                                        <BrainCircuit className={cn("h-5 w-5 shrink-0", activeAgent === "coordinator" ? "text-cyan-400" : "text-text-muted")} />
+                                                        <BrainCircuit className={cn("h-5 w-5 shrink-0", activeAgent === "coordinator" ? "text-cyan-500" : "text-text-muted")} />
                                                         <div className="text-left min-w-0">
                                                             <p className="text-[9px] uppercase font-bold tracking-wider opacity-60">Coordinator</p>
                                                             <p className="text-xs font-semibold truncate">Orchestrator Agent</p>
@@ -1902,10 +1903,10 @@ export function AISandbox() {
                                                     <div className={cn(
                                                         "flex items-center gap-2.5 rounded-2xl border p-3.5 transition-all duration-300 w-44 shadow-lg",
                                                         activeAgent === "ingestion"
-                                                            ? "border-violet-400 bg-violet-950/30 shadow-[0_0_15px_rgba(167,139,250,0.25)] text-violet-300 scale-105"
-                                                            : "border-card-border bg-slate-900/60 text-text-muted"
+                                                            ? "border-violet-500 bg-violet-500/10 shadow-[0_0_15px_rgba(167,139,250,0.25)] text-violet-600 dark:text-violet-300 scale-105"
+                                                            : "border-card-border bg-panel-bg/60 text-text-muted"
                                                     )}>
-                                                        <Database className={cn("h-5 w-5 shrink-0", activeAgent === "ingestion" ? "text-violet-400" : "text-text-muted")} />
+                                                        <Database className={cn("h-5 w-5 shrink-0", activeAgent === "ingestion" ? "text-violet-500" : "text-text-muted")} />
                                                         <div className="text-left min-w-0">
                                                             <p className="text-[9px] uppercase font-bold tracking-wider opacity-60">Ingestion</p>
                                                             <p className="text-xs font-semibold truncate">Data Parser Agent</p>
@@ -1915,10 +1916,10 @@ export function AISandbox() {
                                                     <div className={cn(
                                                         "flex items-center gap-2.5 rounded-2xl border p-3.5 transition-all duration-300 w-44 shadow-lg",
                                                         activeAgent === "validation"
-                                                            ? "border-amber-400 bg-amber-950/30 shadow-[0_0_15px_rgba(251,191,36,0.25)] text-amber-300 scale-105"
-                                                            : "border-card-border bg-slate-900/60 text-text-muted"
+                                                            ? "border-amber-500 bg-amber-500/10 shadow-[0_0_15px_rgba(251,191,36,0.25)] text-amber-600 dark:text-amber-300 scale-105"
+                                                            : "border-card-border bg-panel-bg/60 text-text-muted"
                                                     )}>
-                                                        <Sliders className={cn("h-5 w-5 shrink-0", activeAgent === "validation" ? "text-amber-400" : "text-text-muted")} />
+                                                        <Sliders className={cn("h-5 w-5 shrink-0", activeAgent === "validation" ? "text-amber-500" : "text-text-muted")} />
                                                         <div className="text-left min-w-0">
                                                             <p className="text-[9px] uppercase font-bold tracking-wider opacity-60">Validation</p>
                                                             <p className="text-xs font-semibold truncate">Factual Auditor Agent</p>
@@ -1931,10 +1932,10 @@ export function AISandbox() {
                                                     <div className={cn(
                                                         "flex items-center gap-2.5 rounded-2xl border p-3.5 transition-all duration-300 w-48 shadow-lg",
                                                         activeAgent === "executor"
-                                                            ? "border-emerald-400 bg-emerald-950/30 shadow-[0_0_15px_rgba(52,211,153,0.25)] text-emerald-300 scale-105"
-                                                            : "border-card-border bg-slate-900/60 text-text-muted"
+                                                            ? "border-emerald-500 bg-emerald-500/10 shadow-[0_0_15px_rgba(52,211,153,0.25)] text-emerald-600 dark:text-emerald-300 scale-105"
+                                                            : "border-card-border bg-panel-bg/60 text-text-muted"
                                                     )}>
-                                                        <Cpu className={cn("h-5 w-5 shrink-0", activeAgent === "executor" ? "text-emerald-400" : "text-text-muted")} />
+                                                        <Cpu className={cn("h-5 w-5 shrink-0", activeAgent === "executor" ? "text-emerald-500" : "text-text-muted")} />
                                                         <div className="text-left min-w-0">
                                                             <p className="text-[9px] uppercase font-bold tracking-wider opacity-60">Execution</p>
                                                             <p className="text-xs font-semibold truncate">Action Executor Agent</p>
@@ -1945,7 +1946,7 @@ export function AISandbox() {
                                         </Card>
 
                                         {/* CONSOLE TERMINAL OUTPUT */}
-                                        <Card className="border-card-border bg-slate-950 p-4 font-mono text-xs flex flex-col justify-between h-[348px]">
+                                        <Card className="border-card-border bg-panel-bg p-4 font-mono text-xs flex flex-col justify-between h-[348px]">
                                             <div className="flex justify-between items-center text-[10px] border-b border-card-border pb-2 text-text-muted uppercase tracking-wider mb-3 font-sans">
                                                 <span>Simulation Output Console</span>
                                                 <span className="flex items-center gap-1.5">
@@ -1959,22 +1960,22 @@ export function AISandbox() {
                                                 </span>
                                             </div>
 
-                                            <div className="flex-1 overflow-y-auto space-y-3 pr-2 scrollbar-thin scrollbar-thumb-white/10 text-left">
+                                            <div className="flex-1 overflow-y-auto space-y-3 pr-2 scrollbar-thin scrollbar-thumb-foreground/10 text-left">
                                                 {arenaLogs.map((log, idx) => (
                                                     <div key={idx} className="leading-relaxed border-l-2 pl-3 border-card-border py-0.5">
-                                                        <span className="text-slate-500">[{log.time}]</span>{" "}
+                                                        <span className="text-text-muted/60">[{log.time}]</span>{" "}
                                                         <span className={cn(
                                                             "font-semibold",
-                                                            log.agent.includes("Coordinator") ? "text-cyan-300" :
-                                                            log.agent.includes("Ingestion") ? "text-violet-300" :
-                                                            log.agent.includes("Validation") ? "text-amber-300" : "text-emerald-300"
+                                                            log.agent.includes("Coordinator") ? "text-cyan-600 dark:text-cyan-300" :
+                                                            log.agent.includes("Ingestion") ? "text-violet-600 dark:text-violet-300" :
+                                                            log.agent.includes("Validation") ? "text-amber-600 dark:text-amber-300" : "text-emerald-600 dark:text-emerald-500"
                                                         )}>{log.agent}</span>:{" "}
                                                         <span className="text-text-title underline font-semibold">{log.action}</span>
                                                         <p className="text-text-muted ml-4 mt-1 whitespace-pre-wrap leading-relaxed font-sans text-[11px]">{log.details}</p>
                                                     </div>
                                                 ))}
                                                 {arenaLogs.length === 0 && (
-                                                    <div className="h-full flex items-center justify-center text-slate-500 italic">
+                                                    <div className="h-full flex items-center justify-center text-text-muted/50 italic">
                                                         Click &apos;Start Simulation&apos; to run the agentic workflow.
                                                     </div>
                                                 )}
