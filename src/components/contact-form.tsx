@@ -1,10 +1,11 @@
 "use client";
 
-import { useMemo, useState } from "react";
+import { useState } from "react";
 import { Loader2, MailCheck, SendHorizontal } from "lucide-react";
 
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
+import { getApiBaseUrl } from "@/lib/api";
 import { cn } from "@/lib/utils";
 import type { SiteContent } from "@/lib/content";
 
@@ -25,9 +26,7 @@ const initialState: ContactState = {
 };
 
 export function ContactForm({ content }: ContactFormProps) {
-    const apiBase = useMemo(() => {
-        return process.env.NEXT_PUBLIC_BACKEND_URL ?? "http://localhost:8000/api";
-    }, []);
+    const apiBase = getApiBaseUrl();
     const [form, setForm] = useState<ContactState>(initialState);
     const [status, setStatus] = useState<"idle" | "sending" | "success" | "error">("idle");
     const [feedback, setFeedback] = useState<string>("");

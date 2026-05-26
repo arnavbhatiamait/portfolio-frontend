@@ -101,7 +101,7 @@ export function SiteHeader({ content }: SiteHeaderProps) {
                         </Button>
                         */}
                         <Button asChild variant="secondary" size="sm">
-                            <a href={content.resumeHref} target="_blank" rel="noreferrer">
+                            <a href={content.resumeHref}>
                                 Resume
                             </a>
                         </Button>
@@ -159,7 +159,7 @@ export function SiteHeader({ content }: SiteHeaderProps) {
                                 ))}
                                 <div className="grid gap-2 px-1 pb-1 pt-2 sm:grid-cols-2">
                                     <Button asChild variant="secondary" size="sm">
-                                        <a href={content.resumeHref} target="_blank" rel="noreferrer">
+                                        <a href={content.resumeHref} onClick={() => setOpen(false)}>
                                             Download Resume
                                         </a>
                                     </Button>

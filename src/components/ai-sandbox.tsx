@@ -33,6 +33,7 @@ import {
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
+import { getApiBaseUrl } from "@/lib/api";
 import { cn } from "@/lib/utils";
 
 // ==========================================
@@ -501,7 +502,7 @@ export function AISandbox() {
 
         // Try hitting backend first, fallback to client-side KB
         try {
-            const response = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL || "http://localhost:8000/api"}/chat`, {
+            const response = await fetch(`${getApiBaseUrl()}/chat`, {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify({

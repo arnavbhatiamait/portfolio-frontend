@@ -172,9 +172,9 @@ export function PortfolioPage({ content }: PortfolioPageProps) {
                                     <a href="#contact">Contact Me</a>
                                 </Button>
                                 <Button asChild variant="outline" size="lg">
-                                    <a href={content.resumeHref} target="_blank" rel="noreferrer">
+                                    <a href={content.resumeHref}>
                                         <Download className="h-4 w-4" />
-                                        Download Resume
+                                        View Resume
                                     </a>
                                 </Button>
                             </div>
@@ -522,14 +522,14 @@ export function PortfolioPage({ content }: PortfolioPageProps) {
                             <CardHeader>
                                 <CardTitle>Resume download</CardTitle>
                                 <CardDescription>
-                                    Keep the latest resume in the public folder at {content.resumeHref} so this button works in production.
+                                    Preview the latest backend-served resume on a dedicated page, then download it directly from the API.
                                 </CardDescription>
                             </CardHeader>
                             <CardContent className="flex flex-col gap-3 sm:flex-row">
                                 <Button asChild variant="accent" size="lg">
-                                    <a href={content.resumeHref} target="_blank" rel="noreferrer">
+                                    <a href={content.resumeHref}>
                                         <Download className="h-4 w-4" />
-                                        Download Resume
+                                        Open Resume Page
                                     </a>
                                 </Button>
                                 <Button asChild variant="secondary" size="lg">
