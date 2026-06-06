@@ -41,6 +41,13 @@ import { cn } from "@/lib/utils";
 // ==========================================
 type KnowledgeKey = "default" | "nyaay" | "council" | "voice_agent" | "opticall" | "skills" | "internships" | "contact" | "benchmarking" | "speech2vec" | "investor_base";
 
+type ChatMessage = {
+    sender: "user" | "bot";
+    text: string;
+    model?: string;
+    mode?: string;
+};
+
 const OFFLINE_KB: Record<KnowledgeKey, string> = {
     default: "Hi! I am Arnav's AI Assistant. I can tell you all about his projects, skills, and professional experience. Ask me anything or click one of the suggestions below!",
     nyaay: "**NYAAY AI** is a legal technology platform designed by Arnav during his internship at PAN Science Innovations. \n\n" +
@@ -106,6 +113,106 @@ const matchKeyword = (msg: string): KnowledgeKey => {
     if (text.includes("speech2vec") || text.includes("biometric") || text.includes("voiceprint") || text.includes("wav2vec")) return "speech2vec";
     if (text.includes("investor") || text.includes("supabase") || text.includes("rls") || text.includes("pledge")) return "investor_base";
     return "default";
+};
+
+const INLINE_MARKDOWN_PATTERN = /\[([^\]]+)\]\(([^)]+)\)|\*\*([^*]+)\*\*|`([^`]+)`/g;
+
+const renderInlineMarkdown = (text: string) => {
+    const nodes: React.ReactNode[] = [];
+    let lastIndex = 0;
+    let match: RegExpExecArray | null;
+
+    INLINE_MARKDOWN_PATTERN.lastIndex = 0;
+    while ((match = INLINE_MARKDOWN_PATTERN.exec(text)) !== null) {
+        if (match.index > lastIndex) {
+            nodes.push(text.slice(lastIndex, match.index));
+        }
+
+        if (match[1] && match[2]) {
+            nodes.push(
+                <a
+                    key={`${match.index}-link`}
+                    href={match[2]}
+                    target="_blank"
+                    rel="noreferrer"
+                    className="text-cyan-300 underline decoration-cyan-300/40 underline-offset-4 hover:text-cyan-200"
+                >
+                    {match[1]}
+                </a>
+            );
+        } else if (match[3]) {
+            nodes.push(
+                <strong key={`${match.index}-bold`} className="font-semibold text-text-title">
+                    {match[3]}
+                </strong>
+            );
+        } else if (match[4]) {
+            nodes.push(
+                <code
+                    key={`${match.index}-code`}
+                    className="rounded-md border border-white/10 bg-white/5 px-1.5 py-0.5 font-mono text-[0.85em] text-cyan-100"
+                >
+                    {match[4]}
+                </code>
+            );
+        }
+
+        lastIndex = INLINE_MARKDOWN_PATTERN.lastIndex;
+    }
+
+    if (lastIndex < text.length) {
+        nodes.push(text.slice(lastIndex));
+    }
+
+    return nodes;
+};
+
+const MessageMarkdown = ({ text }: { text: string }) => {
+    const blocks = text
+        .split(/\n{2,}/)
+        .map(block => block.trim())
+        .filter(Boolean);
+
+    return (
+        <div className="space-y-3">
+            {blocks.map((block, blockIndex) => {
+                const lines = block
+                    .split("\n")
+                    .map(line => line.trim())
+                    .filter(Boolean);
+
+                const listLike = lines.length > 1 && lines.every(line => /^([-*]|\d+\.)\s+/.test(line));
+
+                if (listLike) {
+                    return (
+                        <ul key={blockIndex} className="space-y-2">
+                            {lines.map((line, lineIndex) => {
+                                const content = line.replace(/^([-*]|\d+\.)\s+/, "");
+                                return (
+                                    <li key={`${blockIndex}-${lineIndex}`} className="flex gap-2">
+                                        <span className="mt-2 h-1.5 w-1.5 shrink-0 rounded-full bg-cyan-300/80" />
+                                        <span className="leading-7">{renderInlineMarkdown(content)}</span>
+                                    </li>
+                                );
+                            })}
+                        </ul>
+                    );
+                }
+
+                return (
+                    <p key={blockIndex} className="text-pretty leading-7">
+                        {lines.length > 1
+                            ? lines.map((line, lineIndex) => (
+                                <span key={`${blockIndex}-${lineIndex}`} className="block">
+                                    {renderInlineMarkdown(line)}
+                                </span>
+                            ))
+                            : renderInlineMarkdown(block)}
+                    </p>
+                );
+            })}
+        </div>
+    );
 };
 
 // ==========================================
@@ -474,12 +581,13 @@ export function AISandbox() {
     // ----------------------------------------
     // CHATBOT TAB STATE
     // ----------------------------------------
-    const [messages, setMessages] = useState<Array<{ sender: "user" | "bot"; text: string }>>([
-        { sender: "bot", text: OFFLINE_KB.default }
+    const [messages, setMessages] = useState<ChatMessage[]>([
+        { sender: "bot", text: OFFLINE_KB.default, model: "local_simulator", mode: "local_simulator" }
     ]);
     const [inputValue, setInputValue] = useState("");
     const [isTyping, setIsTyping] = useState(false);
     const chatEndRef = useRef<HTMLDivElement>(null);
+    const latestBotMessage = [...messages].reverse().find(message => message.sender === "bot");
 
     const scrollToBottom = () => {
         chatEndRef.current?.scrollIntoView({ behavior: "smooth" });
@@ -513,14 +621,29 @@ export function AISandbox() {
 
             if (response.ok) {
                 const data = await response.json();
-                setMessages(prev => [...prev, { sender: "bot", text: data.reply }]);
+                setMessages(prev => [...prev, {
+                    sender: "bot",
+                    text: data.reply,
+                    model: data.model || "gemini-2.5-flash",
+                    mode: data.mode || "api"
+                }]);
             } else {
                 const kbKey = matchKeyword(text);
-                setMessages(prev => [...prev, { sender: "bot", text: OFFLINE_KB[kbKey] }]);
+                setMessages(prev => [...prev, {
+                    sender: "bot",
+                    text: OFFLINE_KB[kbKey],
+                    model: "local_simulator",
+                    mode: "local_simulator"
+                }]);
             }
         } catch (e) {
             const kbKey = matchKeyword(text);
-            setMessages(prev => [...prev, { sender: "bot", text: OFFLINE_KB[kbKey] }]);
+            setMessages(prev => [...prev, {
+                sender: "bot",
+                text: OFFLINE_KB[kbKey],
+                model: "local_simulator",
+                mode: "local_simulator"
+            }]);
         } finally {
             setIsTyping(false);
         }
@@ -835,66 +958,98 @@ export function AISandbox() {
                                     animate={{ opacity: 1, y: 0 }}
                                     exit={{ opacity: 0, y: -10 }}
                                     transition={{ duration: 0.3 }}
-                                    className="flex flex-col h-[520px]"
+                                    className="flex flex-col h-[540px] md:h-[560px]"
                                 >
-                                    <div className="border-b border-card-border pb-4 mb-4 flex items-center justify-between">
+                                    <div className="mb-4 flex items-center justify-between border-b border-white/10 pb-3">
                                         <div className="flex items-center gap-3">
-                                            <div className="h-10 w-10 rounded-full bg-gradient-to-br from-cyan-400 to-violet-500 flex items-center justify-center">
+                                            <div className="flex h-10 w-10 items-center justify-center rounded-full bg-gradient-to-br from-cyan-400 via-blue-500 to-violet-500 shadow-lg shadow-cyan-950/30">
                                                 <Bot className="h-5 w-5 text-white" />
                                             </div>
                                             <div>
-                                                <h3 className="font-semibold text-text-title">Arnav's AI Copilot</h3>
-                                                <p className="text-xs text-cyan-300/80 flex items-center gap-1">
-                                                    <span className="h-1.5 w-1.5 rounded-full bg-emerald-400 animate-ping" />
+                                                <h3 className="font-semibold text-text-title">Arnav&apos;s AI Copilot</h3>
+                                                <p className="flex items-center gap-2 text-xs text-cyan-300/75">
+                                                    <span className="h-2 w-2 rounded-full bg-emerald-400 shadow-[0_0_10px_rgba(52,211,153,0.85)]" />
                                                     Online Agent (Auto-Switching Simulation)
                                                 </p>
                                             </div>
                                         </div>
-                                        <Button
-                                            variant="ghost"
-                                            size="icon"
-                                            onClick={() => setMessages([{ sender: "bot", text: OFFLINE_KB.default }])}
-                                            title="Clear conversation"
-                                            className="cursor-pointer text-text-muted hover:text-text-title"
-                                        >
-                                            <RefreshCw className="h-4 w-4" />
-                                        </Button>
+                                        <div className="flex items-center gap-3">
+                                            <span className={cn(
+                                                "hidden sm:inline-flex items-center gap-2 rounded-full border px-3 py-1 text-[10px] font-semibold uppercase tracking-[0.22em]",
+                                                latestBotMessage?.mode === "local_simulator"
+                                                    ? "border-amber-500/20 bg-amber-500/10 text-amber-200/80"
+                                                    : "border-cyan-500/20 bg-cyan-500/10 text-cyan-200/80"
+                                            )}>
+                                                <span className={cn(
+                                                    "h-1.5 w-1.5 rounded-full",
+                                                    latestBotMessage?.mode === "local_simulator" ? "bg-amber-300" : "bg-cyan-300"
+                                                )} />
+                                                {latestBotMessage?.model || "gemini-2.5-flash"}
+                                                <span className="opacity-60">
+                                                    {latestBotMessage?.mode === "local_simulator" ? "• fallback" : "• api"}
+                                                </span>
+                                            </span>
+                                            <Button
+                                                variant="ghost"
+                                                size="icon"
+                                                onClick={() => setMessages([{ sender: "bot", text: OFFLINE_KB.default, model: "local_simulator", mode: "local_simulator" }])}
+                                                title="Clear conversation"
+                                                className="cursor-pointer text-text-muted transition hover:bg-white/5 hover:text-text-title"
+                                            >
+                                                <RefreshCw className="h-4 w-4" />
+                                            </Button>
+                                        </div>
                                     </div>
 
-                                    <div className="flex-1 overflow-y-auto pr-2 space-y-4 mb-4 scrollbar-thin scrollbar-thumb-foreground/10">
+                                    <div className="flex-1 space-y-4 overflow-y-auto pr-2 pb-1 scrollbar-thin scrollbar-thumb-cyan-500/20 scrollbar-track-transparent">
                                         {messages.map((msg, i) => (
                                             <div
                                                 key={i}
                                                 className={cn(
-                                                    "flex items-start gap-3 max-w-[85%]",
+                                                    "flex items-start gap-3 max-w-[88%] md:max-w-[82%]",
                                                     msg.sender === "user" ? "ml-auto flex-row-reverse" : ""
                                                 )}
                                             >
                                                 <div className={cn(
-                                                    "h-8 w-8 rounded-full flex items-center justify-center shrink-0 text-white text-xs",
+                                                    "flex h-8 w-8 shrink-0 items-center justify-center rounded-full text-xs text-white shadow-md",
                                                     msg.sender === "user"
-                                                        ? "bg-slate-700"
-                                                        : "bg-gradient-to-br from-cyan-500 to-blue-600"
+                                                        ? "bg-slate-700/90 ring-1 ring-white/10"
+                                                        : "bg-gradient-to-br from-cyan-500 to-blue-600 shadow-cyan-950/30"
                                                 )}>
                                                     {msg.sender === "user" ? <User className="h-4 w-4" /> : <Bot className="h-4 w-4" />}
                                                 </div>
                                                 <div className={cn(
-                                                    "rounded-2xl px-4 py-2.5 text-sm leading-relaxed whitespace-pre-line border",
+                                                    "rounded-3xl border px-4 py-3 text-sm leading-relaxed shadow-lg shadow-black/10 backdrop-blur-sm",
                                                     msg.sender === "user"
-                                                        ? "bg-foreground/10 border-card-border text-text-title"
-                                                        : "bg-panel-bg border-cyan-500/20 text-text-muted animate-fade-in"
+                                                        ? "border-white/10 bg-white/[0.06] text-text-title"
+                                                        : "border-cyan-500/15 bg-gradient-to-br from-slate-900/90 to-slate-950/75 text-text-muted"
                                                 )}>
-                                                    {msg.text}
+                                                    {msg.sender === "bot" ? <MessageMarkdown text={msg.text} /> : <div className="whitespace-pre-wrap">{msg.text}</div>}
+                                                    {msg.sender === "bot" && (
+                                                        <div className="mt-3 flex justify-end">
+                                                            <span className={cn(
+                                                                "inline-flex items-center gap-1.5 rounded-full border px-2.5 py-1 text-[10px] font-semibold uppercase tracking-[0.2em]",
+                                                                msg.mode === "local_simulator"
+                                                                    ? "border-amber-500/20 bg-amber-500/10 text-amber-200/75"
+                                                                    : "border-cyan-500/15 bg-cyan-500/10 text-cyan-200/75"
+                                                            )}>
+                                                                {msg.model || "gemini-2.5-flash"}
+                                                                <span className="opacity-60">
+                                                                    {msg.mode === "local_simulator" ? "• fallback" : "• api"}
+                                                                </span>
+                                                            </span>
+                                                        </div>
+                                                    )}
                                                 </div>
                                             </div>
                                         ))}
 
                                         {isTyping && (
                                             <div className="flex items-start gap-3 max-w-[80%]">
-                                                <div className="h-8 w-8 rounded-full bg-gradient-to-br from-cyan-500 to-blue-600 flex items-center justify-center shrink-0 text-white">
+                                                <div className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-gradient-to-br from-cyan-500 to-blue-600 text-white shadow-md shadow-cyan-950/30">
                                                     <Bot className="h-4 w-4" />
                                                 </div>
-                                                <div className="rounded-2xl px-4 py-3 bg-panel-bg border border-cyan-500/10 text-text-muted text-sm flex gap-1.5 items-center">
+                                                <div className="flex items-center gap-1.5 rounded-3xl border border-cyan-500/15 bg-slate-900/80 px-4 py-3 text-sm text-text-muted shadow-lg shadow-black/10">
                                                     <span className="h-2 w-2 bg-cyan-400 rounded-full animate-bounce [animation-delay:-0.3s]" />
                                                     <span className="h-2 w-2 bg-cyan-400 rounded-full animate-bounce [animation-delay:-0.15s]" />
                                                     <span className="h-2 w-2 bg-cyan-400 rounded-full animate-bounce" />
@@ -904,28 +1059,28 @@ export function AISandbox() {
                                         <div ref={chatEndRef} />
                                     </div>
 
-                                    <div className="flex flex-wrap gap-2 mb-3">
+                                    <div className="mb-3 flex flex-wrap gap-2">
                                         <button
                                             onClick={() => handleSendMessage("What benchmarks did you run on The Benchmark Hub?")}
-                                            className="rounded-full border border-card-border bg-panel-bg px-3 py-1.5 text-xs text-text-muted hover:bg-foreground/5 hover:border-cyan-400/40 hover:text-text-title transition"
+                                            className="rounded-full border border-white/10 bg-white/[0.04] px-3.5 py-2 text-xs text-text-muted shadow-sm transition hover:border-cyan-400/30 hover:bg-white/[0.08] hover:text-text-title"
                                         >
                                             📊 Model Benchmarking
                                         </button>
                                         <button
                                             onClick={() => handleSendMessage("How does speech2vec voice biometric clustering work?")}
-                                            className="rounded-full border border-card-border bg-panel-bg px-3 py-1.5 text-xs text-text-muted hover:bg-foreground/5 hover:border-cyan-400/40 hover:text-text-title transition"
+                                            className="rounded-full border border-white/10 bg-white/[0.04] px-3.5 py-2 text-xs text-text-muted shadow-sm transition hover:border-cyan-400/30 hover:bg-white/[0.08] hover:text-text-title"
                                         >
                                             🎙️ speech2vec Biometrics
                                         </button>
                                         <button
                                             onClick={() => handleSendMessage("Explain Supabase Row Level Security in Investor Base")}
-                                            className="rounded-full border border-card-border bg-panel-bg px-3 py-1.5 text-xs text-text-muted hover:bg-foreground/5 hover:border-cyan-400/40 hover:text-text-title transition"
+                                            className="rounded-full border border-white/10 bg-white/[0.04] px-3.5 py-2 text-xs text-text-muted shadow-sm transition hover:border-cyan-400/30 hover:bg-white/[0.08] hover:text-text-title"
                                         >
                                             🔒 Supabase RLS
                                         </button>
                                         <button
                                             onClick={() => handleSendMessage("Explain the NYAAY AI project")}
-                                            className="rounded-full border border-card-border bg-panel-bg px-3 py-1.5 text-xs text-text-muted hover:bg-foreground/5 hover:border-cyan-400/40 hover:text-text-title transition"
+                                            className="rounded-full border border-white/10 bg-white/[0.04] px-3.5 py-2 text-xs text-text-muted shadow-sm transition hover:border-cyan-400/30 hover:bg-white/[0.08] hover:text-text-title"
                                         >
                                             ⚖️ Legal RAG
                                         </button>
@@ -933,18 +1088,18 @@ export function AISandbox() {
 
                                     <form
                                         onSubmit={(e) => { e.preventDefault(); handleSendMessage(inputValue); }}
-                                        className="relative flex items-center"
+                                        className="relative rounded-3xl border border-white/10 bg-white/[0.04] p-2 shadow-[0_16px_40px_rgba(0,0,0,0.22)] backdrop-blur-sm"
                                     >
                                         <input
                                             type="text"
                                             value={inputValue}
                                             onChange={(e) => setInputValue(e.target.value)}
                                             placeholder="Ask about projects, internships, or contact info..."
-                                            className="w-full rounded-full border border-card-border bg-panel-bg py-3.5 pl-5 pr-14 text-sm text-text-title placeholder-text-muted/60 focus-ring"
+                                            className="w-full rounded-full border border-transparent bg-transparent py-3.5 pl-4 pr-14 text-sm text-text-title outline-none transition placeholder:text-text-muted/55 focus:border-cyan-400/25 focus:ring-2 focus:ring-cyan-400/20"
                                         />
                                         <button
                                             type="submit"
-                                            className="absolute right-2.5 h-9 w-9 rounded-full bg-gradient-to-r from-cyan-400 via-blue-500 to-violet-500 flex items-center justify-center text-white hover:brightness-110 transition shadow-md"
+                                            className="absolute right-3 top-1/2 flex h-10 w-10 -translate-y-1/2 items-center justify-center rounded-full bg-gradient-to-r from-cyan-400 via-blue-500 to-violet-500 text-white shadow-lg shadow-cyan-950/30 transition hover:scale-105 hover:brightness-110"
                                         >
                                             <Send className="h-4 w-4" />
                                         </button>

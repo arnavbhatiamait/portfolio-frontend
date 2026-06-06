@@ -45,17 +45,27 @@ export function ContactForm({ content }: ContactFormProps) {
                 body: JSON.stringify(form),
             });
 
-            if (!response.ok) {
-                throw new Error("Failed to submit contact form");
+            let errorMessage = "Failed to submit contact form";
+            try {
+                const data = await response.json();
+                if (response.ok) {
+                    setStatus("success");
+                    setFeedback("Message sent. I’ll get back to you soon.");
+                    setForm(initialState);
+                    return;
+                }
+                errorMessage = data.error || errorMessage;
+            } catch {
+                // Ignore parsing errors for non-JSON responses
             }
 
-            setStatus("success");
-            setFeedback("Message sent. I’ll get back to you soon.");
-            setForm(initialState);
-        } catch {
+            throw new Error(errorMessage);
+        } catch (error: any) {
             setStatus("error");
             setFeedback(
-                "Could not reach the backend yet. Set NEXT_PUBLIC_BACKEND_URL and run the FastAPI app to enable the form."
+                error.message === "Failed to fetch"
+                    ? "Could not reach the API. Please make sure the Next.js server is running."
+                    : `Error: ${error.message}`
             );
         }
     }
