@@ -215,7 +215,7 @@ export function PortfolioPage({ content }: PortfolioPageProps) {
                                 </CardDescription>
                             </CardHeader>
                             <CardContent className="relative space-y-5">
-                                <div className="grid gap-4 sm:grid-cols-2">
+                                <div className="grid grid-cols-2 gap-4">
                                     {content.stats.map((stat) => (
                                         <div key={stat.label} className="rounded-3xl border border-card-border bg-panel-bg/40 p-5">
                                             <AnimatedCounter value={stat.value} suffix={stat.suffix} />
@@ -225,14 +225,14 @@ export function PortfolioPage({ content }: PortfolioPageProps) {
                                 </div>
 
                                 <div className="grid gap-3 rounded-3xl border border-card-border bg-panel-bg/40 p-5 text-sm text-text-muted">
-                                    <div className="flex items-center gap-3">
-                                        <MapPin className="h-4 w-4 text-cyan-300" /> {content.location}
+                                    <div className="flex items-start gap-3">
+                                        <MapPin className="h-4 w-4 mt-0.5 text-cyan-300" /> {content.location}
                                     </div>
-                                    <div className="flex items-center gap-3">
-                                        <Code2 className="h-4 w-4 text-violet-300" /> FastAPI, Next.js, React, Framer Motion, Tailwind CSS
+                                    <div className="flex items-start gap-3">
+                                        <Code2 className="h-4 w-4 mt-0.5 text-violet-300" /> FastAPI, Next.js, React, Framer Motion, Tailwind CSS
                                     </div>
-                                    <div className="flex items-center gap-3">
-                                        <BriefcaseBusiness className="h-4 w-4 text-emerald-300" /> LLM engineering, GenAI, CV, automation
+                                    <div className="flex items-start gap-3">
+                                        <BriefcaseBusiness className="h-4 w-4 mt-0.5 text-emerald-300" /> LLM engineering, GenAI, CV, automation
                                     </div>
                                 </div>
                             </CardContent>

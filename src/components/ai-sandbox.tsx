@@ -975,7 +975,7 @@ export function AISandbox() {
                                         </div>
                                         <div className="flex items-center gap-3">
                                             <span className={cn(
-                                                "hidden sm:inline-flex items-center gap-2 rounded-full border px-3 py-1 text-[10px] font-semibold uppercase tracking-[0.22em]",
+                                                "inline-flex items-center gap-1.5 sm:gap-2 rounded-full border px-2 py-0.5 sm:px-3 sm:py-1 text-[8px] sm:text-[10px] font-semibold uppercase tracking-[0.15em] sm:tracking-[0.22em]",
                                                 latestBotMessage?.mode === "local_simulator"
                                                     ? "border-amber-500/20 bg-amber-500/10 text-amber-200/80"
                                                     : "border-cyan-500/20 bg-cyan-500/10 text-cyan-200/80"
@@ -985,8 +985,8 @@ export function AISandbox() {
                                                     latestBotMessage?.mode === "local_simulator" ? "bg-amber-300" : "bg-cyan-300"
                                                 )} />
                                                 {latestBotMessage?.model || "gemini-2.5-flash"}
-                                                <span className="opacity-60">
-                                                    {latestBotMessage?.mode === "local_simulator" ? "• fallback" : "• api"}
+                                                <span className="opacity-60 hidden xs:inline">
+                                                    {latestBotMessage?.mode === "local_simulator" ? " • fallback" : " • api"}
                                                 </span>
                                             </span>
                                             <Button
@@ -1150,27 +1150,27 @@ export function AISandbox() {
                                             return (
                                                 <div key={idx} className="flex flex-col items-center text-center">
                                                     <div className={cn(
-                                                        "h-10 w-10 rounded-full flex items-center justify-center border transition-all duration-300 shadow-md",
+                                                        "h-8 w-8 sm:h-10 sm:w-10 rounded-full flex items-center justify-center border transition-all duration-300 shadow-md",
                                                         ragStep === idx
                                                             ? "bg-cyan-400 border-cyan-400 text-slate-950 scale-110"
                                                             : ragStep > idx
                                                                 ? "bg-cyan-950 border-cyan-500/50 text-cyan-300"
                                                                 : "bg-panel-bg border-card-border text-text-muted/60"
                                                     )}>
-                                                        <StepIcon className="h-5 w-5" />
+                                                        <StepIcon className="h-4 w-4 sm:h-5 sm:w-5" />
                                                     </div>
                                                     <span className={cn(
-                                                        "mt-2 text-[10px] sm:text-xs font-medium tracking-tight",
-                                                        ragStep === idx ? "text-cyan-500" : "text-text-muted"
+                                                        "mt-2 text-[8px] sm:text-xs font-medium tracking-tight",
+                                                        ragStep === idx ? "text-cyan-500 font-semibold" : "text-text-muted"
                                                     )}>
                                                         {step.label}
                                                     </span>
                                                 </div>
                                             );
                                         })}
-                                        <div className="absolute left-[10%] right-[10%] top-5 h-0.5 bg-card-border -z-10" />
+                                        <div className="absolute left-[10%] right-[10%] top-4 sm:top-5 h-0.5 bg-card-border -z-10" />
                                         <div
-                                            className="absolute left-[10%] top-5 h-0.5 bg-cyan-400/50 -z-10 transition-all duration-300"
+                                            className="absolute left-[10%] top-4 sm:top-5 h-0.5 bg-cyan-400/50 -z-10 transition-all duration-300"
                                             style={{ width: `${(ragStep / 4) * 80}%` }}
                                         />
                                     </div>
@@ -1632,10 +1632,10 @@ export function AISandbox() {
                                                         <div className="text-[10px] uppercase tracking-wider text-text-muted font-sans">Live Pipeline Output Stream:</div>
                                                         <div className="space-y-1.5">
                                                             {histoscanOutputs.map((out, idx) => (
-                                                                <div key={idx} className="flex justify-between items-center bg-panel-bg border border-card-border rounded-lg p-2 text-xs font-mono">
+                                                                <div key={idx} className="flex flex-col gap-1.5 sm:flex-row sm:justify-between sm:items-center bg-panel-bg border border-card-border rounded-lg p-2.5 text-xs font-mono">
                                                                     <span className="text-text-title">{out.id}</span>
                                                                     <span className="text-text-muted">Ground Truth: {out.label}</span>
-                                                                    <span className={cn("px-1.5 py-0.5 rounded text-[10px] font-semibold", out.correct ? "bg-emerald-500/10 text-emerald-500" : "bg-red-500/10 text-red-500")}>
+                                                                    <span className={cn("px-1.5 py-0.5 rounded text-[10px] font-semibold self-start sm:self-auto", out.correct ? "bg-emerald-500/10 text-emerald-500" : "bg-red-500/10 text-red-500")}>
                                                                         Pred: {out.prediction} ({out.correct ? "PASS" : "FAIL"})
                                                                     </span>
                                                                 </div>
