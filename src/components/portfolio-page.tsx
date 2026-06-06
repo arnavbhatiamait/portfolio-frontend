@@ -122,9 +122,9 @@ export function PortfolioPage({ content }: PortfolioPageProps) {
     return (
         <div className="relative min-h-screen overflow-hidden bg-background text-foreground transition-colors duration-300">
             <div className="pointer-events-none absolute inset-0 portfolio-grid opacity-30" />
-            <div className="pointer-events-none absolute left-0 top-0 h-[28rem] w-[28rem] rounded-full bg-cyan-500/20 blur-3xl" />
-            <div className="pointer-events-none absolute right-0 top-36 h-[32rem] w-[32rem] rounded-full bg-violet-600/20 blur-3xl" />
-            <div className="pointer-events-none absolute bottom-0 left-1/3 h-[28rem] w-[28rem] rounded-full bg-blue-500/10 blur-3xl" />
+            <div className="pointer-events-none absolute left-0 top-0 h-[28rem] w-[28rem] rounded-full bg-cyan-500/20 blur-3xl transform-gpu" />
+            <div className="pointer-events-none absolute right-0 top-36 h-[32rem] w-[32rem] rounded-full bg-violet-600/20 blur-3xl transform-gpu" />
+            <div className="pointer-events-none absolute bottom-0 left-1/3 h-[28rem] w-[28rem] rounded-full bg-blue-500/10 blur-3xl transform-gpu" />
 
             <SiteHeader content={content} />
 

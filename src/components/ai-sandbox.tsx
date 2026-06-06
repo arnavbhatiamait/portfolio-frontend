@@ -586,15 +586,20 @@ export function AISandbox() {
     ]);
     const [inputValue, setInputValue] = useState("");
     const [isTyping, setIsTyping] = useState(false);
-    const chatEndRef = useRef<HTMLDivElement>(null);
+    const chatContainerRef = useRef<HTMLDivElement>(null);
     const latestBotMessage = [...messages].reverse().find(message => message.sender === "bot");
 
     const scrollToBottom = () => {
-        chatEndRef.current?.scrollIntoView({ behavior: "smooth" });
+        if (chatContainerRef.current) {
+            chatContainerRef.current.scrollTo({
+                top: chatContainerRef.current.scrollHeight,
+                behavior: "smooth"
+            });
+        }
     };
 
     useEffect(() => {
-        if (activeTab === "chatbot") {
+        if (activeTab === "chatbot" && messages.length > 1) {
             scrollToBottom();
         }
     }, [messages, isTyping, activeTab]);
@@ -1001,7 +1006,7 @@ export function AISandbox() {
                                         </div>
                                     </div>
 
-                                    <div className="flex-1 space-y-4 overflow-y-auto pr-2 pb-1 scrollbar-thin scrollbar-thumb-cyan-500/20 scrollbar-track-transparent">
+                                    <div ref={chatContainerRef} className="flex-1 space-y-4 overflow-y-auto pr-2 pb-1 scrollbar-thin scrollbar-thumb-cyan-500/20 scrollbar-track-transparent">
                                         {messages.map((msg, i) => (
                                             <div
                                                 key={i}
@@ -1056,7 +1061,6 @@ export function AISandbox() {
                                                 </div>
                                             </div>
                                         )}
-                                        <div ref={chatEndRef} />
                                     </div>
 
                                     <div className="mb-3 flex flex-wrap gap-2">

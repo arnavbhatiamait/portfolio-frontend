@@ -68,9 +68,9 @@ export function SiteHeader({ content }: SiteHeaderProps) {
                         <div className="flex h-10 w-10 items-center justify-center rounded-full bg-gradient-to-br from-cyan-400 via-blue-500 to-violet-500 text-sm font-bold text-white shadow-glow">
                             AB
                         </div>
-                        <div className="hidden sm:block">
+                        <div className="block">
                             <p className="text-sm font-semibold text-text-title">{content.name}</p>
-                            <p className="text-xs text-text-muted">AI/ML Engineer Portfolio</p>
+                            <p className="text-xs text-text-muted hidden sm:block">AI/ML Engineer Portfolio</p>
                         </div>
                     </a>
 
