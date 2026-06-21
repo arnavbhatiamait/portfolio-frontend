@@ -17,6 +17,7 @@ export type Project = {
     link?: string;
     tag: string;
     image?: string;
+    youtube?: string;
 };
 
 export type Experience = {
@@ -92,7 +93,7 @@ export const siteContent: SiteContent = {
         "Computer Vision Engineer",
     ],
     stats: [
-        { label: "Featured projects", value: 6, suffix: "+" },
+        { label: "Featured projects", value: 9, suffix: "+" },
         { label: "Internships", value: 4, suffix: "" },
         { label: "AI domains", value: 5, suffix: "+" },
         { label: "Certification tracks", value: 4, suffix: "+" },
@@ -190,6 +191,23 @@ export const siteContent: SiteContent = {
     ],
     projects: [
         {
+            name: "Social Media Content Automation",
+            tag: "AI Automation / Video Pipelines",
+            description:
+                "An end-to-end, production-ready AI pipeline that orchestrates LLMs, Image Generators, Text-to-Speech (TTS), and video processors to generate, catalog, and publish viral-ready content to Instagram and YouTube fully automatically.",
+            features: [
+                "Multi-Model script & media generation using LangChain (Gemini 2.5 Flash), Hugging Face Flux (Schnell/SDXL), and Vertex AI Imagen",
+                "Automated FFmpeg video composition with zoom/pan effects, custom titles, background music, and auto-generated subtitles (SRT) burned into the video",
+                "Automatic publishing of Reels/Posts via Instagram Graph API and YouTube Data API v3 (Shorts/Videos)",
+                "PostgreSQL database metrics tracking (Neon DB) and Google Cloud Storage bucket asset management with signed URLs",
+                "Automated workflows running twice a day on a schedule via GitHub Actions Crons",
+            ],
+            tech: ["Python", "GCP (Storage, TTS, Vertex AI)", "Meta Graph API", "YouTube Data API", "FFmpeg", "Hugging Face (Flux)", "LangChain (Gemini)", "GitHub Actions", "PostgreSQL (Neon)"],
+            link: "https://github.com/arnavbhatiamait/Social_media_content_automation",
+            image: "/images/social_media_automation.png",
+            youtube: "https://youtube.com/shorts/vMVLHVE9kus?si=c0W0izpZrPPC4WKy",
+        },
+        {
             name: "The Benchmark Hub",
             tag: "AI Benchmarking / ML",
             description:
@@ -202,6 +220,7 @@ export const siteContent: SiteContent = {
             ],
             tech: ["Python", "PyTorch", "boto3", "Gemini API", "Whisper ASR", "Pandas", "Librosa"],
             image: "/images/benchmark_hub.png",
+            youtube: "https://www.youtube.com/watch?v=l7mT75CKpIw",
         },
         {
             name: "speech2vec Voice Biometrics",
@@ -273,6 +292,7 @@ export const siteContent: SiteContent = {
             ],
             tech: ["Python", "FastAPI", "WebSockets", "Twilio API", "Deepgram STT", "ElevenLabs TTS", "LangChain"],
             image: "/images/voice_calling_agent.png",
+            youtube: "https://www.youtube.com/watch?v=LYr90DGme1E",
         },
         {
             name: "Opticall call Center Analytics",

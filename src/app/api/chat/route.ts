@@ -58,8 +58,15 @@ const OFFLINE_CHAT_RESPONSES: Record<string, string> = {
     "- **LinkedIn:** [linkedin.com/in/arnav-bhatia-77500425a](https://www.linkedin.com/in/arnav-bhatia-77500425a/)\n" +
     "- **GitHub:** [github.com/arnavbhatiamait](https://github.com/arnavbhatiamait)\n" +
     "- **Hugging Face:** [huggingface.co/spaces/Arnavbhatia/Food_Vision](https://huggingface.co/spaces/Arnavbhatia/Food_Vision)",
+  social_media_automation:
+    "**Social Media Content Automation** is an end-to-end production-ready AI pipeline I built to auto-generate and publish content.\n\n" +
+    "Key highlights:\n" +
+    "- **Multi-Model Generation:** LangChain (Gemini 2.5 Flash) script orchestration, Hugging Face Flux (Schnell/SDXL) image generation, and Google Cloud TTS speech creation.\n" +
+    "- **Automated Video Assembly:** FFmpeg zoom/pan animation, background music mixing, and dynamic subtitle burning (SRT overlay).\n" +
+    "- **Cloud & Publishing APIs:** Auto-uploads assets to Google Cloud Storage (GCS) and publishes content via Instagram Graph API (Reels, Posts, Carousels) and YouTube Data API v3 (Shorts/Videos).\n" +
+    "- **Automated Workflows:** Cron schedules run the system twice daily via GitHub Actions workflows, logging metrics in Neon PostgreSQL database.",
   default:
-    "Hi! I am Arnav's AI clone. I can answer questions about my internships (PAN Science, Aura AI, PNB Housing, CARTT), projects (NYAAY AI, Council, Opticall, Voice Agent, Benchmark Hub, speech2vec, Investor Base), skills, and contact info. Ask me anything!",
+    "Hi! I am Arnav's AI clone. I can answer questions about my internships (PAN Science, Aura AI, PNB Housing, CARTT), projects (NYAAY AI, Council, Opticall, Voice Agent, Benchmark Hub, speech2vec, Investor Base, Social Media Content Automation), skills, and contact info. Ask me anything!",
 };
 
 function getFallbackReply(message: string): string {
@@ -71,6 +78,7 @@ function getFallbackReply(message: string): string {
   if (msg.includes("benchmark") || msg.includes("histoscan") || msg.includes("wer")) return OFFLINE_CHAT_RESPONSES.benchmarking;
   if (msg.includes("speech2vec") || msg.includes("biometric") || msg.includes("voiceprint") || msg.includes("wav2vec")) return OFFLINE_CHAT_RESPONSES.speech2vec;
   if (msg.includes("investor") || msg.includes("supabase") || msg.includes("rls") || msg.includes("pledge")) return OFFLINE_CHAT_RESPONSES.investor_base;
+  if (msg.includes("automation") || msg.includes("instagram") || msg.includes("reels") || msg.includes("youtube") || msg.includes("veo") || msg.includes("flux")) return OFFLINE_CHAT_RESPONSES.social_media_automation;
   if (msg.includes("skill") || msg.includes("tech") || msg.includes("stack")) return OFFLINE_CHAT_RESPONSES.skills;
   if (
     msg.includes("intern") ||
@@ -115,7 +123,8 @@ Internships & Experience:
    * Coordinated logistics and tracking for D E Shaw, Josh, ITC drives.
 
 Other Highlight Projects:
-- Investor Base: Fintech MVP designed on Supabase utilizing PostgreSQL Row Level Security (RLS) policies with EXISTS group member checks to securely isolate private venture capital deals, and automated user profile mapping.`;
+- Investor Base: Fintech MVP designed on Supabase utilizing PostgreSQL Row Level Security (RLS) policies with EXISTS group member checks to securely isolate private venture capital deals, and automated user profile mapping.
+- Social Media Content Automation: End-to-end Python pipeline orchestrating Gemini 2.5 Flash (LangChain) script generation, HF Flux/SDXL image generation, Google Cloud TTS speech synthesis, FFmpeg video rendering (zoom/pan motion effects, dynamic subtitle burning, music mixing), GCS cloud storage uploading, and automatic posting to Instagram and YouTube via APIs, scheduled twice daily with GitHub Actions workflows and logged in PostgreSQL database.`;
 
 export async function POST(request: Request) {
   let message = "";

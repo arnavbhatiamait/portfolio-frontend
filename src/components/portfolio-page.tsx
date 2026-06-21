@@ -10,8 +10,10 @@ import {
     Code2,
     Download,
     MapPin,
+    Play,
     Sparkles,
     Star,
+    X,
     Zap,
 } from "lucide-react";
 import { FaGithub, FaLinkedinIn } from "react-icons/fa6";
@@ -106,9 +108,23 @@ function MotionSection({
     );
 }
 
+function getEmbedUrl(url: string) {
+    if (!url) return "";
+    if (url.includes("/shorts/")) {
+        const parts = url.split("/shorts/");
+        const idPart = parts[1]?.split("?")[0] || "";
+        return `https://www.youtube.com/embed/${idPart}?autoplay=1`;
+    }
+    const regExp = /^.*(youtu.be\/|v\/|u\/\w\/|embed\/|watch\?v=|\&v=)([^#\&\?]*).*/;
+    const match = url.match(regExp);
+    const videoId = (match && match[2].length === 11) ? match[2] : null;
+    return videoId ? `https://www.youtube.com/embed/${videoId}?autoplay=1` : url;
+}
+
 export function PortfolioPage({ content }: PortfolioPageProps) {
     const [activeRoleIndex, setActiveRoleIndex] = useState(0);
     const [activeExp, setActiveExp] = useState(0);
+    const [activeVideoUrl, setActiveVideoUrl] = useState<string | null>(null);
     const activeRole = content.roles[activeRoleIndex] ?? content.role;
 
     useEffect(() => {
@@ -438,17 +454,39 @@ export function PortfolioPage({ content }: PortfolioPageProps) {
                                             className="h-full w-full object-cover object-center transition-transform duration-500 group-hover:scale-105"
                                         />
                                         <div className="absolute inset-0 bg-gradient-to-t from-background/90 via-background/10 to-transparent" />
+                                        {project.youtube && (
+                                            <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300 bg-black/40">
+                                                <button
+                                                    onClick={() => setActiveVideoUrl(project.youtube || null)}
+                                                    className="flex h-12 w-12 items-center justify-center rounded-full bg-rose-600 text-white shadow-lg transition transform hover:scale-110 hover:bg-rose-500 cursor-pointer"
+                                                    title="Watch project walkthrough video"
+                                                >
+                                                    <Play className="h-6 w-6 fill-current ml-0.5" />
+                                                </button>
+                                            </div>
+                                        )}
                                     </div>
                                 )}
                                 <CardHeader>
                                     <div className="flex items-center justify-between gap-4">
                                         <p className="text-xs uppercase tracking-[0.24em] text-cyan-200">{project.tag}</p>
-                                        {project.link ? (
-                                            <a className="inline-flex items-center gap-1.5 rounded-full border border-cyan-400/20 bg-cyan-400/10 px-3.5 py-1.5 text-xs font-semibold text-cyan-300 transition-all hover:bg-cyan-400 hover:text-slate-950 hover:border-cyan-400" href={project.link} target="_blank" rel="noreferrer">
-                                                Live Demo
-                                                <ArrowRight className="h-3 w-3" />
-                                            </a>
-                                        ) : null}
+                                        <div className="flex items-center gap-2">
+                                            {project.youtube ? (
+                                                <button
+                                                    onClick={() => setActiveVideoUrl(project.youtube || null)}
+                                                    className="inline-flex items-center gap-1.5 rounded-full border border-rose-500/20 bg-rose-500/10 px-3.5 py-1.5 text-xs font-semibold text-rose-300 transition-all hover:bg-rose-600 hover:text-white hover:border-rose-600 cursor-pointer"
+                                                >
+                                                    <Play className="h-3 w-3 fill-current" />
+                                                    Watch Video
+                                                </button>
+                                            ) : null}
+                                            {project.link ? (
+                                                <a className="inline-flex items-center gap-1.5 rounded-full border border-cyan-400/20 bg-cyan-400/10 px-3.5 py-1.5 text-xs font-semibold text-cyan-300 transition-all hover:bg-cyan-400 hover:text-slate-950 hover:border-cyan-400" href={project.link} target="_blank" rel="noreferrer">
+                                                    Live Demo
+                                                    <ArrowRight className="h-3 w-3" />
+                                                </a>
+                                            ) : null}
+                                        </div>
                                     </div>
                                     <CardTitle className="text-2xl text-text-title">{project.name}</CardTitle>
                                     <CardDescription className="text-base text-text-muted">{project.description}</CardDescription>
@@ -586,6 +624,44 @@ export function PortfolioPage({ content }: PortfolioPageProps) {
                     </div>
                 </footer>
             </main>
+
+            <AnimatePresence>
+                {activeVideoUrl && (
+                    <motion.div
+                        initial={{ opacity: 0 }}
+                        animate={{ opacity: 1 }}
+                        exit={{ opacity: 0 }}
+                        onClick={() => setActiveVideoUrl(null)}
+                        className="fixed inset-0 z-50 flex items-center justify-center bg-black/80 p-4 backdrop-blur-sm"
+                    >
+                        <motion.div
+                            initial={{ scale: 0.95, opacity: 0 }}
+                            animate={{ scale: 1, opacity: 1 }}
+                            exit={{ scale: 0.95, opacity: 0 }}
+                            onClick={(e) => e.stopPropagation()}
+                            className="relative w-full max-w-4xl overflow-hidden rounded-2xl border border-card-border bg-card-bg shadow-2xl"
+                        >
+                            <div className="aspect-video w-full bg-black">
+                                <iframe
+                                    src={getEmbedUrl(activeVideoUrl)}
+                                    title="YouTube video player"
+                                    frameBorder="0"
+                                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                                    allowFullScreen
+                                    className="h-full w-full"
+                                />
+                            </div>
+                            <button
+                                onClick={() => setActiveVideoUrl(null)}
+                                className="absolute right-4 top-4 rounded-full bg-black/60 p-2 text-white transition hover:bg-black/80 cursor-pointer"
+                                aria-label="Close video"
+                            >
+                                <X className="h-5 w-5" />
+                            </button>
+                        </motion.div>
+                    </motion.div>
+                )}
+            </AnimatePresence>
         </div>
     );
 }
