@@ -126,6 +126,8 @@ export function PortfolioPage({ content }: PortfolioPageProps) {
     const [activeExp, setActiveExp] = useState(0);
     const [activeVideoUrl, setActiveVideoUrl] = useState<string | null>(null);
     const activeRole = content.roles[activeRoleIndex] ?? content.role;
+    const videoProjects = content.projects.filter((p) => p.youtube);
+    const regularProjects = content.projects.filter((p) => !p.youtube);
 
     useEffect(() => {
         const timer = window.setInterval(() => {
@@ -442,73 +444,142 @@ export function PortfolioPage({ content }: PortfolioPageProps) {
                         description="Premium animated cards for the portfolio highlights you asked to showcase, with clear tech stacks and feature breakdowns."
                     />
 
-                    <div className="mt-10 grid gap-6 lg:grid-cols-2">
-                        {content.projects.map((project) => (
-                            <Card key={project.name} className="group overflow-hidden border border-card-border bg-card-bg/40 transition hover:-translate-y-1 hover:border-cyan-300/30">
-                                <div className="h-1 bg-gradient-to-r from-cyan-400 via-blue-500 to-violet-500" />
-                                {project.image && (
-                                    <div className="relative h-48 w-full overflow-hidden border-b border-card-border">
-                                        <img
-                                            src={project.image}
-                                            alt={`${project.name} mockup`}
-                                            className="h-full w-full object-cover object-center transition-transform duration-500 group-hover:scale-105"
-                                        />
-                                        <div className="absolute inset-0 bg-gradient-to-t from-background/90 via-background/10 to-transparent" />
-                                        {project.youtube && (
-                                            <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300 bg-black/40">
-                                                <button
-                                                    onClick={() => setActiveVideoUrl(project.youtube || null)}
-                                                    className="flex h-12 w-12 items-center justify-center rounded-full bg-rose-600 text-white shadow-lg transition transform hover:scale-110 hover:bg-rose-500 cursor-pointer"
-                                                    title="Watch project walkthrough video"
-                                                >
-                                                    <Play className="h-6 w-6 fill-current ml-0.5" />
-                                                </button>
-                                            </div>
-                                        )}
-                                    </div>
-                                )}
-                                <CardHeader>
-                                    <div className="flex items-center justify-between gap-4">
-                                        <p className="text-xs uppercase tracking-[0.24em] text-cyan-200">{project.tag}</p>
-                                        <div className="flex items-center gap-2">
-                                            {project.youtube ? (
-                                                <button
-                                                    onClick={() => setActiveVideoUrl(project.youtube || null)}
-                                                    className="inline-flex items-center gap-1.5 rounded-full border border-rose-500/20 bg-rose-500/10 px-3.5 py-1.5 text-xs font-semibold text-rose-300 transition-all hover:bg-rose-600 hover:text-white hover:border-rose-600 cursor-pointer"
-                                                >
-                                                    <Play className="h-3 w-3 fill-current" />
-                                                    Watch Video
-                                                </button>
-                                            ) : null}
-                                            {project.link ? (
-                                                <a className="inline-flex items-center gap-1.5 rounded-full border border-cyan-400/20 bg-cyan-400/10 px-3.5 py-1.5 text-xs font-semibold text-cyan-300 transition-all hover:bg-cyan-400 hover:text-slate-950 hover:border-cyan-400" href={project.link} target="_blank" rel="noreferrer">
-                                                    Live Demo
-                                                    <ArrowRight className="h-3 w-3" />
-                                                </a>
-                                            ) : null}
-                                        </div>
-                                    </div>
-                                    <CardTitle className="text-2xl text-text-title">{project.name}</CardTitle>
-                                    <CardDescription className="text-base text-text-muted">{project.description}</CardDescription>
-                                </CardHeader>
-                                <CardContent className="space-y-5">
-                                    <div className="grid gap-3">
-                                        {project.features.map((feature) => (
-                                            <div key={feature} className="rounded-2xl border border-card-border bg-foreground/5 px-4 py-3 text-sm text-text-muted">
-                                                {feature}
-                                            </div>
-                                        ))}
-                                    </div>
-                                    <div className="flex flex-wrap gap-2">
-                                        {project.tech.map((tech) => (
-                                            <span key={tech} className="rounded-full border border-card-border bg-panel-bg/40 px-3 py-1.5 text-xs text-text-muted">
-                                                {tech}
-                                            </span>
-                                        ))}
-                                    </div>
-                                </CardContent>
-                            </Card>
-                        ))}
+                    <div className="mt-10 space-y-16">
+                        {/* Section 1: Video Showcases */}
+                        {videoProjects.length > 0 && (
+                            <div className="space-y-8">
+                                <h3 className="inline-flex items-center gap-2 rounded-full border border-rose-500/20 bg-rose-500/10 px-4 py-2 text-xs font-semibold uppercase tracking-[0.24em] text-rose-300">
+                                    <Play className="h-3.5 w-3.5 fill-current" />
+                                    Interactive Video Showcases
+                                </h3>
+                                <div className="grid gap-6 lg:grid-cols-2">
+                                    {videoProjects.map((project) => (
+                                        <Card key={project.name} className="group overflow-hidden border border-card-border bg-card-bg/40 transition hover:-translate-y-1 hover:border-cyan-300/30">
+                                            <div className="h-1 bg-gradient-to-r from-cyan-400 via-blue-500 to-violet-500" />
+                                            {project.image && (
+                                                <div className="relative h-48 w-full overflow-hidden border-b border-card-border">
+                                                    <img
+                                                        src={project.image}
+                                                        alt={`${project.name} mockup`}
+                                                        className="h-full w-full object-cover object-center transition-transform duration-500 group-hover:scale-105"
+                                                    />
+                                                    <div className="absolute inset-0 bg-gradient-to-t from-background/90 via-background/10 to-transparent" />
+                                                    {project.youtube && (
+                                                        <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300 bg-black/40">
+                                                            <button
+                                                                onClick={() => setActiveVideoUrl(project.youtube || null)}
+                                                                className="flex h-12 w-12 items-center justify-center rounded-full bg-rose-600 text-white shadow-lg transition transform hover:scale-110 hover:bg-rose-500 cursor-pointer"
+                                                                title="Watch project walkthrough video"
+                                                            >
+                                                                <Play className="h-6 w-6 fill-current ml-0.5" />
+                                                            </button>
+                                                        </div>
+                                                    )}
+                                                </div>
+                                            )}
+                                            <CardHeader>
+                                                <div className="flex items-center justify-between gap-4">
+                                                    <p className="text-xs uppercase tracking-[0.24em] text-cyan-200">{project.tag}</p>
+                                                    <div className="flex items-center gap-2">
+                                                        {project.youtube ? (
+                                                            <button
+                                                                onClick={() => setActiveVideoUrl(project.youtube || null)}
+                                                                className="inline-flex items-center gap-1.5 rounded-full border border-rose-500/20 bg-rose-500/10 px-3.5 py-1.5 text-xs font-semibold text-rose-300 transition-all hover:bg-rose-600 hover:text-white hover:border-rose-600 cursor-pointer"
+                                                            >
+                                                                <Play className="h-3 w-3 fill-current" />
+                                                                Watch Video
+                                                            </button>
+                                                        ) : null}
+                                                        {project.link ? (
+                                                            <a className="inline-flex items-center gap-1.5 rounded-full border border-cyan-400/20 bg-cyan-400/10 px-3.5 py-1.5 text-xs font-semibold text-cyan-300 transition-all hover:bg-cyan-400 hover:text-slate-950 hover:border-cyan-400" href={project.link} target="_blank" rel="noreferrer">
+                                                                Live Demo
+                                                                <ArrowRight className="h-3 w-3" />
+                                                            </a>
+                                                        ) : null}
+                                                    </div>
+                                                </div>
+                                                <CardTitle className="text-2xl text-text-title">{project.name}</CardTitle>
+                                                <CardDescription className="text-base text-text-muted">{project.description}</CardDescription>
+                                            </CardHeader>
+                                            <CardContent className="space-y-5">
+                                                <div className="grid gap-3">
+                                                    {project.features.map((feature) => (
+                                                        <div key={feature} className="rounded-2xl border border-card-border bg-foreground/5 px-4 py-3 text-sm text-text-muted">
+                                                            {feature}
+                                                        </div>
+                                                    ))}
+                                                </div>
+                                                <div className="flex flex-wrap gap-2">
+                                                    {project.tech.map((tech) => (
+                                                        <span key={tech} className="rounded-full border border-card-border bg-panel-bg/40 px-3 py-1.5 text-xs text-text-muted">
+                                                            {tech}
+                                                        </span>
+                                                    ))}
+                                                </div>
+                                            </CardContent>
+                                        </Card>
+                                    ))}
+                                </div>
+                            </div>
+                        )}
+
+                        {/* Section 2: Core Engineering & Research Builds */}
+                        {regularProjects.length > 0 && (
+                            <div className="space-y-8 pt-8 border-t border-card-border/30">
+                                <h3 className="inline-flex items-center gap-2 rounded-full border border-cyan-500/20 bg-cyan-500/10 px-4 py-2 text-xs font-semibold uppercase tracking-[0.24em] text-cyan-300">
+                                    <Code2 className="h-3.5 w-3.5" />
+                                    Core Engineering & Research Builds
+                                </h3>
+                                <div className="grid gap-6 lg:grid-cols-2">
+                                    {regularProjects.map((project) => (
+                                        <Card key={project.name} className="group overflow-hidden border border-card-border bg-card-bg/40 transition hover:-translate-y-1 hover:border-cyan-300/30">
+                                            <div className="h-1 bg-gradient-to-r from-cyan-400 via-blue-500 to-violet-500" />
+                                            {project.image && (
+                                                <div className="relative h-48 w-full overflow-hidden border-b border-card-border">
+                                                    <img
+                                                        src={project.image}
+                                                        alt={`${project.name} mockup`}
+                                                        className="h-full w-full object-cover object-center transition-transform duration-500 group-hover:scale-105"
+                                                    />
+                                                    <div className="absolute inset-0 bg-gradient-to-t from-background/90 via-background/10 to-transparent" />
+                                                </div>
+                                            )}
+                                            <CardHeader>
+                                                <div className="flex items-center justify-between gap-4">
+                                                    <p className="text-xs uppercase tracking-[0.24em] text-cyan-200">{project.tag}</p>
+                                                    <div className="flex items-center gap-2">
+                                                        {project.link ? (
+                                                            <a className="inline-flex items-center gap-1.5 rounded-full border border-cyan-400/20 bg-cyan-400/10 px-3.5 py-1.5 text-xs font-semibold text-cyan-300 transition-all hover:bg-cyan-400 hover:text-slate-950 hover:border-cyan-400" href={project.link} target="_blank" rel="noreferrer">
+                                                                Live Demo
+                                                                <ArrowRight className="h-3 w-3" />
+                                                            </a>
+                                                        ) : null}
+                                                    </div>
+                                                </div>
+                                                <CardTitle className="text-2xl text-text-title">{project.name}</CardTitle>
+                                                <CardDescription className="text-base text-text-muted">{project.description}</CardDescription>
+                                            </CardHeader>
+                                            <CardContent className="space-y-5">
+                                                <div className="grid gap-3">
+                                                    {project.features.map((feature) => (
+                                                        <div key={feature} className="rounded-2xl border border-card-border bg-foreground/5 px-4 py-3 text-sm text-text-muted">
+                                                            {feature}
+                                                        </div>
+                                                    ))}
+                                                </div>
+                                                <div className="flex flex-wrap gap-2">
+                                                    {project.tech.map((tech) => (
+                                                        <span key={tech} className="rounded-full border border-card-border bg-panel-bg/40 px-3 py-1.5 text-xs text-text-muted">
+                                                            {tech}
+                                                        </span>
+                                                    ))}
+                                                </div>
+                                            </CardContent>
+                                        </Card>
+                                    ))}
+                                </div>
+                            </div>
+                        )}
                     </div>
                 </MotionSection>
 

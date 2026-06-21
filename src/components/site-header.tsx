@@ -106,7 +106,7 @@ export function SiteHeader({ content }: SiteHeaderProps) {
                             </a>
                         </Button>
                         <Button asChild variant="accent" size="sm">
-                            <a href="#contact">Let&apos;s talk</a>
+                            <a href="#contact">Let&apos;s Connect</a>
                         </Button>
                     </div>
 

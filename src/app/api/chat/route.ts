@@ -65,8 +65,20 @@ const OFFLINE_CHAT_RESPONSES: Record<string, string> = {
     "- **Automated Video Assembly:** FFmpeg zoom/pan animation, background music mixing, and dynamic subtitle burning (SRT overlay).\n" +
     "- **Cloud & Publishing APIs:** Auto-uploads assets to Google Cloud Storage (GCS) and publishes content via Instagram Graph API (Reels, Posts, Carousels) and YouTube Data API v3 (Shorts/Videos).\n" +
     "- **Automated Workflows:** Cron schedules run the system twice daily via GitHub Actions workflows, logging metrics in Neon PostgreSQL database.",
+  esrgan:
+    "**ESRGAN Image Super-Resolution** is a deep learning computer vision model I fine-tuned to upscale images.\n\n" +
+    "Key highlights:\n" +
+    "- **Architecture:** Fine-tuned Enhanced Super-Resolution Generative Adversarial Networks (ESRGAN) in PyTorch.\n" +
+    "- **Upscaling:** Upscales low-fidelity, pixelated inputs 4x while reconstructing realistic high-frequency textures and structure details.\n" +
+    "- **Efficiency:** Optimized model computation graphs for fast CPU/GPU inference, wrapped with a Streamlit interface deployed on Hugging Face Spaces.",
+  landmark_recognition:
+    "**Multi-Architecture Landmark Recognition** is an ensemble computer vision model I developed to classify architectural structures.\n\n" +
+    "Key highlights:\n" +
+    "- **Ensemble Model:** Combines predictions from ResNet50, EfficientNetB3, and Vision Transformer (ViT) architectures.\n" +
+    "- **Dataset:** Trained on over 9,000 images of historical Indian landmarks.\n" +
+    "- **Deployment:** Deployed inside a self-contained Docker container, hosting an interactive classification sandbox on Hugging Face Spaces.",
   default:
-    "Hi! I am Arnav's AI clone. I can answer questions about my internships (PAN Science, Aura AI, PNB Housing, CARTT), projects (NYAAY AI, Council, Opticall, Voice Agent, Benchmark Hub, speech2vec, Investor Base, Social Media Content Automation), skills, and contact info. Ask me anything!",
+    "Hi! I am Arnav's AI clone. I can answer questions about my internships (PAN Science, Aura AI, PNB Housing, CARTT), projects (NYAAY AI, Council, Opticall, Voice Agent, Benchmark Hub, speech2vec, Investor Base, Social Media Content Automation, ESRGAN Image Super-Resolution, Multi-Architecture Landmark Recognition), skills, and contact info. Ask me anything!",
 };
 
 function getFallbackReply(message: string): string {
@@ -79,6 +91,8 @@ function getFallbackReply(message: string): string {
   if (msg.includes("speech2vec") || msg.includes("biometric") || msg.includes("voiceprint") || msg.includes("wav2vec")) return OFFLINE_CHAT_RESPONSES.speech2vec;
   if (msg.includes("investor") || msg.includes("supabase") || msg.includes("rls") || msg.includes("pledge")) return OFFLINE_CHAT_RESPONSES.investor_base;
   if (msg.includes("automation") || msg.includes("instagram") || msg.includes("reels") || msg.includes("youtube") || msg.includes("veo") || msg.includes("flux")) return OFFLINE_CHAT_RESPONSES.social_media_automation;
+  if (msg.includes("esrgan") || msg.includes("srgan") || msg.includes("super-resolution") || msg.includes("upscale") || msg.includes("resolution")) return OFFLINE_CHAT_RESPONSES.esrgan;
+  if (msg.includes("landmark") || msg.includes("temple") || msg.includes("monument") || msg.includes("resnet") || msg.includes("efficientnet") || msg.includes("vit")) return OFFLINE_CHAT_RESPONSES.landmark_recognition;
   if (msg.includes("skill") || msg.includes("tech") || msg.includes("stack")) return OFFLINE_CHAT_RESPONSES.skills;
   if (
     msg.includes("intern") ||
@@ -124,7 +138,9 @@ Internships & Experience:
 
 Other Highlight Projects:
 - Investor Base: Fintech MVP designed on Supabase utilizing PostgreSQL Row Level Security (RLS) policies with EXISTS group member checks to securely isolate private venture capital deals, and automated user profile mapping.
-- Social Media Content Automation: End-to-end Python pipeline orchestrating Gemini 2.5 Flash (LangChain) script generation, HF Flux/SDXL image generation, Google Cloud TTS speech synthesis, FFmpeg video rendering (zoom/pan motion effects, dynamic subtitle burning, music mixing), GCS cloud storage uploading, and automatic posting to Instagram and YouTube via APIs, scheduled twice daily with GitHub Actions workflows and logged in PostgreSQL database.`;
+- Social Media Content Automation: End-to-end Python pipeline orchestrating Gemini 2.5 Flash (LangChain) script generation, HF Flux/SDXL image generation, Google Cloud TTS speech synthesis, FFmpeg video rendering (zoom/pan motion effects, dynamic subtitle burning, music mixing), GCS cloud storage uploading, and automatic posting to Instagram and YouTube via APIs, scheduled twice daily with GitHub Actions workflows and logged in PostgreSQL database.
+- ESRGAN Image Super-Resolution: Fine-tuned ESRGAN architecture in PyTorch to upscale low-fidelity inputs 4x while preserving high-frequency textures, optimized model computation graphs for CPU/GPU efficiency, and deployed a Streamlit dashboard demo on Hugging Face Spaces.
+- Multi-Architecture Landmark Recognition: Developed an ensemble deep learning model (ResNet50, EfficientNetB3, ViT) trained on 9,000+ images of historical Indian landmarks, packaged with Docker, and hosted as an interactive app on Hugging Face Spaces.`;
 
 export async function POST(request: Request) {
   let message = "";

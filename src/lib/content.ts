@@ -93,7 +93,7 @@ export const siteContent: SiteContent = {
         "Computer Vision Engineer",
     ],
     stats: [
-        { label: "Featured projects", value: 9, suffix: "+" },
+        { label: "Featured projects", value: 11, suffix: "+" },
         { label: "Internships", value: 4, suffix: "" },
         { label: "AI domains", value: 5, suffix: "+" },
         { label: "Certification tracks", value: 4, suffix: "+" },
@@ -191,6 +191,36 @@ export const siteContent: SiteContent = {
     ],
     projects: [
         {
+            name: "ESRGAN Image Super-Resolution",
+            tag: "Deep Learning / Computer Vision",
+            description:
+                "Fine-tuned an ESRGAN architecture in PyTorch to upscale low-fidelity images 4x while preserving texture and structural detail.",
+            features: [
+                "Fine-tuned Enhanced Super-Resolution Generative Adversarial Networks (ESRGAN) in PyTorch",
+                "Upscales low-fidelity images 4x while preserving high-frequency details, sharp edges, and textures",
+                "Optimized model inference graph for high CPU/GPU execution efficiency",
+                "Interactive web demo deployed on Hugging Face Spaces using Streamlit",
+            ],
+            tech: ["Python", "PyTorch", "Computer Vision", "GANs", "FastAPI", "Streamlit"],
+            link: "https://huggingface.co/spaces/Arnavbhatia/Super_Resolution_GAN",
+            image: "/images/esrgan_super_resolution.png",
+        },
+        {
+            name: "Multi-Architecture Landmark Recognition",
+            tag: "Computer Vision / Ensemble Models",
+            description:
+                "Built an ensemble deep learning vision model trained on over 9,000 images to identify Indian landmarks with high accuracy.",
+            features: [
+                "Ensemble model combining ResNet50, EfficientNetB3, and Vision Transformer (ViT) architectures",
+                "Trained on a dataset of 9,000+ images of historical Indian landmarks",
+                "Preprocessed raw inputs with custom augmentation pipelines to improve robustness against lighting and angle variations",
+                "Hosted interactive model prediction workbench on Hugging Face Spaces",
+            ],
+            tech: ["Python", "PyTorch", "Transformers", "Computer Vision", "Ensemble Learning", "Docker"],
+            link: "https://huggingface.co/spaces/Arnavbhatia/Indian_Landmark_Detection_on_Many_Pretrained_models?logs=container",
+            image: "/images/landmark_recognition.png",
+        },
+        {
             name: "Social Media Content Automation",
             tag: "AI Automation / Video Pipelines",
             description:
@@ -277,6 +307,7 @@ export const siteContent: SiteContent = {
                 "Interactive evaluation workbench comparing accuracy and latency across multiple LLMs",
             ],
             tech: ["Python", "FastAPI", "AWS (S3, SQS, RDS)", "pgvector", "LangChain", "OpenAI API", "PostgreSQL"],
+            link: "https://www.nyaayai.com/",
             image: "/images/nyaay_legal_ai.png",
         },
         {
@@ -306,6 +337,7 @@ export const siteContent: SiteContent = {
                 "Automated ingestion webhooks processing raw call recordings in background workers",
             ],
             tech: ["Python", "FastAPI", "Whisper ASR", "Transformers", "Speaker Diarization", "Webhooks"],
+            link: "https://opticall.io/",
             image: "/images/opticall_analytics.png",
         },
         {
